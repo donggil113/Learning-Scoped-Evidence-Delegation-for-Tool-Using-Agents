@@ -2,8 +2,14 @@
 
 Every value that can reach a tool argument is a ``LabeledValue``: a raw string,
 a declared value type, and a tuple of ``Provenance`` records (one per span the
-value was derived from). Provenance objects are frozen so that no component
-downstream of extraction (in particular the router) can rewrite them.
+value was derived from). Provenance objects are frozen to prevent accidental
+rewriting downstream of extraction; this is not a defence against malicious
+in-process code (see capability.py).
+
+Provenance fields split into two kinds (see ``METADATA_ORIGIN``):
+host-provided metadata (source id/kind, sender, timestamp, and -- by
+ASSUMPTION A8 in the simulator -- field path and field author) versus the
+field TEXT, which the document author (possibly the attacker) controls.
 """
 
 from __future__ import annotations
@@ -14,6 +20,33 @@ from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
 
 PUBLIC = "*"  # wildcard reader: anyone may read
+
+# Who supplies each provenance/candidate attribute in the simulator.
+#   host         set by the platform; the document author cannot forge it
+#   host_A8      treated as host-provided in the simulator (ASSUMPTION A8).
+#                True for typed API objects whose schema the host defines
+#                (e.g. a transaction record); FALSE for fields parsed out of
+#                free email text, and false for "quoted author" attribution,
+#                which in real e-mail is just text written by the sender.
+#   author_text  written by whoever authored the document (the attacker for
+#                attacker documents, or for any document from a compromised
+#                delegated sender)
+#   trusted      user task / user-owned records / trusted planner output
+METADATA_ORIGIN = {
+    "source_id": "host",
+    "source_kind": "host",
+    "source_sender": "host",
+    "timestamp": "host",
+    "readers": "host",
+    "field_path": "host_A8",
+    "field_structured": "host_A8",
+    "author": "host_A8",
+    "doc_type": "author_text",
+    "field_text": "author_text",
+    "span_value": "author_text",
+    "doc_structured_text": "author_text",
+    "trust": "host",
+}
 
 
 class Trust(str, enum.Enum):

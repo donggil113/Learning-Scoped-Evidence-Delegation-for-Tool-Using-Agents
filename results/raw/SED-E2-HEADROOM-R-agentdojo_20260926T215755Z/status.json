@@ -1,0 +1,14 @@
+{
+ "run_id": "SED-E2-HEADROOM-R-agentdojo_20260926T215755Z",
+ "source": "agentdojo",
+ "config_sha256": "a763df660e6011c47c0f48b79eed70066e1ed4143aea174a674a422f26ce4525",
+ "status": "NOT_RUN",
+ "reason": "agentdojo not importable (ModuleNotFoundError: No module named 'agentdojo')",
+ "needs": {
+  "status": "NOT_APPROVED",
+  "target": "PyPI package agentdojo (version to pin at approval; v0.1.35 seen on PyPI by the literature agent)",
+  "license": "MIT (GitHub page, read by literature agent)",
+  "adapter": "src/scoped_evidence/adapters/agentdojo_adapter.py (DRAFT, API assumptions A-DJ1..A-DJ7 unverified)"
+ },
+ "wall_clock_seconds": 0.0
+}

@@ -1,7 +1,10 @@
 """Typed candidate extraction from documents.
 
 Extraction is part of the trusted runtime: it attaches provenance to every
-span. Candidates are frozen; selectors can only refer to them by ``cid``.
+span. Candidates are frozen (against accidental mutation); the runner accepts
+from selectors only a ``cid`` string. Which candidate attributes are host
+metadata and which are author-controlled text is listed in
+``labels.METADATA_ORIGIN``.
 """
 
 from __future__ import annotations

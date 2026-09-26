@@ -1,0 +1,13 @@
+\begin{tabular}{lccccc}
+\toprule
+Selector & SS & ASR & RefViol & OverRef & Wrong \\
+\midrule
+Whole-document trust$^\dagger$ & 0.607 & 0.372 & 0.047 & 0.244 & 0.049 \\
+Untrusted-all deny & 0.200 & 0.000 & 0.000 & 1.000 & 0.000 \\
+CaMeL-style (simulated)$^\dagger$ & 0.829 & 0.317 & 0.000 & 0.000 & 0.044 \\
+Rule field scopes & 0.767 & 0.089 & 0.000 & 0.247 & 0.000 \\
+Learned binder (LR) & 0.760 & 0.094 & 0.000 & 0.178 & 0.060 \\
+Oracle binder (bound) & 1.000 & 0.000 & 0.000 & 0.000 & 0.000 \\
+Adversarial binder (bound) & 0.200 & 0.322 & 0.000 & 0.653 & 0.149 \\
+\bottomrule
+\end{tabular}

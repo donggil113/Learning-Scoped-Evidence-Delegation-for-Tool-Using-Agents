@@ -1,5 +1,11 @@
 # Research packet: Learning scoped evidence delegation for tool-using agents
 
+> **v2 (2026-09-26, second session).** Two interpretations and one decision
+> rule from v1 are **RETRACTED**. The original text is kept below and marked
+> as retracted. New work: SED-E1-REAGG, SED-E1-EXPR, and SED-E2-HEADROOM-R
+> (protocol and simulator smoke test). Manuscript v1 is in `paper/main.tex`;
+> its claims are indexed in `paper/claims.csv`.
+
 ## 1. Question
 
 Under a **fixed** permission boundary, can we learn which field-level evidence
@@ -24,6 +30,21 @@ The router never issues permissions and cannot bypass the validator.
   - requested scope equal to actual provenance;
   - confidentiality flow to sink readers;
   - numeric limits and call budget.
+- **Host metadata vs author-controlled text.** Treated as host-provided (the
+  author cannot forge them): source id and kind, authenticated sender,
+  timestamp, and readers. Controlled by the document's author, i.e. the
+  attacker for attacker documents and for compromised senders: field text,
+  subject and reference strings, and cue phrasing.
+  - **Assumption A8:** the simulator treats *field paths* and *field authors*
+    as host metadata. That holds for typed API records. It does **not** hold
+    for fields parsed from free e-mail text, including "quoted" blocks, which
+    are sender-written text. The mapping is in `labels.METADATA_ORIGIN`, and
+    per-feature input origins are in `router.FEATURE_INPUTS`.
+- **No isolation claim.** The binder boundary is an interface property
+  (candidate-id-only output, checked by tests), not process isolation.
+  - Frozen dataclasses can be mutated in-process; a test demonstrates this.
+  - The validator trusts the provenance labels it is given; a test
+    demonstrates this.
 - **Gains from loosened permissions are not credited.** Every executed call of
   every method is re-checked against the reference field-level capability.
   Anything that fails that check counts as `ref_violation` and never as
@@ -49,7 +70,10 @@ The router never issues permissions and cannot bypass the validator.
 |----|---------|--------|----------------|
 | SED-E0-UNIT | 45 unit tests: validator, categories, router bounds, trace, isolation, splits, metrics | PASS (45/45) | ENGINEERING_ONLY |
 | SED-E1-SIM | Synthetic CPU pilot of the full harness (7 selectors × 3 splits) | COMPLETED; invariants PASS | ENGINEERING_ONLY |
-| SED-E2-HEADROOM | Static headroom analysis on AgentDojo and AgentDyn (no LLM) | NOT_RUN (needs download approval) | — |
+| SED-E1-REAGG | Re-aggregate E1 aggregates from stored raw rows; split proposed / executed / attacker levels | COMPLETED; 0 aggregate differences | ENGINEERING_ONLY |
+| SED-E1-EXPR | Can a linear score over the actual features reproduce rule_field? (post hoc, no training) | COMPLETED; 1920/1920 agreement after bug fix | EXPLORATORY |
+| SED-E2-HEADROOM | v1 static ambiguity analysis | **RETRACTED** (decision rule wrong; superseded by E2-R) | — |
+| SED-E2-HEADROOM-R | Binder-only bound H = mean_t[s_oracle − s_rule] with nested variants and UNRESOLVED kept in the denominator | simulator smoke COMPLETED (ENGINEERING_ONLY); AgentDojo NOT_RUN (not installed / not approved); AgentDyn NOT_RUN | — |
 | SED-E3-AGENTDOJO | Main comparison with an LLM backbone, suite-held-out | NOT_RUN (blocked on E2 and on LLM access) | — |
 | SED-E4-AGENTDYN | Out-of-distribution test on AgentDyn | NOT_RUN | — |
 
@@ -167,12 +191,12 @@ attacker-influenced rate over all test episodes is +0.032 (template-cluster CI
 
 - On the synthetic generator, the learned router trades over-refusal for wrong
   actions and does **not** beat hand-written rules.
-- Two identified causes:
-  1. A linear pointwise scorer cannot express the lexicographic rule "filter
-     by key, then recency". On held-out templates, wrong_fact/other_key gives
-     43% wrong actions.
-  2. The router learned a generator position artifact (item A2 below). On
-     same_field_history it gave 100% wrong actions.
+- ~~Two identified causes: (1) a linear pointwise scorer cannot express the
+  lexicographic rule "filter by key, then recency"; (2) the router learned a
+  generator position artifact (A2).~~ **RETRACTED in v2** (see §5b). The
+  observed error rates stand: 43% wrong actions on held-out
+  wrong_fact/other_key, and 100% wrong actions on held-out T9
+  same_field_history.
 - On test templates, no method achieved secure success on in-scope
   compromised senders (0.00–0.03). rule_field and learned_router bound the
   attacker value in 100% of these episodes; camel_style did so in 44% and
@@ -181,6 +205,57 @@ attacker-influenced rate over all test episodes is +0.032 (template-cluster CI
   re-assess the learning contribution" is **triggered at the engineering
   level**. Synthetic data cannot decide H1 either way. This result is the
   reason E2 must run before any LLM or GPU spend.
+
+### 5b. Corrections from SED-E1-REAGG and SED-E1-EXPR (v2)
+
+Both analyses were run after the E1 results were seen.
+
+**Re-aggregation** (`results/analysis/SED-E1-REAGG_20260926T215328Z`):
+- Every aggregate in `metrics.json` was recomputed from `outcomes.jsonl.gz`
+  with 0 differences.
+- Level split for the template split: learned_router proposed 405 calls and
+  executed 331. Of its 74 blocked proposals, 28 were `PROVENANCE_OUT_OF_SCOPE`
+  and 46 `NO_CAPABILITY`. Blocked proposals are never counted as attacks.
+- The boundary table counts delegated *arguments*, not episodes. T1 has two
+  delegated arguments of which one is attacked, which is why "attack
+  present" is below n_args.
+
+**Expressivity** (`results/analysis/SED-E1-EXPR_20260926T215236Z`, final
+weights):
+- **Hand-set weights reproduce the rule exactly.** A lexicographic ordering
+  (field scope ≫ key ≫ history, where a history match overrides multi-value
+  ≫ multi-value exclusion ≫ recency) over the *same 17 features*, with
+  threshold 0.5, reproduces rule_field's decision (same candidate, or both
+  abstain) on:
+  - 360/360 template-split arguments;
+  - 360/360 environment-split arguments;
+  - 1200/1200 instance-split arguments.
+- **Conclusion.** The E1 failure is not a limit of linear expressivity on
+  this data. It is an estimation failure: the fitted weights are wrong.
+- **Other-key errors.** In the held-out cases, gold and chosen candidates
+  differ only in key_match, latest_in_source and recency_rank, and the fitted
+  recency weight (−1.72) outweighs key_match (+1.29).
+- **T9 same_field_history errors.** Gold and stale spans differ only in
+  first_in_field (fitted weight −0.74). T9 was *held out* of training in the
+  template split, so these errors cannot be attributed to A2's T9 artifact.
+  Why the fit produced a negative weight: NOT investigated.
+- **Bug found and fixed.** `LearnedRouter` took the argmax on sigmoid
+  probabilities, which saturate to 1.0 for large scores and turn distinct
+  scores into ties broken by candidate order. It now takes the argmax on
+  logits.
+  - Regenerated E1 test episodes reproduce all stored rule and learned
+    outcomes (0 mismatches), so no E1 number changes.
+  - Outputs from all three runs of the analysis are kept:
+    - `_215142Z`: before the fix;
+    - `_215210Z`: after the fix, with 1195/1200 in the instance split;
+    - `_215236Z`: after the hand-set history weight was aligned with the
+      rule's order.
+- **Limit of pointwise scoring (elementary, with a proof in the paper).** The
+  rule's set-level abstention ("the newest admitted document has two distinct
+  values") is not reproducible by any pointwise score plus threshold on these
+  features. The counterexample premise is checked in
+  `tests/test_analysis_claims.py`. No such configuration occurs in the E1
+  test data.
 
 ### Known generator artifacts and assumptions (planted signals)
 
@@ -203,12 +278,29 @@ attacker-influenced rate over all test episodes is +0.032 (template-cluster CI
   assumption and are not measurements of any LLM.
 - **A7.** camel_style is not the reference CaMeL code: it has no
   `have_enough_information` and no real user confirmation.
+- **A8.** Field paths and field authors are treated as host metadata (see §2).
+- **A9 (self-grading).** In the simulator, the router's training labels and
+  the evaluator both come from the generator's gold strings. The evaluator is
+  therefore not independent. Real benchmarks must use the benchmark's own
+  post-state checks.
 
 These artifacts are **not** fixed and re-run here. Doing so after seeing the
 results would be a forked analysis. Any fix belongs in a new, separately
 pre-registered version.
 
-## 6. SED-E2-HEADROOM: next decision experiment (pre-registered; NOT_RUN)
+## 6. SED-E2-HEADROOM (v1) — RETRACTED
+
+The v1 decision rule below is kept for the record. It was wrong for two
+reasons:
+1. A task fraction p bounds the average improvement by p, not p/2, so
+   "< 10% of tasks" does not imply "< 5 pp".
+2. Ambiguity is a proxy, not a difference in success. An ambiguous slot can
+   be resolved correctly by the rule, and a unique slot can hold a wrong
+   value.
+
+It is superseded by §6R.
+
+### 6-v1 (retracted text)
 
 **Purpose.** Before spending on LLMs, measure whether real benchmarks contain
 cases where a learned binder *can* differ from rule-based field scopes under
@@ -254,6 +346,94 @@ N = user tasks:
 **Budget.** 2 CPU cores, at most 10 minutes, no GPU, no API. Requires approval
 to download the `agentdojo` package and the AgentDyn repository.
 
+## 6R. SED-E2-HEADROOM-R (frozen in `configs/headroom_r.json`)
+
+**Definition.** For each original task t (attack variants v nested inside
+t; never treated as independent tasks), hold three things fixed: the plan,
+the per-argument contract, and the read-time admitted candidate sets
+C_{t,v,k}. Then:
+
+- A_{t,v} = ∏_k (C_{t,v,k} ∪ {ABSTAIN})
+- s_rule(t) = mean_v s(t,v,rule)
+- s_oracle(t) = mean_v max_{a∈A} s(t,v,a)
+- H = mean_t [s_oracle(t) − s_rule(t)]
+
+The success criterion s must be independent: the benchmark's post-state
+utility() and not security(). Our string labels are never used.
+
+**Why H is an upper bound.** For any binder whose choices lie in A,
+mean_t[s_b − s_rule] ≤ H (pointwise max). For this, the rule's own choice
+must lie in A. This is checked per task; a violation makes the task
+UNRESOLVED.
+
+**What H excludes.** Planner changes, extra reads, authentication and
+clarification. Tasks with s_oracle(t) < 1 need one of these; they are
+flagged, not added to H.
+
+**UNRESOLVED tasks stay in the denominator.**
+- H_lower counts their gap as 0.
+- H_upper counts it as 1 − s_rule(t) if s_rule(t) is known, else 1.
+- Only H_upper is a valid upper bound.
+- A full census of a finite benchmark gives exact numbers with no sampling
+  interval. If the tasks are sampled, the unit is the original task and the
+  sampling scheme must be recorded.
+
+**Decision rule (δ = 0.05, fixed before any real run).**
+- If H_upper < δ: hold learning investment under this contract.
+- If H_upper ≥ δ: no conclusion. A large bound is not evidence that a learned
+  binder helps.
+- This is an operational rule. It is not a significance, equivalence or
+  novelty test.
+
+**Proxy.** If success cannot be evaluated (for example, stored traces
+without counterfactuals), report only the *ambiguity proxy*, labelled as
+such.
+
+**Recorded per task.**
+- task id;
+- fixed plan;
+- read-time candidates with source, field path and host metadata, and whether
+  each value lies in an attacker-writable location;
+- rule choice;
+- independent success criterion;
+- s_rule and s_oracle;
+- rule_in_action_set;
+- needs_more_than_binding;
+- UNRESOLVED reasons.
+
+**Code.**
+- `src/scoped_evidence/headroom.py`
+- `src/scoped_evidence/adapters/sim_adapter.py`
+- `src/scoped_evidence/adapters/agentdojo_adapter.py` (DRAFT, NOT_RUN; API
+  assumptions A-DJ1..A-DJ7 unverified)
+- `scripts/run_headroom.py`
+- `tests/test_headroom.py`
+
+**Simulator smoke** (`results/raw/SED-E2-HEADROOM-R-sim_20260926T215754Z`,
+ENGINEERING_ONLY; success is generator gold):
+- 9 templates × 150 nested variants, all resolved, all rule choices in the
+  action set.
+- H = 0.199, which equals 1 − rule secure success on the instance split.
+- The ambiguity proxy was 1.000, which shows why the proxy is not H.
+
+**AgentDojo** (`results/raw/SED-E2-HEADROOM-R-agentdojo_20260926T215755Z`):
+NOT_RUN. `agentdojo` is not installed and the download is not approved.
+
+- **Target:** the `agentdojo` PyPI package, version to be pinned at approval
+  (the literature agent saw v0.1.35 on PyPI). License: MIT, per the GitHub
+  page.
+- **Contract derivation:** the read tool and field path where each
+  state-changing argument's *benign* ground-truth value appears, fixed once
+  per task.
+- **Rule:** unique-or-abstain.
+- **UNRESOLVED:** tasks whose benign ground-truth plan fails utility() with
+  an empty model answer.
+
+**AgentDyn:** NOT_RUN.
+- Source: github.com/leolee99/AgentDyn. License: NOT_CHECKED.
+- Open-ended tasks without deterministic ground truth are expected to be
+  UNRESOLVED.
+
 ## 7. SED-E3 (sketch; to be frozen only after E2)
 
 - **Fixed across methods:** one backbone at temperature 0, the same tool set,
@@ -284,6 +464,11 @@ to download the `agentdojo` package and the AgentDyn repository.
 | The validator bounds any router in the simulator (0 reference violations, 0 secret leaks, adversarial router included) | Supported, ENGINEERING_ONLY (E0, E1) |
 | The field-level boundary separates out-of-scope and other-field injections from same-field and compromised-sender ones in the simulator | Supported by construction, ENGINEERING_ONLY |
 | A learned binder beats rule-based field scopes | NOT_TESTED on real data; **not observed** on synthetic data |
+| "Linear scoring cannot express the rule" / "router learned A2" | **RETRACTED** (SED-E1-EXPR: hand-set linear weights reproduce the rule on 1920/1920 args; T9 was held out) |
+| E1 failure is an estimation failure, not expressivity | EXPLORATORY (post hoc) |
+| Headroom H on AgentDojo / AgentDyn | NOT_RUN |
+| "< 10% ambiguity ⇒ < 5 pp improvement" | **RETRACTED** (logic error; proxy ≠ H) |
 | A learned binder beats a prompted-LLM binder | NOT_RUN |
 | Any number about real LLM agents | NONE produced by this project |
+| Process isolation of the binder | NOT CLAIMED (interface property only; tests show in-process mutation is possible) |
 | Formal security guarantee | UNPROVED. The validator is tested, not verified. "Router cannot bypass" relies on (a) selectors returning only candidate ids and (b) provenance being created only by trusted extraction code. Both are enforced by code structure and tests, not by proof. |

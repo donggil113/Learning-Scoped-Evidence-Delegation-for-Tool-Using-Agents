@@ -1,0 +1,371 @@
+{
+ "aggregation_differences": [],
+ "boundary_table_note": "boundary_table_instance_split counts delegated ARGUMENTS, not episodes: T1 has two delegated arguments and only recipient_iban is attacked, so 'attack_present' < n_args in attack conditions by construction",
+ "experiment_id": "SED-E1-REAGG",
+ "label": "ENGINEERING_ONLY (re-aggregation of stored raw)",
+ "levels": {
+  "environment/adversarial": {
+   "counts": {
+    "allowed_executed": 125,
+    "attack_condition_episodes": 180,
+    "denied_or_confirm": 306,
+    "episodes": 450,
+    "executed_attacker_value": 58,
+    "executed_ref_violation": 0,
+    "infeasible": 90,
+    "proposed": 431
+   },
+   "native_denial_reason_codes": {
+    "FLOW_VIOLATION": 3,
+    "NO_CAPABILITY": 71,
+    "PROVENANCE_OUT_OF_SCOPE": 235
+   }
+  },
+  "environment/camel_style": {
+   "counts": {
+    "allowed_executed": 360,
+    "attack_condition_episodes": 180,
+    "denied_or_confirm": 41,
+    "episodes": 450,
+    "executed_attacker_value": 57,
+    "executed_ref_violation": 0,
+    "infeasible": 90,
+    "proposed": 401
+   },
+   "native_denial_reason_codes": {
+    "NO_CAPABILITY": 41
+   }
+  },
+  "environment/deny_untrusted": {
+   "counts": {
+    "allowed_executed": 0,
+    "attack_condition_episodes": 180,
+    "denied_or_confirm": 0,
+    "episodes": 450,
+    "executed_attacker_value": 0,
+    "executed_ref_violation": 0,
+    "infeasible": 90,
+    "proposed": 0
+   },
+   "native_denial_reason_codes": {}
+  },
+  "environment/doc_trust": {
+   "counts": {
+    "allowed_executed": 272,
+    "attack_condition_episodes": 180,
+    "denied_or_confirm": 129,
+    "episodes": 450,
+    "executed_attacker_value": 67,
+    "executed_ref_violation": 21,
+    "infeasible": 90,
+    "proposed": 401
+   },
+   "native_denial_reason_codes": {
+    "FLOW_VIOLATION": 88,
+    "NO_CAPABILITY": 41
+   }
+  },
+  "environment/learned_router": {
+   "counts": {
+    "allowed_executed": 296,
+    "attack_condition_episodes": 180,
+    "denied_or_confirm": 71,
+    "episodes": 450,
+    "executed_attacker_value": 17,
+    "executed_ref_violation": 0,
+    "infeasible": 90,
+    "proposed": 367
+   },
+   "native_denial_reason_codes": {
+    "NO_CAPABILITY": 38,
+    "PROVENANCE_OUT_OF_SCOPE": 33
+   }
+  },
+  "environment/oracle": {
+   "counts": {
+    "allowed_executed": 360,
+    "attack_condition_episodes": 180,
+    "denied_or_confirm": 0,
+    "episodes": 450,
+    "executed_attacker_value": 0,
+    "executed_ref_violation": 0,
+    "infeasible": 90,
+    "proposed": 360
+   },
+   "native_denial_reason_codes": {}
+  },
+  "environment/rule_field": {
+   "counts": {
+    "allowed_executed": 271,
+    "attack_condition_episodes": 180,
+    "denied_or_confirm": 38,
+    "episodes": 450,
+    "executed_attacker_value": 16,
+    "executed_ref_violation": 0,
+    "infeasible": 90,
+    "proposed": 309
+   },
+   "native_denial_reason_codes": {
+    "NO_CAPABILITY": 38
+   }
+  },
+  "instance/adversarial": {
+   "counts": {
+    "allowed_executed": 454,
+    "attack_condition_episodes": 540,
+    "denied_or_confirm": 825,
+    "episodes": 1350,
+    "executed_attacker_value": 207,
+    "executed_ref_violation": 0,
+    "infeasible": 270,
+    "proposed": 1279
+   },
+   "native_denial_reason_codes": {
+    "FLOW_VIOLATION": 3,
+    "LIMIT_EXCEEDED": 18,
+    "NO_CAPABILITY": 181,
+    "PROVENANCE_OUT_OF_SCOPE": 688
+   }
+  },
+  "instance/camel_style": {
+   "counts": {
+    "allowed_executed": 840,
+    "attack_condition_episodes": 540,
+    "denied_or_confirm": 384,
+    "episodes": 1350,
+    "executed_attacker_value": 161,
+    "executed_ref_violation": 0,
+    "infeasible": 270,
+    "proposed": 1224
+   },
+   "native_denial_reason_codes": {
+    "LIMIT_EXCEEDED": 18,
+    "NEEDS_CONFIRMATION": 249,
+    "NO_CAPABILITY": 126
+   }
+  },
+  "instance/deny_untrusted": {
+   "counts": {
+    "allowed_executed": 0,
+    "attack_condition_episodes": 540,
+    "denied_or_confirm": 0,
+    "episodes": 1350,
+    "executed_attacker_value": 0,
+    "executed_ref_violation": 0,
+    "infeasible": 270,
+    "proposed": 0
+   },
+   "native_denial_reason_codes": {}
+  },
+  "instance/doc_trust": {
+   "counts": {
+    "allowed_executed": 992,
+    "attack_condition_episodes": 540,
+    "denied_or_confirm": 232,
+    "episodes": 1350,
+    "executed_attacker_value": 272,
+    "executed_ref_violation": 74,
+    "infeasible": 270,
+    "proposed": 1224
+   },
+   "native_denial_reason_codes": {
+    "FLOW_VIOLATION": 88,
+    "LIMIT_EXCEEDED": 18,
+    "NO_CAPABILITY": 126
+   }
+  },
+  "instance/learned_router": {
+   "counts": {
+    "allowed_executed": 969,
+    "attack_condition_episodes": 540,
+    "denied_or_confirm": 131,
+    "episodes": 1350,
+    "executed_attacker_value": 148,
+    "executed_ref_violation": 0,
+    "infeasible": 270,
+    "proposed": 1100
+   },
+   "native_denial_reason_codes": {
+    "LIMIT_EXCEEDED": 15,
+    "NO_CAPABILITY": 116
+   }
+  },
+  "instance/oracle": {
+   "counts": {
+    "allowed_executed": 1080,
+    "attack_condition_episodes": 540,
+    "denied_or_confirm": 0,
+    "episodes": 1350,
+    "executed_attacker_value": 0,
+    "executed_ref_violation": 0,
+    "infeasible": 270,
+    "proposed": 1080
+   },
+   "native_denial_reason_codes": {}
+  },
+  "instance/rule_field": {
+   "counts": {
+    "allowed_executed": 916,
+    "attack_condition_episodes": 540,
+    "denied_or_confirm": 141,
+    "episodes": 1350,
+    "executed_attacker_value": 105,
+    "executed_ref_violation": 0,
+    "infeasible": 270,
+    "proposed": 1057
+   },
+   "native_denial_reason_codes": {
+    "LIMIT_EXCEEDED": 18,
+    "NO_CAPABILITY": 123
+   }
+  },
+  "template/adversarial": {
+   "counts": {
+    "allowed_executed": 152,
+    "attack_condition_episodes": 180,
+    "denied_or_confirm": 274,
+    "episodes": 450,
+    "executed_attacker_value": 68,
+    "executed_ref_violation": 0,
+    "infeasible": 90,
+    "proposed": 426
+   },
+   "native_denial_reason_codes": {
+    "FLOW_VIOLATION": 3,
+    "NO_CAPABILITY": 66,
+    "PROVENANCE_OUT_OF_SCOPE": 208
+   }
+  },
+  "template/camel_style": {
+   "counts": {
+    "allowed_executed": 240,
+    "attack_condition_episodes": 180,
+    "denied_or_confirm": 166,
+    "episodes": 450,
+    "executed_attacker_value": 35,
+    "executed_ref_violation": 0,
+    "infeasible": 90,
+    "proposed": 406
+   },
+   "native_denial_reason_codes": {
+    "NEEDS_CONFIRMATION": 120,
+    "NO_CAPABILITY": 46
+   }
+  },
+  "template/deny_untrusted": {
+   "counts": {
+    "allowed_executed": 0,
+    "attack_condition_episodes": 180,
+    "denied_or_confirm": 0,
+    "episodes": 450,
+    "executed_attacker_value": 0,
+    "executed_ref_violation": 0,
+    "infeasible": 90,
+    "proposed": 0
+   },
+   "native_denial_reason_codes": {}
+  },
+  "template/doc_trust": {
+   "counts": {
+    "allowed_executed": 272,
+    "attack_condition_episodes": 180,
+    "denied_or_confirm": 134,
+    "episodes": 450,
+    "executed_attacker_value": 85,
+    "executed_ref_violation": 30,
+    "infeasible": 90,
+    "proposed": 406
+   },
+   "native_denial_reason_codes": {
+    "FLOW_VIOLATION": 88,
+    "NO_CAPABILITY": 46
+   }
+  },
+  "template/learned_router": {
+   "counts": {
+    "allowed_executed": 331,
+    "attack_condition_episodes": 180,
+    "denied_or_confirm": 74,
+    "episodes": 450,
+    "executed_attacker_value": 35,
+    "executed_ref_violation": 0,
+    "infeasible": 90,
+    "proposed": 405
+   },
+   "native_denial_reason_codes": {
+    "NO_CAPABILITY": 46,
+    "PROVENANCE_OUT_OF_SCOPE": 28
+   }
+  },
+  "template/oracle": {
+   "counts": {
+    "allowed_executed": 360,
+    "attack_condition_episodes": 180,
+    "denied_or_confirm": 0,
+    "episodes": 450,
+    "executed_attacker_value": 0,
+    "executed_ref_violation": 0,
+    "infeasible": 90,
+    "proposed": 360
+   },
+   "native_denial_reason_codes": {}
+  },
+  "template/rule_field": {
+   "counts": {
+    "allowed_executed": 290,
+    "attack_condition_episodes": 180,
+    "denied_or_confirm": 43,
+    "episodes": 450,
+    "executed_attacker_value": 32,
+    "executed_ref_violation": 0,
+    "infeasible": 90,
+    "proposed": 333
+   },
+   "native_denial_reason_codes": {
+    "NO_CAPABILITY": 43
+   }
+  }
+ },
+ "n_rows": 15750,
+ "source_run": "SED-E1-SIM_20260926T144531Z",
+ "trace_sample_note": "trace sample only: first episode of each (split, template, condition) cell, all methods; not a random sample; descriptive",
+ "trace_sample_proposal_level": {
+  "adversarial": {
+   "attacker_proposals_blocked": 9,
+   "attacker_proposals_executed": 9,
+   "proposals": 73,
+   "proposals_with_attacker_value": 18
+  },
+  "camel_style": {
+   "attacker_proposals_blocked": 0,
+   "attacker_proposals_executed": 9,
+   "proposals": 70,
+   "proposals_with_attacker_value": 9
+  },
+  "doc_trust": {
+   "attacker_proposals_blocked": 0,
+   "attacker_proposals_executed": 8,
+   "proposals": 70,
+   "proposals_with_attacker_value": 8
+  },
+  "learned_router": {
+   "attacker_proposals_blocked": 0,
+   "attacker_proposals_executed": 3,
+   "proposals": 62,
+   "proposals_with_attacker_value": 3
+  },
+  "oracle": {
+   "attacker_proposals_blocked": 0,
+   "attacker_proposals_executed": 0,
+   "proposals": 60,
+   "proposals_with_attacker_value": 0
+  },
+  "rule_field": {
+   "attacker_proposals_blocked": 0,
+   "attacker_proposals_executed": 3,
+   "proposals": 52,
+   "proposals_with_attacker_value": 3
+  }
+ },
+ "wall_clock_seconds": 0.93
+}

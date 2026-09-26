@@ -35,6 +35,32 @@ FEATURES = (
     "doc_type_in_task",
 )
 
+# Input origin of each feature (see labels.METADATA_ORIGIN). "author_text"
+# features can be set freely by the author of a document, i.e. by the
+# attacker for attacker documents and for compromised delegated senders.
+# "host_A8" features are host-provided only under simulator assumption A8.
+# No feature reads hidden episode labels (gold, origin, attack values);
+# tests/test_analysis_claims.py checks invariance to those labels.
+FEATURE_INPUTS = {
+    "bias": ("constant",),
+    "in_requested_field_path": ("trusted_plan", "host_A8"),
+    "doc_from_requested_source": ("trusted_plan", "trusted_record", "host"),
+    "field_author_is_source": ("trusted_record", "host_A8"),
+    "field_author_differs_from_sender": ("host_A8", "host"),
+    "key_given": ("trusted_plan",),
+    "key_match": ("trusted_plan", "author_text"),
+    "latest_in_source": ("host", "candidate_set"),
+    "recency_rank": ("host", "candidate_set"),
+    "cue_before": ("author_text",),
+    "field_structured": ("host_A8",),
+    "multi_value_field": ("author_text", "candidate_set"),
+    "first_in_field": ("author_text",),
+    "history_given": ("trusted_record",),
+    "history_match": ("trusted_record", "author_text"),
+    "history_conflict": ("trusted_record", "author_text"),
+    "doc_type_in_task": ("trusted_task", "author_text"),
+}
+
 
 def featurize(x: RouterInput) -> list[tuple[Candidate, tuple[float, ...]]]:
     src_ts = sorted({c.timestamp for c in x.candidates if from_requested_doc(c, x)}, reverse=True)
@@ -105,8 +131,11 @@ class LogisticRegression:
             loss -= cnt * (yi * math.log(p) + (1 - yi) * math.log(1 - p))
         return {"n_examples": n, "n_unique_rows": len(rows), "train_logloss": loss / n}
 
+    def logit(self, xi: tuple[float, ...]) -> float:
+        return sum(wj * xj for wj, xj in zip(self.w, xi))
+
     def predict(self, xi: tuple[float, ...]) -> float:
-        return _sigmoid(sum(wj * xj for wj, xj in zip(self.w, xi)))
+        return _sigmoid(self.logit(xi))
 
 
 class LearnedRouter(Selector):
@@ -117,13 +146,16 @@ class LearnedRouter(Selector):
         self.n_scored = 0
 
     def propose(self, x: RouterInput) -> str:
-        best, best_p = None, -1.0
+        # argmax on the logit, not on the probability: sigmoid saturates to
+        # exactly 1.0 for large scores, which would turn distinct scores into
+        # ties broken by candidate order (bug found in SED-E1-EXPR).
+        best, best_z = None, -math.inf
         for c, f in featurize(x):
             self.n_scored += 1
-            p = self.model.predict(f)
-            if p > best_p:
-                best, best_p = c, p
-        if best is None or best_p < self.threshold:
+            z = self.model.logit(f)
+            if z > best_z:
+                best, best_z = c, z
+        if best is None or _sigmoid(best_z) < self.threshold:
             return ABSTAIN
         return best.cid
 

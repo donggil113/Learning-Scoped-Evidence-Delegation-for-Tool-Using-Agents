@@ -1,0 +1,13 @@
+\begin{tabular}{lcccccl}
+\toprule
+Selector & Episodes & Proposed & Executed & Exec.\ w/ atk.\ value & Exec.\ ref.\ viol. & Native denials \\
+\midrule
+Whole-document trust$^\dagger$ & 450 & 406 & 272 & 85 & 30 & FLOW\_VIOLATION 88, NO\_CAPABILITY 46 \\
+Untrusted-all deny & 450 & 0 & 0 & 0 & 0 & -- \\
+CaMeL-style (simulated)$^\dagger$ & 450 & 406 & 240 & 35 & 0 & NEEDS\_CONFIRMATION 120, NO\_CAPABILITY 46 \\
+Rule field scopes & 450 & 333 & 290 & 32 & 0 & NO\_CAPABILITY 43 \\
+Learned binder (LR) & 450 & 405 & 331 & 35 & 0 & NO\_CAPABILITY 46, PROVENANCE\_OUT\_OF\_SCOPE 28 \\
+Oracle binder (bound) & 450 & 360 & 360 & 0 & 0 & -- \\
+Adversarial binder (bound) & 450 & 426 & 152 & 68 & 0 & FLOW\_VIOLATION 3, NO\_CAPABILITY 66, PROVENANCE\_OUT\_OF\_SCOPE 208 \\
+\bottomrule
+\end{tabular}

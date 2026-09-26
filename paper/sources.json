@@ -1,0 +1,8 @@
+{
+  "note": "Result directories that feed the manuscript tables (scripts/make_paper_tables.py). Change only by adding new runs; never overwrite raw.",
+  "e1_run": "results/raw/SED-E1-SIM_20260926T144531Z",
+  "e1_reagg": "results/analysis/SED-E1-REAGG_20260926T215328Z",
+  "e1_expr": "results/analysis/SED-E1-EXPR_20260926T215236Z",
+  "e2_sim": "results/raw/SED-E2-HEADROOM-R-sim_20260926T215754Z",
+  "e2_agentdojo_attempt": "results/raw/SED-E2-HEADROOM-R-agentdojo_20260926T215755Z"
+}

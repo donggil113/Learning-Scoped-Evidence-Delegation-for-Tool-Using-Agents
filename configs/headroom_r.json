@@ -1,0 +1,21 @@
+{
+  "experiment_id": "SED-E2-HEADROOM-R",
+  "supersedes": "SED-E2-HEADROOM decision rule in RESEARCH_PACKET v1 (retracted: it inferred a <5 pp improvement bound from a <10% ambiguity fraction, and it counted ambiguity rather than success differences)",
+  "frozen_before_run": true,
+  "delta": 0.05,
+  "max_actions_per_variant": 4096,
+  "unit": "original user task; attack variants nested and averaged within the task",
+  "bound": "H = mean_t[s_oracle(t) - s_rule(t)], same plan, contract and read-time candidate set; UNRESOLVED kept in the denominator (H_upper counts their largest possible gap)",
+  "decision_rule": "hold learning investment under this fixed contract only if H_upper < delta; H_upper >= delta is not evidence for learning",
+  "rule": "unique-or-abstain over contract-admitted candidates (for the simulator: selectors.RuleField)",
+  "contract_derivation_real_benchmarks": "for each state-changing argument, the (read tool, field path) where its BENIGN ground-truth value appears; fixed once per task and reused for every variant",
+  "success_criterion_real_benchmarks": "benchmark-provided post-state utility() and not security(); never our extraction or string labels",
+  "record_fields_per_task": ["task_id", "suite", "fixed plan", "read-time candidates with source/field/host metadata", "rule choice", "independent success criterion", "s_rule", "s_oracle", "rule_in_action_set", "needs_more_than_binding (auth/clarification/extra reads)", "UNRESOLVED reasons"],
+  "sources": {
+    "sim": {"status": "available", "label": "ENGINEERING_ONLY smoke test; success is generator gold, not independent", "episodes": "SED-E1 instance-split test episodes regenerated from configs/first_run.json"},
+    "agentdojo": {"status": "NOT_APPROVED", "target": "PyPI package agentdojo (version to pin at approval; v0.1.35 seen on PyPI by the literature agent)", "license": "MIT (GitHub page, read by literature agent)", "adapter": "src/scoped_evidence/adapters/agentdojo_adapter.py (DRAFT, API assumptions A-DJ1..A-DJ7 unverified)"},
+    "agentdyn": {"status": "NOT_APPROVED", "target": "https://github.com/leolee99/AgentDyn (URL from arXiv 2602.03117 abstract)", "license": "NOT_CHECKED", "adapter": "not written; open-ended tasks may lack deterministic ground truth -> expected UNRESOLVED"},
+    "trace": {"status": "no approved traces exist", "note": "stored traces without counterfactual success can only give the ambiguity proxy"}
+  },
+  "budget": {"cpu_cores": 2, "wall_clock_seconds": 120, "gpu": false, "network": false, "llm_calls": 0}
+}

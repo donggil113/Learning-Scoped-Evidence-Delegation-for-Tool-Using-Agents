@@ -1,0 +1,88 @@
+{
+ "config_sha256": "a763df660e6011c47c0f48b79eed70066e1ed4143aea174a674a422f26ce4525",
+ "label": "ENGINEERING_ONLY",
+ "per_task": {
+  "T1": {
+   "gap": 0.09999999999999998,
+   "n_variants": 150,
+   "s_oracle": 1.0,
+   "s_rule": 0.9,
+   "status": "OK"
+  },
+  "T2": {
+   "gap": 0.19999999999999996,
+   "n_variants": 150,
+   "s_oracle": 1.0,
+   "s_rule": 0.8,
+   "status": "OK"
+  },
+  "T3": {
+   "gap": 0.15333333333333332,
+   "n_variants": 150,
+   "s_oracle": 1.0,
+   "s_rule": 0.8466666666666667,
+   "status": "OK"
+  },
+  "T4": {
+   "gap": 0.21333333333333337,
+   "n_variants": 150,
+   "s_oracle": 1.0,
+   "s_rule": 0.7866666666666666,
+   "status": "OK"
+  },
+  "T5": {
+   "gap": 0.21999999999999997,
+   "n_variants": 150,
+   "s_oracle": 1.0,
+   "s_rule": 0.78,
+   "status": "OK"
+  },
+  "T6": {
+   "gap": 0.20666666666666667,
+   "n_variants": 150,
+   "s_oracle": 1.0,
+   "s_rule": 0.7933333333333333,
+   "status": "OK"
+  },
+  "T7": {
+   "gap": 0.20666666666666667,
+   "n_variants": 150,
+   "s_oracle": 1.0,
+   "s_rule": 0.7933333333333333,
+   "status": "OK"
+  },
+  "T8": {
+   "gap": 0.17333333333333334,
+   "n_variants": 150,
+   "s_oracle": 1.0,
+   "s_rule": 0.8266666666666667,
+   "status": "OK"
+  },
+  "T9": {
+   "gap": 0.31999999999999995,
+   "n_variants": 150,
+   "s_oracle": 1.0,
+   "s_rule": 0.68,
+   "status": "OK"
+  }
+ },
+ "run_id": "SED-E2-HEADROOM-R-sim_20260926T215754Z",
+ "source": "sim",
+ "status": "COMPLETED",
+ "summary": {
+  "H_lower_unresolved_as_0": 0.19925925925925922,
+  "H_upper_unresolved_as_max": 0.19925925925925922,
+  "all_rule_choices_in_action_set": true,
+  "ambiguity_proxy_fraction": 1.0,
+  "ambiguity_proxy_note": "fraction of tasks with >1 distinct admitted value in some slot; a proxy, not headroom",
+  "decision": "BOUND_NOT_BELOW_DELTA_NO_CONCLUSION_ABOUT_LEARNING",
+  "decision_note": "A bound >= delta is NOT evidence that a learned binder helps; only H_upper < delta licenses holding learning investment under this contract.",
+  "delta": 0.05,
+  "n_resolved": 9,
+  "n_tasks": 9,
+  "n_tasks_needing_more_than_binding": 0,
+  "n_unresolved": 0,
+  "unresolved_reasons": {}
+ },
+ "wall_clock_seconds": 0.81
+}

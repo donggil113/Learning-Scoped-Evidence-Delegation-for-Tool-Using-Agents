@@ -92,3 +92,141 @@ If the trained binder does not beat both (a) and (b), no methodological
 contribution remains. A secondary open point is within-block span separation
 (ROPE treats a file body as one block), but ARGUS already labels spans with
 prompted models.
+
+---
+
+## Update 2026-09-26 (second session): full-text check of the closest papers
+
+A second literature agent (**LA2**) read the arXiv HTML full text over live
+HTTP. Nothing was saved to the repo. **LEAD** marks items the lead verified
+personally, in the first session (abstracts of ROPE, PACT, ARGUS and
+AgentDyn, and ROPE §3.1/§3.3/§4.6 quotes). The "Read" line lists the
+sections that were actually read; everything else is marked not read.
+
+### ROPE (2608.27496v1)
+
+**Read:** §1–§8, App. A (except A.2), App. B, App. C.
+**Not read:** A.2, App. D, App. E, rest of §4.4.
+
+**Core definitions**
+- Trust anchors T1–T3: the request; "a value under an unforgeable runtime
+  origin that the user referenced"; the user's own authoritative records.
+- Markers ordered by strictness `m ⊑ m'`: const⟨v⟩, prompt, sourced,
+  record, oneof⟨S⟩, free, dest, explicit.
+- Admission: `admit(v, o, Π)` with `Π = route(r)`.
+- Assumptions:
+  - A1: "the origin metadata the platform attaches to a value is truthful";
+  - A2: record integrity;
+  - A3: enumeration completeness.
+- Clamp (§4.6): a router override is accepted "only when it is at least as
+  strict" as the offline default.
+
+**Setup:** AgentDyn (github, shopping, daily-life) and AgentDojo (banking,
+slack, travel), under the important_instructions attack.
+- Metrics: CU, UA, ASR.
+- Models: GPT-4o-mini, GPT-4o, Gemini-2.5-Flash, Qwen3-235B.
+- 11 baselines, including CaMeL, Progent, DRIFT, PFI and MELON.
+- "every (user task × injection task) pair plus one clean run per user task".
+
+**Learned component:** "The router is the defense's only learned
+component". The reference runs are zero-shot; no training is described.
+
+**Values inside one output:** labels come from the platform's division of a
+result; "a file body or a web page … arrives as one block" (§3.3).
+
+**Most relevant sentences for us**
+- "The guarantee is about origin, not intent: it ensures an admitted value's
+  origin is trusted, not that it is the value the user wanted" (§3.4).
+- Closing the delegated-parameter class "would require inferring the user's
+  intent … putting a language model back in the enforcement loop" (§5).
+
+### PACT (2605.11039v1)
+
+**Read:** §1, §3 (with theorem statements), §4.1–4.4, §5, App. A, C.1–C.4,
+D.1–D.2, E, F.1, I.
+**Not read:** proofs (App. B), F.2, G, H, J. §2 was only keyword-searched.
+
+**Core definitions**
+- Contract: `C_t = (ℓ, {a_i}, o)` with
+  `a_i = (name_i, role_i, τ_i^min, F_i, R_i, D_i)`.
+- Six roles.
+- Trust lattice: TRUSTED > USER > TOOL_OUTPUT > EXTERNAL.
+- Provenance tag: `π(v) = ⟨O(v), τ(v), B(v)⟩`.
+- Merge rule: union of origins, min of trust, union of B.
+- Admission check: `τ(v_i) ≥ τ_i^min`, `O(v_i) ∩ F_i = ∅`,
+  `B(v_i) ∪ R_i ⊆ Discharged`.
+
+**Setup:** "all 97 benign user tasks and all 27 injection tasks".
+- Five models: Qwen family and GPT-4o-mini.
+- Baselines: NoDefense, FIDES, CaMeL.
+- LA2 did not find explicit Utility/Security definitions in the sections
+  read.
+
+**Learned component:** rules plus "an LLM classifier for remaining ambiguous
+arguments"; no training described. Reported fidelity: 77.4% provenance
+accuracy on 20 MCP tools.
+
+**Note:** LA2 found an internal inconsistency. The text says 96.3% security
+on Qwen-turbo/plus, while Table 2 shows 100.0. We do not quote these
+numbers.
+
+**Choosing among admissible candidates:** not addressed in the sections read.
+
+### ARGUS (2605.03378v2)
+
+**Read:** full main text (§1–§8). The HTML has no appendix.
+
+**Core definitions:** influence-provenance graph `G = (V, E)`. A
+ContextSegmenter labels spans {benign, anomalous}. The ArgumentGrounder
+treats an argument that cannot be grounded as anomalous-supported. The
+release condition is `ok_E ∧ ok_I`.
+
+**Setup:** AgentLure (4 × 10 × 8 = 320 samples) plus an AgentDojo table.
+- Backbone: GPT-4o-mini.
+- 8 baselines; CaMeL is not among them.
+- Metrics: ASR, W-ASR, U_c, U_a, Refusal, EDS, Cost.
+
+**Learned component:** prompted sub-agents, no training.
+
+**Relevant sentences**
+- "A forged invoice can make the attacker's account the only available
+  evidence" (§6.2).
+- The paper mentions "ranking benign alternatives" as a direction (§6.2).
+
+### CaMeL (2503.18813v2)
+
+**Read:** §3–§6.
+
+- Provenance and readers tags; tools may report an "inner source" such as an
+  e-mail sender (§5.3).
+- Python policy functions return Allowed or Denied (§5.2).
+- send_money requires the recipient and amount to have the user as a source
+  (§6.2.2).
+
+### Bibliographic verification
+
+All 18 BibTeX entries in `paper/references.bib` were checked against their
+arXiv abstract pages: latest title, full author order, and year. None of the
+pages has a journal-ref field. A venue appears only where the arXiv
+Comments field states it:
+- AirGapAgent: "at CCS'24";
+- Conseca: "HotOS 2025";
+- MELON: "ICML 2025";
+- IPIGuard: "EMNLP 2025".
+
+**Correction to the table above:** the "NeurIPS 2024 D&B" venue listed there
+for AgentDojo is **not** confirmed by its arXiv page and is not used in the
+manuscript.
+
+### ICML style status (for the manuscript)
+
+- **ICML 2027:** the call for papers, author instructions and style pages all
+  returned 404 on 2026-09-26. No 2027 kit exists.
+- **ICML 2026 author instructions:**
+  - Camera-ready uses `\usepackage[accepted]{icml2026}` (from icml2026.zip).
+  - Main body up to 8 pages at submission. References, the impact statement
+    and appendices are unlimited and do not count.
+  - The impact statement is required, placed before the references.
+  - No links to public code repositories at submission.
+- **Not verified:** the review-mode macro and the `.bst` name are not stated
+  on any HTML page, and the zip was not downloaded.

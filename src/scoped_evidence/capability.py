@@ -1,9 +1,17 @@
 """Capabilities and the (non-learned) capability validator.
 
 A ``Capability`` is issued by the trusted policy compiler (``policy.py``) from
-the trusted task alone. It is frozen. The validator holds its own reference to
-the issued capabilities; selectors/routers never receive a validator or a
-capability object, so they cannot grant or widen permissions.
+the trusted task alone. The validator holds its own reference to the issued
+capabilities; selectors/routers are never handed a validator or capability
+object, and the runner accepts only a candidate-id string from them.
+
+Scope of this guarantee: it is an INTERFACE property of this code base,
+enforced by code structure and unit tests. Frozen dataclasses prevent
+accidental mutation only; any code running in the same Python process can
+still mutate them (``object.__setattr__``) or reach the validator through the
+interpreter. This is NOT process isolation and NOT a proof of
+non-bypassability. A deployment would need the binder in a separate process
+or sandbox whose only output channel is the candidate id.
 
 The validator checks, for a proposed sink call:
   * the tool exists and a capability for it was issued (NO_CAPABILITY),

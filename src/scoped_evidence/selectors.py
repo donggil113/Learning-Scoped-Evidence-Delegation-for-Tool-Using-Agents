@@ -1,8 +1,9 @@
 """Evidence selectors: given a read-only view of one delegated argument, return
 a candidate id or ABSTAIN.
 
-Selectors never receive a capability or validator object and cannot create
-values: the runner only accepts a ``str`` that is an existing candidate id.
+Selectors are never handed a capability or validator object, and the runner
+only accepts a ``str`` that is an existing candidate id. This is an interface
+contract checked by tests, not process isolation (see capability.py).
 
 Baseline selectors here are simulations, not LLMs. ``NaiveReader`` and the
 Q-LLM step of ``CamelStyle`` encode an ASSUMED susceptibility model

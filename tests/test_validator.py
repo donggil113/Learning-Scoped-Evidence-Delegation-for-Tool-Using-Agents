@@ -209,12 +209,34 @@ class TestReadsAndImmutability(unittest.TestCase):
         with self.assertRaises(dataclasses.FrozenInstanceError):
             sc.delegations[0].field_paths = None  # type: ignore[misc]
 
-    def test_forged_trusted_provenance_is_not_reachable_from_selectors(self):
-        # A value with trusted provenance can only be built by the runtime;
-        # this documents that the validator itself trusts provenance labels,
-        # so provenance creation must stay outside the router (see runner).
-        p = Provenance("task", "task", Trust.TRUSTED, "user", "user", "task.text", (0, 0), frozenset({PUBLIC}))
-        self.assertEqual(p.trust, Trust.TRUSTED)
+    def test_validator_trusts_provenance_labels_it_is_given(self):
+        # LIMITATION (documented, not a guarantee): the validator believes the
+        # provenance attached to a value. A trusted-looking label built outside
+        # the extraction path is accepted. Safety therefore depends on the
+        # runner never taking values (only candidate ids) from the binder.
+        f = T1Fixture()
+        args = f.gold_args()
+        forged = Provenance("contacts:x", "contacts", Trust.TRUSTED, "user", "user", "contacts.iban",
+                            (0, 0), frozenset({PUBLIC}))
+        args["recipient_iban"] = LabeledValue("SX99FORGED000000", VType.IBAN, (forged,))
+        cap, _ = issue_capability(f.ep.task, f.env, "field")
+        # field mode does not allow trusted records for this delegated arg ...
+        self.assertFalse(CapabilityValidator((cap,), f.env.read_prefixes)
+                         .check_call(_call("send_payment", args)).allowed)
+        forged_task = Provenance("task", "task", Trust.TRUSTED, "user", "user", "task.text", (0, 0),
+                                 frozenset({PUBLIC}))
+        args["memo"] = LabeledValue("anything the forger wants", VType.TEXT, (forged_task,))
+        args["recipient_iban"] = f.gold_args()["recipient_iban"]
+        # ... but a forged task-literal label on a literal-scoped arg is accepted.
+        self.assertTrue(CapabilityValidator((cap,), f.env.read_prefixes)
+                        .check_call(_call("send_payment", args)).allowed)
+
+    def test_frozen_dataclasses_are_not_isolation(self):
+        # LIMITATION: immutability is not a security boundary in-process.
+        f = T1Fixture()
+        cap, _ = issue_capability(f.ep.task, f.env, "field")
+        object.__setattr__(cap, "mode", "document")
+        self.assertEqual(cap.mode, "document")
 
 
 if __name__ == "__main__":

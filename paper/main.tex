@@ -1,0 +1,74 @@
+% Skeleton only. No result in this file is final; every empirical statement
+% is a \todo{EXPERIMENT_ID} until the corresponding experiment has run.
+\documentclass{article}
+\usepackage{booktabs}
+\newcommand{\todo}[1]{\textbf{[TODO: #1]}}
+
+\title{Learning Scoped Evidence Binding for Tool-Using Agents\\under a Fixed Capability Boundary}
+\author{Anonymous}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Tool-using agents must copy values from untrusted content into tool arguments.
+Prior work enforces provenance at the level of tool calls, parameters, and
+spans (CaMeL, PACT, ROPE, ARGUS). It leaves open which admissible span should
+bind to each argument when several candidates pass the policy. We ask whether
+a small \emph{trained} binder, which can only propose a candidate or abstain
+and never widens permissions, improves secure task success over rule-based
+field scopes and over a prompted-LLM binder at matched cost.
+\todo{SED-E2-HEADROOM: fraction of benchmark tasks where binding choice can matter}
+\todo{SED-E3-AGENTDOJO: main result or negative result}
+\end{abstract}
+
+\section{Introduction}
+% Contribution must be stated as an empirical question; see RELATED_WORK.md
+% for claims that are NOT novel (provenance, capabilities, typed restriction,
+% argument-level checks, learned context selection, bounded learned components).
+\todo{write after SED-E2 decides whether the learning line continues}
+
+\section{Related Work}
+CaMeL; FIDES; Progent; RTBAS; PACT; ROPE; ARGUS; AirGapAgent; Conseca;
+type-directed privilege separation; AgentDojo; AgentDyn.
+\todo{condense RELATED\_WORK.md}
+
+\section{Setting}
+\subsection{Threat model}
+Trusted planner fixes control flow; attacker controls untrusted content (and,
+in one variant, a delegated sender account).
+\subsection{Fixed boundary}
+Typed tool schemas; capability validator (type, per-argument provenance scope,
+requested-scope equality, confidentiality flow, limits, budget).
+Every executed call is re-checked against the reference field-level boundary.
+\subsection{Binder interface}
+Input: trusted task, requested scope, candidate span and provenance.
+Output: candidate id or \textsc{Abstain}.
+
+\section{Method}
+\todo{binder model chosen after SED-E2; the logistic-regression router of the
+synthetic pilot is an engineering placeholder}
+
+\section{Experiments}
+\subsection{Benchmarks, splits, independent units}
+User task as unit; suite-held-out splits; AgentDyn as test only.
+\subsection{Baselines}
+Rule-based field scopes; whole-document trust; untrusted-all deny;
+CaMeL-style; prompted-LLM binder.
+\subsection{Headroom}
+\todo{SED-E2-HEADROOM}
+\subsection{Main comparison}
+\todo{SED-E3-AGENTDOJO}
+\subsection{Out-of-distribution}
+\todo{SED-E4-AGENTDYN}
+
+\section{Engineering Validation (Appendix)}
+Synthetic simulator and unit tests. These are engineering checks only and are
+not evidence for the hypothesis.
+\todo{SED-E0-UNIT, SED-E1-SIM tables from results/raw}
+
+\section{Limitations}
+No formal proof of the validator (tested, not verified); simulated baselines in
+the pilot encode assumed susceptibility; \todo{benchmark-specific limits}.
+
+\end{document}

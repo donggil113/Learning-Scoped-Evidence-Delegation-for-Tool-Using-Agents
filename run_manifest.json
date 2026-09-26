@@ -1,0 +1,69 @@
+{
+  "project": "Learning Scoped Evidence Delegation for Tool-Using Agents",
+  "manifest_version": 1,
+  "updated_utc": "2026-09-26",
+  "environment": {
+    "python": "3.11.15 (system)",
+    "third_party_python_packages_used": [],
+    "platform": "Linux-6.18.44-fc-v37-x86_64-with-glibc2.39",
+    "cpu_limit": "taskset -c 0,1 (2 cores); pure-Python code is single-threaded",
+    "wall_clock_limit_seconds": 120,
+    "gpu": "not used",
+    "network_during_runs": "not used (tests patch socket to raise)",
+    "installs_or_downloads": "none"
+  },
+  "sources": {
+    "code": {
+      "this_repository": {"source": "written in this session", "license": "NOT_SPECIFIED (no LICENSE file in repo)", "version": "git commit recorded per run"}
+    },
+    "data": {
+      "synthetic_episodes": {"source": "src/scoped_evidence/tasks.py, seeded generator", "license": "same as repository", "contains_real_accounts_or_secrets": false, "secret_format": "SYNTH-SECRET-[0-9a-f]{16}", "iban_format": "SX + 14 chars (SX is not an ISO country code)", "email_domains": "*.example (RFC 2606 reserved)"}
+    },
+    "models": {
+      "learned_router": {"source": "logistic regression trained inside each SED-E1-SIM run", "pretrained_weights": "none", "weights_saved": "results/raw/<run_id>/routers.json"}
+    },
+    "external_benchmarks_and_code_NOT_DOWNLOADED": {
+      "AgentDojo": {"repo": "ethz-spylab/agentdojo", "license": "MIT (read from GitHub page by literature agent)", "latest_version_seen": "0.1.35 on PyPI (2025-10-27), not re-verified by lead", "status": "NOT_DOWNLOADED"},
+      "CaMeL reference implementation": {"repo": "google-research/camel-prompt-injection", "license": "Apache-2.0 (read from GitHub page by literature agent)", "version": "no releases; tags unverified", "status": "NOT_DOWNLOADED"},
+      "AgentDyn": {"repo": "github.com/leolee99/AgentDyn (URL from arXiv abstract)", "license": "NOT_CHECKED", "status": "NOT_DOWNLOADED"}
+    }
+  },
+  "runs": [
+    {
+      "run_id": "SED-E0-UNIT_20260926T144522Z",
+      "experiment_id": "SED-E0-UNIT",
+      "status": "PASS",
+      "evidence_label": "ENGINEERING_ONLY",
+      "summary": "45 unit tests, 45 ok, 0 failures, 0 errors, 0 skipped",
+      "command": "taskset -c 0,1 timeout 120 python3 -m unittest discover -s tests -v",
+      "git_commit": "54caffb8cb6238c00618bceee9d6caddcd981b6d",
+      "started_utc": "2026-09-26T14:45:22Z",
+      "wall_clock_seconds": 0.29,
+      "results_dir": "results/raw/SED-E0-UNIT_20260926T144522Z",
+      "notes": "An earlier invocation in this session wrapped the pilot in /usr/bin/time, which is not installed (exit 127, pilot never started, no output kept). Before the recorded run, 5 tests failed because test selectors abstained on non-attacked arguments; the test helpers were fixed before commit 54caffb."
+    },
+    {
+      "run_id": "SED-E1-SIM_20260926T144531Z",
+      "experiment_id": "SED-E1-SIM",
+      "status": "COMPLETED",
+      "engineering_invariants": "PASS (reference violations 0 and secret leaks 0 for rule_field, learned_router, oracle, adversarial; infeasible tasks never executed; oracle feasible secure success 1.0)",
+      "evidence_label": "ENGINEERING_ONLY",
+      "scientific_hypothesis_status": "NOT_TESTED (synthetic generator written by the same author as the rule baseline)",
+      "command": "taskset -c 0,1 timeout 120 python3 scripts/run_first_run.py --config configs/first_run.json",
+      "config_path": "configs/first_run.json",
+      "config_sha256": "40d59ded430dc1b3a34936850e616a37a7cf55569eef31349ebf5deaadad3794",
+      "git_commit": "54caffb8cb6238c00618bceee9d6caddcd981b6d",
+      "code_dirty_at_run": false,
+      "started_utc": "2026-09-26T14:45:31Z",
+      "wall_clock_seconds": 5.4,
+      "results_dir": "results/raw/SED-E1-SIM_20260926T144531Z",
+      "n_outcome_rows": 15750,
+      "n_trace_events_saved": 3131
+    }
+  ],
+  "not_run": [
+    {"experiment_id": "SED-E2-HEADROOM", "status": "NOT_RUN", "blocked_on": "approval to download the AgentDojo package (and AgentDyn repository) for CPU-only static analysis"},
+    {"experiment_id": "SED-E3-AGENTDOJO", "status": "NOT_RUN", "blocked_on": "E2 decision; LLM backbone access (paid API or GPU) not approved"},
+    {"experiment_id": "SED-E4-AGENTDYN", "status": "NOT_RUN", "blocked_on": "E2/E3; AgentDyn license not checked"}
+  ]
+}

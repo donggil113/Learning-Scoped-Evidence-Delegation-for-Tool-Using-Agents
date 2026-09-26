@@ -1,71 +1,93 @@
 # STATUS
 
-Last updated 2026-09-26. Branch `claude/keen-lovelace-jat7ua`.
+Last updated 2026-09-26 (second session). Branch `claude/keen-lovelace-jat7ua`.
 
-## Starting point (checked, not assumed)
+## State at the start of this session (checked)
 
-- The repository was **empty**: no commits and no remote branches.
-- There was no CLAUDE.md, STATUS.md, RESEARCH_PACKET.md, config or result
-  file to read.
-- There were no prior STOP or ARCHIVE decisions and no existing Work IDs, so
-  none were mapped.
-- The environment has Python 3.11 with no numpy, torch or pytest. Everything
-  uses the standard library only, and nothing was installed.
+- HEAD was `11d93fb`, identical to the remote. The working tree was clean.
+- There is no CLAUDE.md.
+- Kept unchanged:
+  - the raw data of SED-E0 and SED-E1;
+  - the E1 config;
+  - the E1 stop-condition result ("learned router does not beat rules").
 
 ## Done this session
 
-| Item | Where | Status |
-|------|-------|--------|
-| Typed tool schemas (7 tools, typed arguments with integrity levels) | `src/scoped_evidence/schema.py`, `labels.py` | DONE |
-| Capability validator (type, scope/provenance, requested-scope equality, flow, limit, budget, reads) | `capability.py`, `policy.py` | DONE |
-| Local mock tools and synthetic secrets | `environment.py`, `tasks.py` | DONE |
-| Seeded generator: 9 templates × 5 conditions (helpful / malicious / mixed / wrong fact / insufficient permission) | `tasks.py` | DONE |
-| Selectors: doc_trust, deny_untrusted, camel_style (simplified re-implementation), rule_field, learned router, oracle, adversarial | `selectors.py`, `router.py` | DONE |
-| Trace of allow/deny, reasons, evidence spans, requested vs granted scope | `runner.py` | DONE |
-| Unit tests (45) | `tests/` | PASS, ENGINEERING_ONLY |
-| Synthetic pilot | `scripts/run_first_run.py`, `configs/first_run.json` | COMPLETED, ENGINEERING_ONLY |
-| Literature check | `RELATED_WORK.md` | DONE, with per-paper reading levels |
-| Pre-registration of next decision experiment | `RESEARCH_PACKET.md` §6 | DONE |
-| Manuscript skeleton | `paper/main.tex` | Skeleton only; results are `\todo{}` |
+| Item | Where | Status / label |
+|------|-------|----------------|
+| Re-aggregated E1 from stored raw; separated proposed / executed / attacker levels | `scripts/reaggregate_e1.py`, `results/analysis/SED-E1-REAGG_*` | 0 differences; ENGINEERING_ONLY |
+| Expressivity check with the actual features | `scripts/analyze_e1_expressivity.py`, `results/analysis/SED-E1-EXPR_*` | EXPLORATORY; hand-set linear weights = rule on 1920/1920 args |
+| Bug fix: argmax on saturated probabilities → argmax on logits | `src/scoped_evidence/router.py` | E1 outcomes unchanged (0 regeneration mismatches) |
+| Host metadata vs author text (A8); per-feature input origins | `labels.METADATA_ORIGIN`, `router.FEATURE_INPUTS` | DONE |
+| Tests: no label leakage, frozen ≠ isolation, validator trusts labels, set-level counterexample premise, headroom core | `tests/` | 60/60 PASS |
+| SED-E2-HEADROOM-R: bound H, protocol, sim adapter, AgentDojo adapter draft | `src/scoped_evidence/headroom.py`, `adapters/`, `configs/headroom_r.json`, `scripts/run_headroom.py` | sim smoke COMPLETED (ENGINEERING_ONLY); AgentDojo NOT_RUN |
+| Manuscript v1 (all sections written) | `paper/main.tex`, `paper/tables/`, `paper/references.bib`, `paper/claims.csv` | COMPILE_NOT_RUN; SUBMISSION_READY=false |
 
-## Engineering result vs scientific result (kept separate)
+## Retracted in this session (original text kept in RESEARCH_PACKET.md)
 
-- **Engineering: PASS.** Across 15,750 pilot outcome rows:
-  - every validator-guarded selector, including a worst-case adversarial
-    router, had 0 reference violations and 0 synthetic-secret leaks;
-  - infeasible tasks were never executed;
-  - the oracle reached 1.0.
-- **Science: H1 NOT_TESTED.**
-  - On synthetic data the learned router did **not** beat hand-written field
-    rules. The learned − rule difference in secure success was +0.024
-    (template split, n=3 templates), −0.007 (environment split) and −0.033
-    (instance split).
-  - This triggers the "re-assess the learning contribution" stop condition at
-    the engineering level. The synthetic generator cannot settle H1 either
-    way.
-- **Novelty risk: high.**
-  - ROPE (2608.27496), PACT (2605.11039) and ARGUS (2605.03378) already cover
-    per-parameter origin enforcement, argument-level provenance contracts,
-    and span-to-argument grounding with prompted LLMs.
-  - RTBAS already trains a small dependency screener.
-  - The only open question left is empirical: a *trained* binder vs rules vs
-    a prompted-LLM binder under a fixed validator.
+1. "A linear pointwise scorer cannot express the lexicographic rule." This is
+   false for the actual features (SED-E1-EXPR).
+2. "The router learned generator artifact A2." Not supported: T9 was held
+   out of training in the template split.
+3. The v1 E2 decision rule "< 10% ambiguity ⇒ < 5 pp improvement". It has a
+   logic error, and ambiguity is only a proxy. It is replaced by the
+   H_upper < δ rule in SED-E2-HEADROOM-R.
 
-## Blocked / needs a decision
+## Evidence levels (kept separate)
 
-- **SED-E2-HEADROOM** (next decision experiment) needs approval to download
-  `agentdojo` (MIT) and the AgentDyn repository (license NOT_CHECKED). It is
-  CPU-only static analysis with no LLM calls.
-- **SED-E3 and SED-E4** need an LLM backbone (paid API or GPU). NOT_RUN and not
-  requested yet; they depend on the E2 outcome.
+- **Engineering PASS.**
+  - Validator-guarded selectors: 0 reference violations and 0
+    synthetic-secret leaks.
+  - Re-aggregation: 0 differences.
+  - Tests: 60/60.
+- **Toy (synthetic) results.**
+  - The learned binder is not better than the rules: secure-success
+    differences +0.024 / −0.007 / −0.033.
+  - The failure is one of estimation, not expressivity (post hoc).
+- **Real-model or benchmark results:** none.
+- **External utility:** none.
+- **Novelty judgement:** only a measurement framing remains relative to
+  ROPE, PACT and ARGUS, as recorded in RELATED_WORK.md. Novelty is not
+  established.
+
+## Manuscript
+
+- **Template:** ICML 2026, used temporarily. TEMPLATE_YEAR=2026 and
+  TARGET_YEAR=2027; the ICML 2027 pages return 404.
+- **Style files:** `icml2026.sty` and `.bst` are **not present**, because
+  their download was not approved. No imitation style was created.
+- **Compilation:** COMPILE_NOT_RUN, because there is no LaTeX compiler in the
+  environment.
+- **Static checks:** `scripts/check_tex_static.py` passes (refs, cites,
+  macros, inputs, braces, anonymity). The main body is about 4,150 words
+  excluding 5 tables. The page count is unverified.
+- **Remaining TODOs (3):**
+  - `SED-E2-HEADROOM-R/AgentDojo`
+  - `SED-E2-HEADROOM-R/AgentDyn`
+  - `SED-E3`
+
+## Blocked / needs approval
+
+- **SED-E2-HEADROOM-R on AgentDojo:** install the `agentdojo` PyPI package
+  (MIT per its GitHub page; pin the version at approval). The work is
+  CPU-only, with no LLM calls. After approval:
+  1. verify API assumptions A-DJ1..A-DJ7;
+  2. implement the adapter body;
+  3. run the census.
+- **SED-E2-HEADROOM-R on AgentDyn:** fetch `github.com/leolee99/AgentDyn`.
+  Its license has not been checked.
+- **Compiling the manuscript:** `icml2026.zip` from icml.cc and a TeX
+  installation.
+- **SED-E3:** an LLM backbone (paid API or GPU). This is conditional on
+  H_upper ≥ 0.05.
 
 ## How to reproduce
 
 ```
 taskset -c 0,1 timeout 120 python3 -m unittest discover -s tests -v
 taskset -c 0,1 timeout 120 python3 scripts/run_first_run.py --config configs/first_run.json
+python3 scripts/reaggregate_e1.py --run results/raw/SED-E1-SIM_20260926T144531Z
+python3 scripts/analyze_e1_expressivity.py --run results/raw/SED-E1-SIM_20260926T144531Z
+python3 scripts/run_headroom.py --source sim
+python3 scripts/make_paper_tables.py && python3 scripts/check_tex_static.py
 ```
-
-Results go to `results/raw/<run_id>/`: `metrics.json`, `outcomes.jsonl.gz`,
-`traces_sample.jsonl.gz`, `routers.json`, `manifest_entry.json`. Runs are also
-listed in `run_manifest.json`.

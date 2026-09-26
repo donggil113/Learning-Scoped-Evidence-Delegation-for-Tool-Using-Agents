@@ -1,0 +1,22 @@
+{
+ "brace_balance": 0,
+ "env_unbalanced": [],
+ "undefined_refs": [],
+ "unreferenced_labels": [
+  "app:record",
+  "def:h",
+  "prop:bound",
+  "sec:conclusion",
+  "sec:exp-expr",
+  "sec:exp-learned",
+  "sec:limits"
+ ],
+ "missing_bib_keys": [],
+ "uncited_bib_keys": [],
+ "missing_inputs": [],
+ "undefined_capitalized_macros": [],
+ "todo_count": 3,
+ "main_body_words_excluding_tables_approx": 4151,
+ "main_body_tables": 5,
+ "anonymity_flags": []
+}

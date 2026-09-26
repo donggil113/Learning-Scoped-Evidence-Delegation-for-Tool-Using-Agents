@@ -1,7 +1,7 @@
 {
   "project": "Learning Scoped Evidence Delegation for Tool-Using Agents",
-  "manifest_version": 1,
-  "updated_utc": "2026-09-26",
+  "manifest_version": 2,
+  "updated_utc": "2026-09-26 (second session)",
   "environment": {
     "python": "3.11.15 (system)",
     "third_party_python_packages_used": [],
@@ -10,22 +10,51 @@
     "wall_clock_limit_seconds": 120,
     "gpu": "not used",
     "network_during_runs": "not used (tests patch socket to raise)",
-    "installs_or_downloads": "none"
+    "installs_or_downloads": "none (sessions 1 and 2)"
   },
   "sources": {
     "code": {
-      "this_repository": {"source": "written in this session", "license": "NOT_SPECIFIED (no LICENSE file in repo)", "version": "git commit recorded per run"}
+      "this_repository": {
+        "source": "written in this session",
+        "license": "NOT_SPECIFIED (no LICENSE file in repo)",
+        "version": "git commit recorded per run"
+      }
     },
     "data": {
-      "synthetic_episodes": {"source": "src/scoped_evidence/tasks.py, seeded generator", "license": "same as repository", "contains_real_accounts_or_secrets": false, "secret_format": "SYNTH-SECRET-[0-9a-f]{16}", "iban_format": "SX + 14 chars (SX is not an ISO country code)", "email_domains": "*.example (RFC 2606 reserved)"}
+      "synthetic_episodes": {
+        "source": "src/scoped_evidence/tasks.py, seeded generator",
+        "license": "same as repository",
+        "contains_real_accounts_or_secrets": false,
+        "secret_format": "SYNTH-SECRET-[0-9a-f]{16}",
+        "iban_format": "SX + 14 chars (SX is not an ISO country code)",
+        "email_domains": "*.example (RFC 2606 reserved)"
+      }
     },
     "models": {
-      "learned_router": {"source": "logistic regression trained inside each SED-E1-SIM run", "pretrained_weights": "none", "weights_saved": "results/raw/<run_id>/routers.json"}
+      "learned_router": {
+        "source": "logistic regression trained inside each SED-E1-SIM run",
+        "pretrained_weights": "none",
+        "weights_saved": "results/raw/<run_id>/routers.json"
+      }
     },
     "external_benchmarks_and_code_NOT_DOWNLOADED": {
-      "AgentDojo": {"repo": "ethz-spylab/agentdojo", "license": "MIT (read from GitHub page by literature agent)", "latest_version_seen": "0.1.35 on PyPI (2025-10-27), not re-verified by lead", "status": "NOT_DOWNLOADED"},
-      "CaMeL reference implementation": {"repo": "google-research/camel-prompt-injection", "license": "Apache-2.0 (read from GitHub page by literature agent)", "version": "no releases; tags unverified", "status": "NOT_DOWNLOADED"},
-      "AgentDyn": {"repo": "github.com/leolee99/AgentDyn (URL from arXiv abstract)", "license": "NOT_CHECKED", "status": "NOT_DOWNLOADED"}
+      "AgentDojo": {
+        "repo": "ethz-spylab/agentdojo",
+        "license": "MIT (read from GitHub page by literature agent)",
+        "latest_version_seen": "0.1.35 on PyPI (2025-10-27), not re-verified by lead",
+        "status": "NOT_DOWNLOADED"
+      },
+      "CaMeL reference implementation": {
+        "repo": "google-research/camel-prompt-injection",
+        "license": "Apache-2.0 (read from GitHub page by literature agent)",
+        "version": "no releases; tags unverified",
+        "status": "NOT_DOWNLOADED"
+      },
+      "AgentDyn": {
+        "repo": "github.com/leolee99/AgentDyn (URL from arXiv abstract)",
+        "license": "NOT_CHECKED",
+        "status": "NOT_DOWNLOADED"
+      }
     }
   },
   "runs": [
@@ -59,11 +88,134 @@
       "results_dir": "results/raw/SED-E1-SIM_20260926T144531Z",
       "n_outcome_rows": 15750,
       "n_trace_events_saved": 3131
+    },
+    {
+      "run_id": "SED-E1-REAGG_20260926T215328Z",
+      "experiment_id": "SED-E1-REAGG",
+      "status": "COMPLETED",
+      "evidence_label": "ENGINEERING_ONLY (re-aggregation of stored raw)",
+      "summary": "0 aggregate differences over 15750 rows",
+      "command": "taskset -c 0,1 timeout 120 python3 scripts/reaggregate_e1.py --run results/raw/SED-E1-SIM_20260926T144531Z",
+      "results_dir": "results/analysis/SED-E1-REAGG_20260926T215328Z",
+      "wall_clock_seconds": 0.93,
+      "code_state": "run on an uncommitted working tree; the files listed in source_sha256 were committed unchanged in 6de75b5, except src/scoped_evidence/router.py, which gained only the FEATURE_INPUTS constant and comments after the SED-E1-EXPR runs (no behaviour change)",
+      "source_sha256": {
+        "scripts/reaggregate_e1.py": "9623949a57dcdcf7fce8f2a92abe23161ffe7406ce5b40adb9c8c7697495fb3a",
+        "src/scoped_evidence/metrics.py": "707133e80c3bda783fd4ba32bd6ed52c04231190f4811cc73ce2a8f794b1f4e9"
+      },
+      "notes": "a first draft of the script was edited before this (only) saved run"
+    },
+    {
+      "run_id": "SED-E1-EXPR_20260926T215142Z",
+      "experiment_id": "SED-E1-EXPR",
+      "status": "SUPERSEDED",
+      "evidence_label": "EXPLORATORY",
+      "summary": "before argmax fix: lex==rule 326/360, 346/360, 1051/1200; disagreements caused by sigmoid saturation ties",
+      "results_dir": "results/analysis/SED-E1-EXPR_20260926T215142Z",
+      "wall_clock_seconds": 1.6,
+      "code_state": "uncommitted; router.py before logit-argmax fix"
+    },
+    {
+      "run_id": "SED-E1-EXPR_20260926T215210Z",
+      "experiment_id": "SED-E1-EXPR",
+      "status": "SUPERSEDED",
+      "evidence_label": "EXPLORATORY",
+      "summary": "after logit-argmax fix: lex==rule 360/360, 360/360, 1195/1200 (5 = T1 same_field with history); regeneration mismatches 0",
+      "results_dir": "results/analysis/SED-E1-EXPR_20260926T215210Z",
+      "wall_clock_seconds": 1.4,
+      "code_state": "uncommitted; history_match weight B"
+    },
+    {
+      "run_id": "SED-E1-EXPR_20260926T215236Z",
+      "experiment_id": "SED-E1-EXPR",
+      "status": "COMPLETED",
+      "evidence_label": "EXPLORATORY (post hoc; no training)",
+      "summary": "lex==rule 1920/1920 across splits; learned==rule 1505/1920; regeneration mismatches 0",
+      "command": "taskset -c 0,1 timeout 120 python3 scripts/analyze_e1_expressivity.py --run results/raw/SED-E1-SIM_20260926T144531Z",
+      "results_dir": "results/analysis/SED-E1-EXPR_20260926T215236Z",
+      "wall_clock_seconds": 1.45,
+      "code_state": "run on an uncommitted working tree; the files listed in source_sha256 were committed unchanged in 6de75b5, except src/scoped_evidence/router.py, which gained only the FEATURE_INPUTS constant and comments after the SED-E1-EXPR runs (no behaviour change)",
+      "source_sha256": {
+        "scripts/analyze_e1_expressivity.py": "9b7ad10c7dd5d89bbc937bde5927446c59c351551928aff69e7c345d5d219dd8"
+      },
+      "notes": "hand-set history_match weight changed from B to B+D after the 215210Z run to follow rule_field's filter order; all three outputs kept"
+    },
+    {
+      "run_id": "SED-E2-HEADROOM-R-sim_20260926T215754Z",
+      "experiment_id": "SED-E2-HEADROOM-R",
+      "status": "COMPLETED",
+      "evidence_label": "ENGINEERING_ONLY (success = generator gold; not independent)",
+      "summary": "9 tasks, 0 unresolved, H=0.199, ambiguity proxy=1.000, all rule choices in action set",
+      "command": "taskset -c 0,1 timeout 120 python3 scripts/run_headroom.py --source sim",
+      "results_dir": "results/raw/SED-E2-HEADROOM-R-sim_20260926T215754Z",
+      "wall_clock_seconds": 0.81,
+      "config_sha256": "a763df660e6011c47c0f48b79eed70066e1ed4143aea174a674a422f26ce4525",
+      "code_state": "run on an uncommitted working tree; the files listed in source_sha256 were committed unchanged in 6de75b5, except src/scoped_evidence/router.py, which gained only the FEATURE_INPUTS constant and comments after the SED-E1-EXPR runs (no behaviour change)",
+      "source_sha256": {
+        "scripts/run_headroom.py": "a7303672f0019defd4e310e093a384ac1372b9b3c3384d0cfded667d1289f47f",
+        "src/scoped_evidence/headroom.py": "519f0d931dfa49d585e6111b8d76f73e780927cad8dc0b6abb00dafa060b3956",
+        "src/scoped_evidence/adapters/sim_adapter.py": "bffd78d85856d08a82ebb7d7d298edc2a0e7ab18bacee9d3180de42e0e94b585"
+      }
+    },
+    {
+      "run_id": "SED-E2-HEADROOM-R-agentdojo_20260926T215755Z",
+      "experiment_id": "SED-E2-HEADROOM-R",
+      "status": "NOT_RUN",
+      "reason": "agentdojo not importable (ModuleNotFoundError); download not approved",
+      "command": "taskset -c 0,1 timeout 120 python3 scripts/run_headroom.py --source agentdojo",
+      "results_dir": "results/raw/SED-E2-HEADROOM-R-agentdojo_20260926T215755Z",
+      "wall_clock_seconds": 0.0
+    },
+    {
+      "run_id": "SED-E0-UNIT_20260926T220659Z",
+      "experiment_id": "SED-E0-UNIT",
+      "status": "PASS",
+      "evidence_label": "ENGINEERING_ONLY",
+      "summary": "60 unit tests, 60 ok",
+      "command": "taskset -c 0,1 timeout 120 python3 -m unittest discover -s tests -v",
+      "git_commit": "6de75b5",
+      "wall_clock_seconds": 0.34,
+      "results_dir": "results/raw/SED-E0-UNIT_20260926T220659Z",
+      "notes": "one headroom test fixture was wrong on first run (success keyed on candidate id); fixed in the test before commit"
+    },
+    {
+      "run_id": "TEX-STATIC_20260926T220659Z",
+      "experiment_id": "PAPER-CHECK",
+      "status": "PASS (static only)",
+      "summary": "no undefined refs/cites/macros/inputs, balanced braces/environments, no anonymity flags; ~4151 body words excl. tables; COMPILE_NOT_RUN (no LaTeX compiler; ICML 2026 style files absent)",
+      "command": "python3 scripts/check_tex_static.py",
+      "results_file": "results/analysis/tex_static_check_20260926T220659Z.json"
     }
   ],
   "not_run": [
-    {"experiment_id": "SED-E2-HEADROOM", "status": "NOT_RUN", "blocked_on": "approval to download the AgentDojo package (and AgentDyn repository) for CPU-only static analysis"},
-    {"experiment_id": "SED-E3-AGENTDOJO", "status": "NOT_RUN", "blocked_on": "E2 decision; LLM backbone access (paid API or GPU) not approved"},
-    {"experiment_id": "SED-E4-AGENTDYN", "status": "NOT_RUN", "blocked_on": "E2/E3; AgentDyn license not checked"}
+    {
+      "experiment_id": "SED-E2-HEADROOM",
+      "status": "RETRACTED",
+      "note": "v1 ambiguity-fraction decision rule was logically wrong; superseded by SED-E2-HEADROOM-R"
+    },
+    {
+      "experiment_id": "SED-E2-HEADROOM-R (AgentDojo)",
+      "status": "NOT_RUN",
+      "blocked_on": "approval to install the agentdojo PyPI package (MIT per GitHub page; pin version at approval)"
+    },
+    {
+      "experiment_id": "SED-E2-HEADROOM-R (AgentDyn)",
+      "status": "NOT_RUN",
+      "blocked_on": "approval to fetch github.com/leolee99/AgentDyn; license NOT_CHECKED"
+    },
+    {
+      "experiment_id": "SED-E3",
+      "status": "NOT_RUN",
+      "blocked_on": "E2-R decision; LLM backbone (paid API or GPU) not approved"
+    },
+    {
+      "experiment_id": "PAPER-COMPILE",
+      "status": "COMPILE_NOT_RUN",
+      "blocked_on": "no LaTeX compiler; icml2026.zip not downloaded"
+    }
+  ],
+  "dev_and_smoke_costs_not_saved": [
+    "session 1: ~6 ad-hoc CPU smoke/debug runs of the simulator before SED-E1 (each < 5 s)",
+    "session 2: ~4 ad-hoc CPU inspection snippets on E1 raw/regenerated episodes (each < 2 s); 2 literature-agent sessions reading public web pages (no downloads)"
   ]
 }

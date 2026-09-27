@@ -1,0 +1,4922 @@
+{
+ "label": "DEVELOPMENT (structure only; no success values evaluated)",
+ "rows": [
+  {
+   "suite": "workspace",
+   "task": "user_task_0",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_0",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_1",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_1",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_3",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_3",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_2",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_2",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_5",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_5",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_6",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 55,
+   "writes": [
+    {
+     "call": 1,
+     "function": "create_calendar_event",
+     "n_choices": 55,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       3
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       3
+      ],
+      [
+       "participants",
+       "EMAIL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_6",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 55,
+   "writes": [
+    {
+     "call": 1,
+     "function": "create_calendar_event",
+     "n_choices": 55,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       3
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       3
+      ],
+      [
+       "participants",
+       "EMAIL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_7",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 41,
+   "writes": [
+    {
+     "call": 1,
+     "function": "reschedule_calendar_event",
+     "n_choices": 41,
+     "slots": [
+      [
+       "event_id",
+       "ID",
+       2
+      ],
+      [
+       "new_start_time",
+       "DATETIME",
+       4
+      ],
+      [
+       "new_end_time",
+       "DATETIME",
+       4
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_7",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 41,
+   "writes": [
+    {
+     "call": 1,
+     "function": "reschedule_calendar_event",
+     "n_choices": 41,
+     "slots": [
+      [
+       "event_id",
+       "ID",
+       2
+      ],
+      [
+       "new_start_time",
+       "DATETIME",
+       4
+      ],
+      [
+       "new_end_time",
+       "DATETIME",
+       4
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_8",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 7,
+   "writes": [
+    {
+     "call": 1,
+     "function": "add_calendar_event_participants",
+     "n_choices": 7,
+     "slots": [
+      [
+       "event_id",
+       "ID",
+       1
+      ],
+      [
+       "participants",
+       "EMAIL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_8",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 7,
+   "writes": [
+    {
+     "call": 1,
+     "function": "add_calendar_event_participants",
+     "n_choices": 7,
+     "slots": [
+      [
+       "event_id",
+       "ID",
+       1
+      ],
+      [
+       "participants",
+       "EMAIL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_9",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 17,
+   "writes": [
+    {
+     "call": 1,
+     "function": "create_calendar_event",
+     "n_choices": 17,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       2
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       2
+      ],
+      [
+       "participants",
+       "EMAIL",
+       3
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_9",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 17,
+   "writes": [
+    {
+     "call": 1,
+     "function": "create_calendar_event",
+     "n_choices": 17,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       2
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       2
+      ],
+      [
+       "participants",
+       "EMAIL",
+       3
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_10",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_10",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_11",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_11",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_12",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 46,
+   "writes": [
+    {
+     "call": 1,
+     "function": "create_calendar_event",
+     "n_choices": 46,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       3
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       3
+      ],
+      [
+       "participants",
+       "EMAIL",
+       4
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_12",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 46,
+   "writes": [
+    {
+     "call": 1,
+     "function": "create_calendar_event",
+     "n_choices": 46,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       3
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       3
+      ],
+      [
+       "participants",
+       "EMAIL",
+       4
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_21",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 176,
+   "writes": [
+    {
+     "call": 2,
+     "function": "create_calendar_event",
+     "n_choices": 176,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       5
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       5
+      ],
+      [
+       "participants",
+       "EMAIL",
+       6
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_21",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 176,
+   "writes": [
+    {
+     "call": 2,
+     "function": "create_calendar_event",
+     "n_choices": 176,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       5
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       5
+      ],
+      [
+       "participants",
+       "EMAIL",
+       6
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_14",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_14",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_16",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_16",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_17",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_17",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_22",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_22",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_24",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_24",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_26",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_26",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_27",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_27",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_28",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_28",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_35",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 27,
+   "writes": [
+    {
+     "call": 1,
+     "function": "delete_file",
+     "n_choices": 27,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       26
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_35",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 27,
+   "writes": [
+    {
+     "call": 1,
+     "function": "delete_file",
+     "n_choices": 27,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       26
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_29",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 3,
+   "writes": [
+    {
+     "call": 1,
+     "function": "append_to_file",
+     "n_choices": 3,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_29",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 3,
+   "writes": [
+    {
+     "call": 1,
+     "function": "append_to_file",
+     "n_choices": 3,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_30",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_30",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_31",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 1,
+     "function": "create_file",
+     "n_choices": 2,
+     "slots": []
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_31",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 1,
+     "function": "create_file",
+     "n_choices": 2,
+     "slots": []
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_32",
+   "mode": "fallback",
+   "n_writes": 2,
+   "gt_path_product": 50,
+   "writes": [
+    {
+     "call": 1,
+     "function": "create_file",
+     "n_choices": 2,
+     "slots": []
+    },
+    {
+     "call": 2,
+     "function": "share_file",
+     "n_choices": 25,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       4
+      ],
+      [
+       "email",
+       "EMAIL",
+       3
+      ],
+      [
+       "permission",
+       "ENUM",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_32",
+   "mode": "strict",
+   "n_writes": 2,
+   "gt_path_product": 50,
+   "writes": [
+    {
+     "call": 1,
+     "function": "create_file",
+     "n_choices": 2,
+     "slots": []
+    },
+    {
+     "call": 2,
+     "function": "share_file",
+     "n_choices": 25,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       4
+      ],
+      [
+       "email",
+       "EMAIL",
+       3
+      ],
+      [
+       "permission",
+       "ENUM",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_15",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 101,
+   "writes": [
+    {
+     "call": 1,
+     "function": "create_calendar_event",
+     "n_choices": 101,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       5
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       5
+      ],
+      [
+       "participants",
+       "EMAIL",
+       3
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_15",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 101,
+   "writes": [
+    {
+     "call": 1,
+     "function": "create_calendar_event",
+     "n_choices": 101,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       5
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       5
+      ],
+      [
+       "participants",
+       "EMAIL",
+       3
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_18",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 65,
+   "writes": [
+    {
+     "call": 1,
+     "function": "create_calendar_event",
+     "n_choices": 65,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       4
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       4
+      ],
+      [
+       "participants",
+       "EMAIL",
+       3
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_18",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 65,
+   "writes": [
+    {
+     "call": 1,
+     "function": "create_calendar_event",
+     "n_choices": 65,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       4
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       4
+      ],
+      [
+       "participants",
+       "EMAIL",
+       3
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_34",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 3,
+   "writes": [
+    {
+     "call": 2,
+     "function": "append_to_file",
+     "n_choices": 3,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_34",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 3,
+   "writes": [
+    {
+     "call": 2,
+     "function": "append_to_file",
+     "n_choices": 3,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_20",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 55,
+   "writes": [
+    {
+     "call": 2,
+     "function": "create_calendar_event",
+     "n_choices": 55,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       3
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       3
+      ],
+      [
+       "participants",
+       "EMAIL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_20",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 55,
+   "writes": [
+    {
+     "call": 2,
+     "function": "create_calendar_event",
+     "n_choices": 55,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       3
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       3
+      ],
+      [
+       "participants",
+       "EMAIL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_33",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 19,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_email",
+     "n_choices": 19,
+     "slots": [
+      [
+       "recipients",
+       "EMAIL",
+       2
+      ],
+      [
+       "cc",
+       "EMAIL",
+       2
+      ],
+      [
+       "bcc",
+       "EMAIL",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_33",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 19,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_email",
+     "n_choices": 19,
+     "slots": [
+      [
+       "recipients",
+       "EMAIL",
+       2
+      ],
+      [
+       "cc",
+       "EMAIL",
+       2
+      ],
+      [
+       "bcc",
+       "EMAIL",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_25",
+   "mode": "fallback",
+   "n_writes": 3,
+   "gt_path_product": 895769,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_email",
+     "n_choices": 49,
+     "slots": [
+      [
+       "recipients",
+       "EMAIL",
+       3
+      ],
+      [
+       "cc",
+       "EMAIL",
+       3
+      ],
+      [
+       "bcc",
+       "EMAIL",
+       3
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "send_email",
+     "n_choices": 101,
+     "slots": [
+      [
+       "recipients",
+       "EMAIL",
+       4
+      ],
+      [
+       "cc",
+       "EMAIL",
+       4
+      ],
+      [
+       "bcc",
+       "EMAIL",
+       4
+      ]
+     ]
+    },
+    {
+     "call": 3,
+     "function": "send_email",
+     "n_choices": 181,
+     "slots": [
+      [
+       "recipients",
+       "EMAIL",
+       5
+      ],
+      [
+       "cc",
+       "EMAIL",
+       5
+      ],
+      [
+       "bcc",
+       "EMAIL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_25",
+   "mode": "strict",
+   "n_writes": 3,
+   "gt_path_product": 895769,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_email",
+     "n_choices": 49,
+     "slots": [
+      [
+       "recipients",
+       "EMAIL",
+       3
+      ],
+      [
+       "cc",
+       "EMAIL",
+       3
+      ],
+      [
+       "bcc",
+       "EMAIL",
+       3
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "send_email",
+     "n_choices": 101,
+     "slots": [
+      [
+       "recipients",
+       "EMAIL",
+       4
+      ],
+      [
+       "cc",
+       "EMAIL",
+       4
+      ],
+      [
+       "bcc",
+       "EMAIL",
+       4
+      ]
+     ]
+    },
+    {
+     "call": 3,
+     "function": "send_email",
+     "n_choices": 181,
+     "slots": [
+      [
+       "recipients",
+       "EMAIL",
+       5
+      ],
+      [
+       "cc",
+       "EMAIL",
+       5
+      ],
+      [
+       "bcc",
+       "EMAIL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_13",
+   "mode": "fallback",
+   "n_writes": 2,
+   "gt_path_product": 15364,
+   "writes": [
+    {
+     "call": 2,
+     "function": "append_to_file",
+     "n_choices": 4,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       3
+      ]
+     ]
+    },
+    {
+     "call": 4,
+     "function": "send_email",
+     "n_choices": 3841,
+     "slots": [
+      [
+       "recipients",
+       "EMAIL",
+       15
+      ],
+      [
+       "cc",
+       "EMAIL",
+       15
+      ],
+      [
+       "bcc",
+       "EMAIL",
+       15
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_13",
+   "mode": "strict",
+   "n_writes": 2,
+   "gt_path_product": 15364,
+   "writes": [
+    {
+     "call": 2,
+     "function": "append_to_file",
+     "n_choices": 4,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       3
+      ]
+     ]
+    },
+    {
+     "call": 4,
+     "function": "send_email",
+     "n_choices": 3841,
+     "slots": [
+      [
+       "recipients",
+       "EMAIL",
+       15
+      ],
+      [
+       "cc",
+       "EMAIL",
+       15
+      ],
+      [
+       "bcc",
+       "EMAIL",
+       15
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_23",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_23",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_4",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 811,
+   "writes": [
+    {
+     "call": 2,
+     "function": "create_calendar_event",
+     "n_choices": 811,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       9
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       9
+      ],
+      [
+       "participants",
+       "EMAIL",
+       9
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_4",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 811,
+   "writes": [
+    {
+     "call": 2,
+     "function": "create_calendar_event",
+     "n_choices": 811,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       9
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       9
+      ],
+      [
+       "participants",
+       "EMAIL",
+       9
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_19",
+   "mode": "fallback",
+   "n_writes": 2,
+   "gt_path_product": 61747,
+   "writes": [
+    {
+     "call": 3,
+     "function": "append_to_file",
+     "n_choices": 7,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       6
+      ]
+     ]
+    },
+    {
+     "call": 5,
+     "function": "send_email",
+     "n_choices": 8821,
+     "slots": [
+      [
+       "recipients",
+       "EMAIL",
+       20
+      ],
+      [
+       "cc",
+       "EMAIL",
+       20
+      ],
+      [
+       "bcc",
+       "EMAIL",
+       20
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_19",
+   "mode": "strict",
+   "n_writes": 2,
+   "gt_path_product": 61747,
+   "writes": [
+    {
+     "call": 3,
+     "function": "append_to_file",
+     "n_choices": 7,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       6
+      ]
+     ]
+    },
+    {
+     "call": 5,
+     "function": "send_email",
+     "n_choices": 8821,
+     "slots": [
+      [
+       "recipients",
+       "EMAIL",
+       20
+      ],
+      [
+       "cc",
+       "EMAIL",
+       20
+      ],
+      [
+       "bcc",
+       "EMAIL",
+       20
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_36",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 2,
+     "function": "create_file",
+     "n_choices": 2,
+     "slots": []
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_36",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 2,
+     "function": "create_file",
+     "n_choices": 2,
+     "slots": []
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_37",
+   "mode": "fallback",
+   "n_writes": 2,
+   "gt_path_product": 50,
+   "writes": [
+    {
+     "call": 2,
+     "function": "create_file",
+     "n_choices": 2,
+     "slots": []
+    },
+    {
+     "call": 3,
+     "function": "share_file",
+     "n_choices": 25,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       4
+      ],
+      [
+       "email",
+       "EMAIL",
+       3
+      ],
+      [
+       "permission",
+       "ENUM",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_37",
+   "mode": "strict",
+   "n_writes": 2,
+   "gt_path_product": 50,
+   "writes": [
+    {
+     "call": 2,
+     "function": "create_file",
+     "n_choices": 2,
+     "slots": []
+    },
+    {
+     "call": 3,
+     "function": "share_file",
+     "n_choices": 25,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       4
+      ],
+      [
+       "email",
+       "EMAIL",
+       3
+      ],
+      [
+       "permission",
+       "ENUM",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_38",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 27,
+   "writes": [
+    {
+     "call": 2,
+     "function": "delete_file",
+     "n_choices": 27,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       26
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_38",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 27,
+   "writes": [
+    {
+     "call": 2,
+     "function": "delete_file",
+     "n_choices": 27,
+     "slots": [
+      [
+       "file_id",
+       "ID",
+       26
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_39",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "workspace",
+   "task": "user_task_39",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_0",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 5,
+   "writes": [
+    {
+     "call": 1,
+     "function": "reserve_hotel",
+     "n_choices": 5,
+     "slots": [
+      [
+       "hotel",
+       "ENTITY",
+       4
+      ],
+      [
+       "start_day",
+       "ORACLE_COMPOSED",
+       0
+      ],
+      [
+       "end_day",
+       "ORACLE_COMPOSED",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_0",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 1,
+   "writes": [
+    {
+     "call": 1,
+     "function": "reserve_hotel",
+     "n_choices": 1,
+     "slots": [
+      [
+       "hotel",
+       "ENTITY",
+       4
+      ],
+      [
+       "start_day",
+       "DATE",
+       0
+      ],
+      [
+       "end_day",
+       "DATE",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_1",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 3,
+     "function": "create_calendar_event",
+     "n_choices": 2,
+     "slots": [
+      [
+       "start_time",
+       "ORACLE_COMPOSED",
+       0
+      ],
+      [
+       "end_time",
+       "ORACLE_COMPOSED",
+       0
+      ],
+      [
+       "participants",
+       "ORACLE_COMPOSED",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_1",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 1,
+   "writes": [
+    {
+     "call": 3,
+     "function": "create_calendar_event",
+     "n_choices": 1,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       0
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       0
+      ],
+      [
+       "participants",
+       "EMAIL",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_2",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_2",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_3",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 5,
+   "writes": [
+    {
+     "call": 4,
+     "function": "send_email",
+     "n_choices": 5,
+     "slots": [
+      [
+       "recipients",
+       "EMAIL",
+       1
+      ],
+      [
+       "cc",
+       "EMAIL",
+       1
+      ],
+      [
+       "bcc",
+       "EMAIL",
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_3",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 5,
+   "writes": [
+    {
+     "call": 4,
+     "function": "send_email",
+     "n_choices": 5,
+     "slots": [
+      [
+       "recipients",
+       "EMAIL",
+       1
+      ],
+      [
+       "cc",
+       "EMAIL",
+       1
+      ],
+      [
+       "bcc",
+       "EMAIL",
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_4",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 4,
+     "function": "create_calendar_event",
+     "n_choices": 2,
+     "slots": [
+      [
+       "start_time",
+       "ORACLE_COMPOSED",
+       0
+      ],
+      [
+       "end_time",
+       "ORACLE_COMPOSED",
+       0
+      ],
+      [
+       "participants",
+       "ORACLE_COMPOSED",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_4",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 1,
+   "writes": [
+    {
+     "call": 4,
+     "function": "create_calendar_event",
+     "n_choices": 1,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       0
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       0
+      ],
+      [
+       "participants",
+       "EMAIL",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_5",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_5",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_6",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_6",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_7",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 4,
+     "function": "create_calendar_event",
+     "n_choices": 2,
+     "slots": [
+      [
+       "start_time",
+       "ORACLE_COMPOSED",
+       0
+      ],
+      [
+       "end_time",
+       "ORACLE_COMPOSED",
+       0
+      ],
+      [
+       "participants",
+       "ORACLE_COMPOSED",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_7",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 1,
+   "writes": [
+    {
+     "call": 4,
+     "function": "create_calendar_event",
+     "n_choices": 1,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       0
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       0
+      ],
+      [
+       "participants",
+       "EMAIL",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_8",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 5,
+     "function": "create_calendar_event",
+     "n_choices": 2,
+     "slots": [
+      [
+       "start_time",
+       "ORACLE_COMPOSED",
+       0
+      ],
+      [
+       "end_time",
+       "ORACLE_COMPOSED",
+       0
+      ],
+      [
+       "participants",
+       "ORACLE_COMPOSED",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_8",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 1,
+   "writes": [
+    {
+     "call": 5,
+     "function": "create_calendar_event",
+     "n_choices": 1,
+     "slots": [
+      [
+       "start_time",
+       "DATETIME",
+       0
+      ],
+      [
+       "end_time",
+       "DATETIME",
+       0
+      ],
+      [
+       "participants",
+       "EMAIL",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_9",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_9",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_10",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_10",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_11",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_11",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_12",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_12",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_13",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_13",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_14",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_14",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_15",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_15",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_16",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_16",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_17",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_17",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_18",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_18",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_19",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "travel",
+   "task": "user_task_19",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_0",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_money",
+     "n_choices": 2,
+     "slots": [
+      [
+       "recipient",
+       "IBAN",
+       1
+      ],
+      [
+       "amount",
+       "NUMBER",
+       1
+      ],
+      [
+       "date",
+       "ORACLE_COMPOSED",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_0",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 1,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_money",
+     "n_choices": 1,
+     "slots": [
+      [
+       "recipient",
+       "IBAN",
+       1
+      ],
+      [
+       "amount",
+       "NUMBER",
+       1
+      ],
+      [
+       "date",
+       "DATE",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_1",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_1",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_2",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 217,
+   "writes": [
+    {
+     "call": 2,
+     "function": "update_scheduled_transaction",
+     "n_choices": 217,
+     "slots": [
+      [
+       "id",
+       "ID",
+       2
+      ],
+      [
+       "recipient",
+       "IBAN",
+       3
+      ],
+      [
+       "amount",
+       "NUMBER",
+       2
+      ],
+      [
+       "date",
+       "DATE",
+       2
+      ],
+      [
+       "recurring",
+       "BOOL",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_2",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 217,
+   "writes": [
+    {
+     "call": 2,
+     "function": "update_scheduled_transaction",
+     "n_choices": 217,
+     "slots": [
+      [
+       "id",
+       "ID",
+       2
+      ],
+      [
+       "recipient",
+       "IBAN",
+       3
+      ],
+      [
+       "amount",
+       "NUMBER",
+       2
+      ],
+      [
+       "date",
+       "DATE",
+       2
+      ],
+      [
+       "recurring",
+       "BOOL",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_3",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 121,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_money",
+     "n_choices": 121,
+     "slots": [
+      [
+       "recipient",
+       "IBAN",
+       4
+      ],
+      [
+       "amount",
+       "NUMBER",
+       6
+      ],
+      [
+       "date",
+       "DATE",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_3",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 121,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_money",
+     "n_choices": 121,
+     "slots": [
+      [
+       "recipient",
+       "IBAN",
+       4
+      ],
+      [
+       "amount",
+       "NUMBER",
+       6
+      ],
+      [
+       "date",
+       "DATE",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_4",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 101,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_money",
+     "n_choices": 101,
+     "slots": [
+      [
+       "recipient",
+       "IBAN",
+       4
+      ],
+      [
+       "amount",
+       "NUMBER",
+       5
+      ],
+      [
+       "date",
+       "DATE",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_4",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 101,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_money",
+     "n_choices": 101,
+     "slots": [
+      [
+       "recipient",
+       "IBAN",
+       4
+      ],
+      [
+       "amount",
+       "NUMBER",
+       5
+      ],
+      [
+       "date",
+       "DATE",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_5",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 101,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_money",
+     "n_choices": 101,
+     "slots": [
+      [
+       "recipient",
+       "IBAN",
+       4
+      ],
+      [
+       "amount",
+       "NUMBER",
+       5
+      ],
+      [
+       "date",
+       "DATE",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_5",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 101,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_money",
+     "n_choices": 101,
+     "slots": [
+      [
+       "recipient",
+       "IBAN",
+       4
+      ],
+      [
+       "amount",
+       "NUMBER",
+       5
+      ],
+      [
+       "date",
+       "DATE",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_6",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 201,
+   "writes": [
+    {
+     "call": 1,
+     "function": "schedule_transaction",
+     "n_choices": 201,
+     "slots": [
+      [
+       "recipient",
+       "IBAN",
+       4
+      ],
+      [
+       "amount",
+       "NUMBER",
+       5
+      ],
+      [
+       "date",
+       "DATE",
+       5
+      ],
+      [
+       "recurring",
+       "BOOL",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_6",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 201,
+   "writes": [
+    {
+     "call": 1,
+     "function": "schedule_transaction",
+     "n_choices": 201,
+     "slots": [
+      [
+       "recipient",
+       "IBAN",
+       4
+      ],
+      [
+       "amount",
+       "NUMBER",
+       5
+      ],
+      [
+       "date",
+       "DATE",
+       5
+      ],
+      [
+       "recurring",
+       "BOOL",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_7",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_7",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_8",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_8",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_9",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 2701,
+   "writes": [
+    {
+     "call": 1,
+     "function": "update_scheduled_transaction",
+     "n_choices": 2701,
+     "slots": [
+      [
+       "id",
+       "ID",
+       5
+      ],
+      [
+       "recipient",
+       "IBAN",
+       4
+      ],
+      [
+       "amount",
+       "NUMBER",
+       5
+      ],
+      [
+       "date",
+       "DATE",
+       5
+      ],
+      [
+       "recurring",
+       "BOOL",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_9",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 2701,
+   "writes": [
+    {
+     "call": 1,
+     "function": "update_scheduled_transaction",
+     "n_choices": 2701,
+     "slots": [
+      [
+       "id",
+       "ID",
+       5
+      ],
+      [
+       "recipient",
+       "IBAN",
+       4
+      ],
+      [
+       "amount",
+       "NUMBER",
+       5
+      ],
+      [
+       "date",
+       "DATE",
+       5
+      ],
+      [
+       "recurring",
+       "BOOL",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_10",
+   "mode": "fallback",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_10",
+   "mode": "strict",
+   "n_writes": 0,
+   "gt_path_product": 1,
+   "writes": []
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_11",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 121,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_money",
+     "n_choices": 121,
+     "slots": [
+      [
+       "recipient",
+       "IBAN",
+       4
+      ],
+      [
+       "amount",
+       "NUMBER",
+       6
+      ],
+      [
+       "date",
+       "DATE",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_11",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 121,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_money",
+     "n_choices": 121,
+     "slots": [
+      [
+       "recipient",
+       "IBAN",
+       4
+      ],
+      [
+       "amount",
+       "NUMBER",
+       6
+      ],
+      [
+       "date",
+       "DATE",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_12",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 217,
+   "writes": [
+    {
+     "call": 2,
+     "function": "update_scheduled_transaction",
+     "n_choices": 217,
+     "slots": [
+      [
+       "id",
+       "ID",
+       2
+      ],
+      [
+       "recipient",
+       "IBAN",
+       3
+      ],
+      [
+       "amount",
+       "NUMBER",
+       2
+      ],
+      [
+       "date",
+       "DATE",
+       2
+      ],
+      [
+       "recurring",
+       "BOOL",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_12",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 217,
+   "writes": [
+    {
+     "call": 2,
+     "function": "update_scheduled_transaction",
+     "n_choices": 217,
+     "slots": [
+      [
+       "id",
+       "ID",
+       2
+      ],
+      [
+       "recipient",
+       "IBAN",
+       3
+      ],
+      [
+       "amount",
+       "NUMBER",
+       2
+      ],
+      [
+       "date",
+       "DATE",
+       2
+      ],
+      [
+       "recurring",
+       "BOOL",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_13",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 1,
+     "function": "update_user_info",
+     "n_choices": 2,
+     "slots": []
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_13",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 1,
+     "function": "update_user_info",
+     "n_choices": 2,
+     "slots": []
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_14",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 1,
+     "function": "update_password",
+     "n_choices": 2,
+     "slots": []
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_14",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 1,
+     "function": "update_password",
+     "n_choices": 2,
+     "slots": []
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_15",
+   "mode": "fallback",
+   "n_writes": 3,
+   "gt_path_product": 364634,
+   "writes": [
+    {
+     "call": 0,
+     "function": "update_user_info",
+     "n_choices": 2,
+     "slots": []
+    },
+    {
+     "call": 2,
+     "function": "update_scheduled_transaction",
+     "n_choices": 541,
+     "slots": [
+      [
+       "id",
+       "ID",
+       2
+      ],
+      [
+       "recipient",
+       "IBAN",
+       4
+      ],
+      [
+       "amount",
+       "NUMBER",
+       5
+      ],
+      [
+       "date",
+       "DATE",
+       2
+      ],
+      [
+       "recurring",
+       "BOOL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 4,
+     "function": "send_money",
+     "n_choices": 337,
+     "slots": [
+      [
+       "recipient",
+       "IBAN",
+       6
+      ],
+      [
+       "amount",
+       "NUMBER",
+       8
+      ],
+      [
+       "date",
+       "DATE",
+       7
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "banking",
+   "task": "user_task_15",
+   "mode": "strict",
+   "n_writes": 3,
+   "gt_path_product": 364634,
+   "writes": [
+    {
+     "call": 0,
+     "function": "update_user_info",
+     "n_choices": 2,
+     "slots": []
+    },
+    {
+     "call": 2,
+     "function": "update_scheduled_transaction",
+     "n_choices": 541,
+     "slots": [
+      [
+       "id",
+       "ID",
+       2
+      ],
+      [
+       "recipient",
+       "IBAN",
+       4
+      ],
+      [
+       "amount",
+       "NUMBER",
+       5
+      ],
+      [
+       "date",
+       "DATE",
+       2
+      ],
+      [
+       "recurring",
+       "BOOL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 4,
+     "function": "send_money",
+     "n_choices": 337,
+     "slots": [
+      [
+       "recipient",
+       "IBAN",
+       6
+      ],
+      [
+       "amount",
+       "NUMBER",
+       8
+      ],
+      [
+       "date",
+       "DATE",
+       7
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_0",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 0,
+     "function": "get_webpage",
+     "n_choices": 2,
+     "slots": [
+      [
+       "url",
+       "URL",
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_0",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 2,
+   "writes": [
+    {
+     "call": 0,
+     "function": "get_webpage",
+     "n_choices": 2,
+     "slots": [
+      [
+       "url",
+       "URL",
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_1",
+   "mode": "fallback",
+   "n_writes": 2,
+   "gt_path_product": 18,
+   "writes": [
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "send_direct_message",
+     "n_choices": 6,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_1",
+   "mode": "strict",
+   "n_writes": 2,
+   "gt_path_product": 18,
+   "writes": [
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "send_direct_message",
+     "n_choices": 6,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_2",
+   "mode": "fallback",
+   "n_writes": 2,
+   "gt_path_product": 6,
+   "writes": [
+    {
+     "call": 0,
+     "function": "get_webpage",
+     "n_choices": 2,
+     "slots": [
+      [
+       "url",
+       "URL",
+       1
+      ]
+     ]
+    },
+    {
+     "call": 1,
+     "function": "invite_user_to_slack",
+     "n_choices": 3,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       2
+      ],
+      [
+       "user_email",
+       "EMAIL",
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_2",
+   "mode": "strict",
+   "n_writes": 2,
+   "gt_path_product": 6,
+   "writes": [
+    {
+     "call": 0,
+     "function": "get_webpage",
+     "n_choices": 2,
+     "slots": [
+      [
+       "url",
+       "URL",
+       1
+      ]
+     ]
+    },
+    {
+     "call": 1,
+     "function": "invite_user_to_slack",
+     "n_choices": 3,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       2
+      ],
+      [
+       "user_email",
+       "EMAIL",
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_3",
+   "mode": "fallback",
+   "n_writes": 2,
+   "gt_path_product": 4,
+   "writes": [
+    {
+     "call": 0,
+     "function": "get_webpage",
+     "n_choices": 2,
+     "slots": [
+      [
+       "url",
+       "URL",
+       1
+      ]
+     ]
+    },
+    {
+     "call": 1,
+     "function": "send_channel_message",
+     "n_choices": 2,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_3",
+   "mode": "strict",
+   "n_writes": 2,
+   "gt_path_product": 4,
+   "writes": [
+    {
+     "call": 0,
+     "function": "get_webpage",
+     "n_choices": 2,
+     "slots": [
+      [
+       "url",
+       "URL",
+       1
+      ]
+     ]
+    },
+    {
+     "call": 1,
+     "function": "send_channel_message",
+     "n_choices": 2,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_4",
+   "mode": "fallback",
+   "n_writes": 2,
+   "gt_path_product": 9,
+   "writes": [
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "post_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_4",
+   "mode": "strict",
+   "n_writes": 2,
+   "gt_path_product": 9,
+   "writes": [
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "post_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_5",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 5,
+   "writes": [
+    {
+     "call": 4,
+     "function": "send_channel_message",
+     "n_choices": 5,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       4
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_5",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 5,
+   "writes": [
+    {
+     "call": 4,
+     "function": "send_channel_message",
+     "n_choices": 5,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       4
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_6",
+   "mode": "fallback",
+   "n_writes": 2,
+   "gt_path_product": 15,
+   "writes": [
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "send_direct_message",
+     "n_choices": 5,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       4
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_6",
+   "mode": "strict",
+   "n_writes": 2,
+   "gt_path_product": 15,
+   "writes": [
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "send_direct_message",
+     "n_choices": 5,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       4
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_7",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 13,
+   "writes": [
+    {
+     "call": 1,
+     "function": "add_user_to_channel",
+     "n_choices": 13,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       2
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       6
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_7",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 13,
+   "writes": [
+    {
+     "call": 1,
+     "function": "add_user_to_channel",
+     "n_choices": 13,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       2
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       6
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_8",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 6,
+   "writes": [
+    {
+     "call": 2,
+     "function": "send_channel_message",
+     "n_choices": 6,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_8",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 6,
+   "writes": [
+    {
+     "call": 2,
+     "function": "send_channel_message",
+     "n_choices": 6,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_9",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 21,
+   "writes": [
+    {
+     "call": 5,
+     "function": "add_user_to_channel",
+     "n_choices": 21,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_9",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 21,
+   "writes": [
+    {
+     "call": 5,
+     "function": "add_user_to_channel",
+     "n_choices": 21,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_10",
+   "mode": "fallback",
+   "n_writes": 3,
+   "gt_path_product": 4913,
+   "writes": [
+    {
+     "call": 5,
+     "function": "add_user_to_channel",
+     "n_choices": 17,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       4
+      ]
+     ]
+    },
+    {
+     "call": 6,
+     "function": "add_user_to_channel",
+     "n_choices": 17,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       4
+      ]
+     ]
+    },
+    {
+     "call": 7,
+     "function": "add_user_to_channel",
+     "n_choices": 17,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       4
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_10",
+   "mode": "strict",
+   "n_writes": 3,
+   "gt_path_product": 4913,
+   "writes": [
+    {
+     "call": 5,
+     "function": "add_user_to_channel",
+     "n_choices": 17,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       4
+      ]
+     ]
+    },
+    {
+     "call": 6,
+     "function": "add_user_to_channel",
+     "n_choices": 17,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       4
+      ]
+     ]
+    },
+    {
+     "call": 7,
+     "function": "add_user_to_channel",
+     "n_choices": 17,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       4
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_11",
+   "mode": "fallback",
+   "n_writes": 4,
+   "gt_path_product": 2890,
+   "writes": [
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 2,
+     "slots": [
+      [
+       "url",
+       "URL",
+       1
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "invite_user_to_slack",
+     "n_choices": 5,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "user_email",
+       "EMAIL",
+       1
+      ]
+     ]
+    },
+    {
+     "call": 3,
+     "function": "add_user_to_channel",
+     "n_choices": 17,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       4
+      ]
+     ]
+    },
+    {
+     "call": 4,
+     "function": "add_user_to_channel",
+     "n_choices": 17,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       4
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_11",
+   "mode": "strict",
+   "n_writes": 4,
+   "gt_path_product": 2890,
+   "writes": [
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 2,
+     "slots": [
+      [
+       "url",
+       "URL",
+       1
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "invite_user_to_slack",
+     "n_choices": 5,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "user_email",
+       "EMAIL",
+       1
+      ]
+     ]
+    },
+    {
+     "call": 3,
+     "function": "add_user_to_channel",
+     "n_choices": 17,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       4
+      ]
+     ]
+    },
+    {
+     "call": 4,
+     "function": "add_user_to_channel",
+     "n_choices": 17,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       4
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_12",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 6,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_channel_message",
+     "n_choices": 6,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_12",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 6,
+   "writes": [
+    {
+     "call": 1,
+     "function": "send_channel_message",
+     "n_choices": 6,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_13",
+   "mode": "fallback",
+   "n_writes": 1,
+   "gt_path_product": 9,
+   "writes": [
+    {
+     "call": 5,
+     "function": "send_direct_message",
+     "n_choices": 9,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       8
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_13",
+   "mode": "strict",
+   "n_writes": 1,
+   "gt_path_product": 9,
+   "writes": [
+    {
+     "call": 5,
+     "function": "send_direct_message",
+     "n_choices": 9,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       8
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_14",
+   "mode": "fallback",
+   "n_writes": 4,
+   "gt_path_product": 6561,
+   "writes": [
+    {
+     "call": 5,
+     "function": "send_direct_message",
+     "n_choices": 9,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       8
+      ]
+     ]
+    },
+    {
+     "call": 6,
+     "function": "send_direct_message",
+     "n_choices": 9,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       8
+      ]
+     ]
+    },
+    {
+     "call": 7,
+     "function": "send_direct_message",
+     "n_choices": 9,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       8
+      ]
+     ]
+    },
+    {
+     "call": 8,
+     "function": "send_direct_message",
+     "n_choices": 9,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       8
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_14",
+   "mode": "strict",
+   "n_writes": 4,
+   "gt_path_product": 6561,
+   "writes": [
+    {
+     "call": 5,
+     "function": "send_direct_message",
+     "n_choices": 9,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       8
+      ]
+     ]
+    },
+    {
+     "call": 6,
+     "function": "send_direct_message",
+     "n_choices": 9,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       8
+      ]
+     ]
+    },
+    {
+     "call": 7,
+     "function": "send_direct_message",
+     "n_choices": 9,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       8
+      ]
+     ]
+    },
+    {
+     "call": 8,
+     "function": "send_direct_message",
+     "n_choices": 9,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       8
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_15",
+   "mode": "fallback",
+   "n_writes": 3,
+   "gt_path_product": 27,
+   "writes": [
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 3,
+     "function": "send_channel_message",
+     "n_choices": 3,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_15",
+   "mode": "strict",
+   "n_writes": 3,
+   "gt_path_product": 27,
+   "writes": [
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 3,
+     "function": "send_channel_message",
+     "n_choices": 3,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_16",
+   "mode": "fallback",
+   "n_writes": 5,
+   "gt_path_product": 768,
+   "writes": [
+    {
+     "call": 0,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 4,
+     "slots": [
+      [
+       "url",
+       "URL",
+       3
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "invite_user_to_slack",
+     "n_choices": 4,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       3
+      ],
+      [
+       "user_email",
+       "EMAIL",
+       1
+      ]
+     ]
+    },
+    {
+     "call": 3,
+     "function": "send_direct_message",
+     "n_choices": 4,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       3
+      ]
+     ]
+    },
+    {
+     "call": 4,
+     "function": "send_direct_message",
+     "n_choices": 4,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       3
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_16",
+   "mode": "strict",
+   "n_writes": 5,
+   "gt_path_product": 768,
+   "writes": [
+    {
+     "call": 0,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 4,
+     "slots": [
+      [
+       "url",
+       "URL",
+       3
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "invite_user_to_slack",
+     "n_choices": 4,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       3
+      ],
+      [
+       "user_email",
+       "EMAIL",
+       1
+      ]
+     ]
+    },
+    {
+     "call": 3,
+     "function": "send_direct_message",
+     "n_choices": 4,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       3
+      ]
+     ]
+    },
+    {
+     "call": 4,
+     "function": "send_direct_message",
+     "n_choices": 4,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       3
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_17",
+   "mode": "fallback",
+   "n_writes": 3,
+   "gt_path_product": 27,
+   "writes": [
+    {
+     "call": 0,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "invite_user_to_slack",
+     "n_choices": 3,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       2
+      ],
+      [
+       "user_email",
+       "EMAIL",
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_17",
+   "mode": "strict",
+   "n_writes": 3,
+   "gt_path_product": 27,
+   "writes": [
+    {
+     "call": 0,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 3,
+     "slots": [
+      [
+       "url",
+       "URL",
+       2
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "invite_user_to_slack",
+     "n_choices": 3,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       2
+      ],
+      [
+       "user_email",
+       "EMAIL",
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_18",
+   "mode": "fallback",
+   "n_writes": 3,
+   "gt_path_product": 144,
+   "writes": [
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 4,
+     "slots": [
+      [
+       "url",
+       "URL",
+       3
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "send_direct_message",
+     "n_choices": 6,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       5
+      ]
+     ]
+    },
+    {
+     "call": 7,
+     "function": "send_channel_message",
+     "n_choices": 6,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_18",
+   "mode": "strict",
+   "n_writes": 3,
+   "gt_path_product": 144,
+   "writes": [
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 4,
+     "slots": [
+      [
+       "url",
+       "URL",
+       3
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "send_direct_message",
+     "n_choices": 6,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       5
+      ]
+     ]
+    },
+    {
+     "call": 7,
+     "function": "send_channel_message",
+     "n_choices": 6,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_19",
+   "mode": "fallback",
+   "n_writes": 2,
+   "gt_path_product": 126,
+   "writes": [
+    {
+     "call": 5,
+     "function": "add_user_to_channel",
+     "n_choices": 21,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       5
+      ]
+     ]
+    },
+    {
+     "call": 8,
+     "function": "send_channel_message",
+     "n_choices": 6,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_19",
+   "mode": "strict",
+   "n_writes": 2,
+   "gt_path_product": 126,
+   "writes": [
+    {
+     "call": 5,
+     "function": "add_user_to_channel",
+     "n_choices": 21,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       4
+      ],
+      [
+       "channel",
+       "CHANNEL",
+       5
+      ]
+     ]
+    },
+    {
+     "call": 8,
+     "function": "send_channel_message",
+     "n_choices": 6,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       5
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_20",
+   "mode": "fallback",
+   "n_writes": 8,
+   "gt_path_product": 2304000,
+   "writes": [
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 5,
+     "slots": [
+      [
+       "url",
+       "URL",
+       4
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "get_webpage",
+     "n_choices": 5,
+     "slots": [
+      [
+       "url",
+       "URL",
+       4
+      ]
+     ]
+    },
+    {
+     "call": 3,
+     "function": "send_channel_message",
+     "n_choices": 6,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       5
+      ]
+     ]
+    },
+    {
+     "call": 4,
+     "function": "get_webpage",
+     "n_choices": 5,
+     "slots": [
+      [
+       "url",
+       "URL",
+       4
+      ]
+     ]
+    },
+    {
+     "call": 5,
+     "function": "get_webpage",
+     "n_choices": 6,
+     "slots": [
+      [
+       "url",
+       "URL",
+       5
+      ]
+     ]
+    },
+    {
+     "call": 6,
+     "function": "invite_user_to_slack",
+     "n_choices": 8,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       7
+      ],
+      [
+       "user_email",
+       "EMAIL",
+       1
+      ]
+     ]
+    },
+    {
+     "call": 7,
+     "function": "send_direct_message",
+     "n_choices": 8,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       7
+      ]
+     ]
+    },
+    {
+     "call": 8,
+     "function": "send_direct_message",
+     "n_choices": 8,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       7
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "slack",
+   "task": "user_task_20",
+   "mode": "strict",
+   "n_writes": 8,
+   "gt_path_product": 2304000,
+   "writes": [
+    {
+     "call": 1,
+     "function": "get_webpage",
+     "n_choices": 5,
+     "slots": [
+      [
+       "url",
+       "URL",
+       4
+      ]
+     ]
+    },
+    {
+     "call": 2,
+     "function": "get_webpage",
+     "n_choices": 5,
+     "slots": [
+      [
+       "url",
+       "URL",
+       4
+      ]
+     ]
+    },
+    {
+     "call": 3,
+     "function": "send_channel_message",
+     "n_choices": 6,
+     "slots": [
+      [
+       "channel",
+       "CHANNEL",
+       5
+      ]
+     ]
+    },
+    {
+     "call": 4,
+     "function": "get_webpage",
+     "n_choices": 5,
+     "slots": [
+      [
+       "url",
+       "URL",
+       4
+      ]
+     ]
+    },
+    {
+     "call": 5,
+     "function": "get_webpage",
+     "n_choices": 6,
+     "slots": [
+      [
+       "url",
+       "URL",
+       5
+      ]
+     ]
+    },
+    {
+     "call": 6,
+     "function": "invite_user_to_slack",
+     "n_choices": 8,
+     "slots": [
+      [
+       "user",
+       "PRINCIPAL",
+       7
+      ],
+      [
+       "user_email",
+       "EMAIL",
+       1
+      ]
+     ]
+    },
+    {
+     "call": 7,
+     "function": "send_direct_message",
+     "n_choices": 8,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       7
+      ]
+     ]
+    },
+    {
+     "call": 8,
+     "function": "send_direct_message",
+     "n_choices": 8,
+     "slots": [
+      [
+       "recipient",
+       "PRINCIPAL",
+       7
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "slot_kind_counts_fallback": {
+  "DATETIME": 18,
+  "EMAIL": 37,
+  "ID": 14,
+  "ENUM": 2,
+  "ENTITY": 1,
+  "ORACLE_COMPOSED": 15,
+  "IBAN": 11,
+  "NUMBER": 11,
+  "DATE": 10,
+  "BOOL": 5,
+  "URL": 19,
+  "PRINCIPAL": 25,
+  "CHANNEL": 16
+ },
+ "wall_seconds": 8.1,
+ "cpu_seconds": 8.2
+}

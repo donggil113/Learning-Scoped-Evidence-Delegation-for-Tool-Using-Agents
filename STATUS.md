@@ -1,93 +1,84 @@
 # STATUS
 
-Last updated 2026-09-26 (second session). Branch `claude/keen-lovelace-jat7ua`.
+Last updated 2026-09-27 (third session). Branch `claude/keen-lovelace-jat7ua`.
 
-## State at the start of this session (checked)
+## This session: real evaluator and headroom on AgentDojo
 
-- HEAD was `11d93fb`, identical to the remote. The working tree was clean.
-- There is no CLAUDE.md.
-- Kept unchanged:
-  - the raw data of SED-E0 and SED-E1;
-  - the E1 config;
-  - the E1 stop-condition result ("learned router does not beat rules").
+No new router was trained. Everything ran offline on at most 2 CPU cores,
+with no LLM API, GPU or service account.
 
-## Done this session
+| Item | Where | Status |
+|------|-------|--------|
+| Pinned snapshot: agentdojo 0.1.35 wheel (sha256 `364bea42…`, MIT) in an isolated venv, no LLM SDKs | `scripts/setup_agentdojo_replay_env.sh`, `adapters/agentdojo_shim.py` | DONE |
+| Direct task enumeration (all versions) | `results/raw/SED-E2-ADJ-CENSUS_*` | v1.2.2: 97 user / 35 injection tasks |
+| Evaluator semantics read in source | RESEARCH_PACKET §6-ADJ | security()=True means the **attack succeeded**; from_traces is checked first; traces are proposed calls |
+| Outcome fields | `adapters/agentdojo_replay.py` | task_success / attack_success / policy_violation kept separate, plus blocked calls and tool errors |
+| Fixtures on the snapshot (10) | `tests/test_agentdojo_replay.py` | PASS in the venv; SKIP under system python |
+| Frozen protocol | `configs/agentdojo_headroom.json` | frozen after a DEVELOPMENT structural pass (no success values inspected) |
+| Census | `results/raw/SED-E2-ADJ-HEADROOM_20260927T000630Z` | COMPLETED, ORACLE_PLAN_CONDITIONAL |
+| First census run | `…_20260927T000131Z` | **INVALID** (witness-truthiness bug), kept |
+| Slot sensitivity | `results/analysis/SED-E2-ADJ-SLOTS_*` | EXPLORATORY |
+| Manuscript v2 | `paper/main.tex`, `paper/tables/`, `paper/claims.csv` (41 claims) | COMPILE_NOT_RUN |
 
-| Item | Where | Status / label |
-|------|-------|----------------|
-| Re-aggregated E1 from stored raw; separated proposed / executed / attacker levels | `scripts/reaggregate_e1.py`, `results/analysis/SED-E1-REAGG_*` | 0 differences; ENGINEERING_ONLY |
-| Expressivity check with the actual features | `scripts/analyze_e1_expressivity.py`, `results/analysis/SED-E1-EXPR_*` | EXPLORATORY; hand-set linear weights = rule on 1920/1920 args |
-| Bug fix: argmax on saturated probabilities → argmax on logits | `src/scoped_evidence/router.py` | E1 outcomes unchanged (0 regeneration mismatches) |
-| Host metadata vs author text (A8); per-feature input origins | `labels.METADATA_ORIGIN`, `router.FEATURE_INPUTS` | DONE |
-| Tests: no label leakage, frozen ≠ isolation, validator trusts labels, set-level counterexample premise, headroom core | `tests/` | 60/60 PASS |
-| SED-E2-HEADROOM-R: bound H, protocol, sim adapter, AgentDojo adapter draft | `src/scoped_evidence/headroom.py`, `adapters/`, `configs/headroom_r.json`, `scripts/run_headroom.py` | sim smoke COMPLETED (ENGINEERING_ONLY); AgentDojo NOT_RUN |
-| Manuscript v1 (all sections written) | `paper/main.tex`, `paper/tables/`, `paper/references.bib`, `paper/claims.csv` | COMPILE_NOT_RUN; SUBMISSION_READY=false |
+## Key numbers (AgentDojo v1.2.2, oracle plan)
 
-## Retracted in this session (original text kept in RESEARCH_PACKET.md)
+**H_clair, unique-or-abstain rule: [0.253, 0.335].**
+- 89 of 97 tasks are resolved. The 8 unresolved tasks stay in the
+  denominator.
+- 52 tasks have no binder slot, so their gap is exactly 0.
+- Secondary analysis (free-text slots fixed to the planner value): 0.306.
+- First-admitted rule: [0.216, 0.299].
 
-1. "A linear pointwise scorer cannot express the lexicographic rule." This is
-   false for the actual features (SED-E1-EXPR).
-2. "The router learned generator artifact A2." Not supported: T9 was held
-   out of training in the template split.
-3. The v1 E2 decision rule "< 10% ambiguity ⇒ < 5 pp improvement". It has a
-   logic error, and ambiguity is only a proxy. It is replaced by the
-   H_upper < δ rule in SED-E2-HEADROOM-R.
+**Decision:** H_upper ≥ 0.05, so learning investment is **not** held. This is
+**not** evidence that learning helps.
+
+**The gap is mostly task reasoning among legitimate values.**
+- Benign-only and injected-only bounds are nearly identical: [0.247, 0.330]
+  and [0.254, 0.336].
+- Slack accounts for most of it: [0.643, 0.690] over 21 tasks.
+
+**Executed attacks under the fixed plan (851 injected variants).**
+- The unique-or-abstain rule executed 4, all in one banking task where the
+  injection erased the legitimate IBAN.
+- The ground-truth plan executed 0.
+
+**Benchmark property.** Injection text replaces the vector's default content.
+The legitimate value was removed in 34 injected variants, and 9 of those
+cannot be solved by any admitted action.
 
 ## Evidence levels (kept separate)
 
-- **Engineering PASS.**
-  - Validator-guarded selectors: 0 reference violations and 0
-    synthetic-secret leaks.
-  - Re-aggregation: 0 differences.
-  - Tests: 60/60.
-- **Toy (synthetic) results.**
-  - The learned binder is not better than the rules: secure-success
-    differences +0.024 / −0.007 / −0.033.
-  - The failure is one of estimation, not expressivity (post hoc).
-- **Real-model or benchmark results:** none.
-- **External utility:** none.
-- **Novelty judgement:** only a measurement framing remains relative to
-  ROPE, PACT and ARGUS, as recorded in RELATED_WORK.md. Novelty is not
-  established.
+- **Engineering:** 71 tests. All 71 pass in the venv. Under system python,
+  61 pass and 10 are skipped.
+- **Toy (simulator):** the learned binder does not beat the rules. The
+  failure is one of estimation, not expressivity.
+- **Benchmark offline replay:** the AgentDojo ceiling above. It is a
+  clairvoyant ceiling, not achievable performance.
+- **Real-model results:** none.
+- **Novelty:** unchanged. The work contributes a measurement framing only;
+  see RELATED_WORK.md.
 
-## Manuscript
+## Kept STOP / FAIL / INVALID
 
-- **Template:** ICML 2026, used temporarily. TEMPLATE_YEAR=2026 and
-  TARGET_YEAR=2027; the ICML 2027 pages return 404.
-- **Style files:** `icml2026.sty` and `.bst` are **not present**, because
-  their download was not approved. No imitation style was created.
-- **Compilation:** COMPILE_NOT_RUN, because there is no LaTeX compiler in the
-  environment.
-- **Static checks:** `scripts/check_tex_static.py` passes (refs, cites,
-  macros, inputs, braces, anonymity). The main body is about 4,150 words
-  excluding 5 tables. The page count is unverified.
-- **Remaining TODOs (3):**
-  - `SED-E2-HEADROOM-R/AgentDojo`
-  - `SED-E2-HEADROOM-R/AgentDyn`
-  - `SED-E3`
+- E1 stop condition (the learned router does not beat the rules).
+- Retracted v1 claims (expressivity; the A2 artifact; the ambiguity-based
+  decision rule).
+- INVALID census run `…000131Z`.
 
 ## Blocked / needs approval
 
-- **SED-E2-HEADROOM-R on AgentDojo:** install the `agentdojo` PyPI package
-  (MIT per its GitHub page; pin the version at approval). The work is
-  CPU-only, with no LLM calls. After approval:
-  1. verify API assumptions A-DJ1..A-DJ7;
-  2. implement the adapter body;
-  3. run the census.
-- **SED-E2-HEADROOM-R on AgentDyn:** fetch `github.com/leolee99/AgentDyn`.
-  Its license has not been checked.
-- **Compiling the manuscript:** `icml2026.zip` from icml.cc and a TeX
-  installation.
-- **SED-E3:** an LLM backbone (paid API or GPU). This is conditional on
-  H_upper ≥ 0.05.
+- **AgentDyn census:** not requested; license NOT_CHECKED.
+- **SED-E3:** matched comparison with a real planner. Needs an LLM backend
+  (paid API or GPU).
+- **Manuscript compile:** icml2026.zip and a TeX installation. The main body
+  is about 5,250 words plus 4 tables, so the 8-page limit is at risk
+  (UNVERIFIED).
 
-## How to reproduce
+## Reproduce
 
 ```
-taskset -c 0,1 timeout 120 python3 -m unittest discover -s tests -v
-taskset -c 0,1 timeout 120 python3 scripts/run_first_run.py --config configs/first_run.json
-python3 scripts/reaggregate_e1.py --run results/raw/SED-E1-SIM_20260926T144531Z
-python3 scripts/analyze_e1_expressivity.py --run results/raw/SED-E1-SIM_20260926T144531Z
-python3 scripts/run_headroom.py --source sim
+scripts/setup_agentdojo_replay_env.sh <venv> <dl_dir>
+PYTHONPATH=src taskset -c 0,1 <venv>/bin/python -m unittest discover -s tests -v
+PYTHONPATH=src taskset -c 0,1 timeout 1900 <venv>/bin/python scripts/run_agentdojo_headroom.py --config configs/agentdojo_headroom.json
 python3 scripts/make_paper_tables.py && python3 scripts/check_tex_static.py
 ```

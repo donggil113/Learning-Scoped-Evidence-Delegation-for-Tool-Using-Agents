@@ -1,7 +1,7 @@
 {
   "project": "Learning Scoped Evidence Delegation for Tool-Using Agents",
-  "manifest_version": 2,
-  "updated_utc": "2026-09-26 (second session)",
+  "manifest_version": 3,
+  "updated_utc": "2026-09-27 (third session)",
   "environment": {
     "python": "3.11.15 (system)",
     "third_party_python_packages_used": [],
@@ -10,7 +10,7 @@
     "wall_clock_limit_seconds": 120,
     "gpu": "not used",
     "network_during_runs": "not used (tests patch socket to raise)",
-    "installs_or_downloads": "none (sessions 1 and 2)"
+    "installs_or_downloads": "session 3: agentdojo 0.1.35 wheel (PyPI, sha256 364bea42...) downloaded to the scratchpad and installed with --no-deps into an isolated venv outside the repo, plus 17 pure-Python packages (scripts/setup_agentdojo_replay_env.sh). No LLM SDK, model, GPU, or service account. Treated as approved by the user's instruction to enumerate from a pinned AgentDojo snapshot."
   },
   "sources": {
     "code": {
@@ -40,9 +40,10 @@
     "external_benchmarks_and_code_NOT_DOWNLOADED": {
       "AgentDojo": {
         "repo": "ethz-spylab/agentdojo",
-        "license": "MIT (read from GitHub page by literature agent)",
-        "latest_version_seen": "0.1.35 on PyPI (2025-10-27), not re-verified by lead",
-        "status": "NOT_DOWNLOADED"
+        "license": "MIT (wheel classifier + LICENSE file)",
+        "version": "0.1.35",
+        "wheel_sha256": "364bea4219716b716bf639f504d195943f7f6a5535d312ca41d7098704a2affd",
+        "status": "DOWNLOADED (session 3), not vendored in repo"
       },
       "CaMeL reference implementation": {
         "repo": "google-research/camel-prompt-injection",
@@ -185,6 +186,59 @@
       "summary": "no undefined refs/cites/macros/inputs, balanced braces/environments, no anonymity flags; ~4151 body words excl. tables; COMPILE_NOT_RUN (no LaTeX compiler; ICML 2026 style files absent)",
       "command": "python3 scripts/check_tex_static.py",
       "results_file": "results/analysis/tex_static_check_20260926T220659Z.json"
+    },
+    {
+      "run_id": "SED-E2-ADJ-CENSUS_20260926T235303Z",
+      "experiment_id": "SED-E2-ADJ-CENSUS",
+      "status": "COMPLETED",
+      "label": "BENCHMARK_CENSUS",
+      "summary": "97 user tasks in every version; 27 (v1-v1.1.2) / 35 (v1.2-v1.2.2) injection tasks",
+      "results_dir": "results/raw/SED-E2-ADJ-CENSUS_20260926T235303Z"
+    },
+    {
+      "run_id": "SED-E2-ADJ-STRUCT-DEV_20260926T235636Z",
+      "experiment_id": "SED-E2-ADJ",
+      "status": "COMPLETED",
+      "label": "DEVELOPMENT (structure/timing only, no success values inspected)",
+      "wall_clock_seconds": 111.5,
+      "results_dir": "results/analysis/SED-E2-ADJ-STRUCT-DEV_20260926T235636Z",
+      "notes": "one earlier attempt failed on import order (attack module imported before the shim); no output kept"
+    },
+    {
+      "run_id": "SED-E2-ADJ-HEADROOM_20260927T000131Z",
+      "experiment_id": "SED-E2-ADJ-HEADROOM",
+      "status": "INVALID (bug; stopped during secondary)",
+      "git_commit": "eb75447",
+      "results_dir": "results/raw/SED-E2-ADJ-HEADROOM_20260927T000131Z",
+      "notes": "see INVALID_README.txt; ~5 min CPU spent"
+    },
+    {
+      "run_id": "SED-E2-ADJ-HEADROOM_20260927T000630Z",
+      "experiment_id": "SED-E2-ADJ-HEADROOM",
+      "status": "COMPLETED",
+      "label": "BENCHMARK_OFFLINE_REPLAY, ORACLE_PLAN_CONDITIONAL",
+      "command": "PYTHONPATH=src taskset -c 0,1 timeout 1900 <venv>/bin/python scripts/run_agentdojo_headroom.py --config configs/agentdojo_headroom.json",
+      "git_commit": "94df506",
+      "config_sha256": "c96569f5447b93788fcd30c55011e49c8a6076ab0add401ba0bb66092566e6b6",
+      "wall_clock_seconds": 345.7,
+      "summary": "primary H_clair [0.253, 0.335] (unique-or-abstain), 89/97 resolved; secondary 0.306; decision: no conclusion about learning",
+      "results_dir": "results/raw/SED-E2-ADJ-HEADROOM_20260927T000630Z"
+    },
+    {
+      "run_id": "SED-E2-ADJ-SLOTS_20260927T001030Z",
+      "experiment_id": "SED-E2-ADJ-SLOTS",
+      "status": "COMPLETED",
+      "label": "EXPLORATORY (post hoc)",
+      "wall_clock_seconds": 8.6,
+      "results_dir": "results/analysis/SED-E2-ADJ-SLOTS_20260927T001030Z"
+    },
+    {
+      "run_id": "SED-E0-UNIT_20260927T001423Z",
+      "experiment_id": "SED-E0-UNIT",
+      "status": "PASS",
+      "git_commit": "06ee688",
+      "summary": "system python: 71 tests, 61 pass, 10 SKIP (AgentDojo not importable); replay venv: 71/71 pass",
+      "results_dir": "results/raw/SED-E0-UNIT_20260927T001423Z"
     }
   ],
   "not_run": [
@@ -192,11 +246,6 @@
       "experiment_id": "SED-E2-HEADROOM",
       "status": "RETRACTED",
       "note": "v1 ambiguity-fraction decision rule was logically wrong; superseded by SED-E2-HEADROOM-R"
-    },
-    {
-      "experiment_id": "SED-E2-HEADROOM-R (AgentDojo)",
-      "status": "NOT_RUN",
-      "blocked_on": "approval to install the agentdojo PyPI package (MIT per GitHub page; pin version at approval)"
     },
     {
       "experiment_id": "SED-E2-HEADROOM-R (AgentDyn)",
@@ -212,10 +261,16 @@
       "experiment_id": "PAPER-COMPILE",
       "status": "COMPILE_NOT_RUN",
       "blocked_on": "no LaTeX compiler; icml2026.zip not downloaded"
+    },
+    {
+      "experiment_id": "SED-E2-ADJ on AgentDyn",
+      "status": "NOT_RUN",
+      "blocked_on": "not requested/approved; license NOT_CHECKED"
     }
   ],
   "dev_and_smoke_costs_not_saved": [
     "session 1: ~6 ad-hoc CPU smoke/debug runs of the simulator before SED-E1 (each < 5 s)",
-    "session 2: ~4 ad-hoc CPU inspection snippets on E1 raw/regenerated episodes (each < 2 s); 2 literature-agent sessions reading public web pages (no downloads)"
+    "session 2: ~4 ad-hoc CPU inspection snippets on E1 raw/regenerated episodes (each < 2 s); 2 literature-agent sessions reading public web pages (no downloads)",
+    "session 3: ~8 ad-hoc CPU inspection snippets on the pinned snapshot (each < 10 s); one fixture invocation error (wrong unittest invocation); one census shell killed by pkill self-match (no data loss)"
   ]
 }

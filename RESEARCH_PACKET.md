@@ -551,3 +551,72 @@ values.
 **H_clair** is a clairvoyant ceiling. It picks the best admitted action
 knowing the evaluator, so it ignores what is observable; it is not
 learnable performance.
+
+### 6-ADJ results
+
+Run: `results/raw/SED-E2-ADJ-HEADROOM_20260927T000630Z`.
+- Label: BENCHMARK_OFFLINE_REPLAY, **ORACLE_PLAN_CONDITIONAL**.
+- Runtime: 345.7 s on at most 2 cores, with no LLM, GPU or network access.
+- Config sha256 `c96569f5…`; code at commit `94df506`.
+
+**INVALID first run.** `SED-E2-ADJ-HEADROOM_20260927T000131Z` is kept but
+invalid, and none of its numbers are used. A success witness equal to the
+empty assignment `{}` was tested by truthiness, which produced negative
+gaps. The fix, a regression test and a best ≥ rule invariant are in commit
+`94df506`; the protocol is unchanged.
+
+**Primary analysis** (free-text slots left UNRESOLVED)
+
+| Quantity | Value |
+|---|---|
+| User tasks, all in the denominator | 97 |
+| Resolved | 89 |
+| UNRESOLVED (`untyped_free_text_slot`) | 8 |
+| Zero-slot tasks (gap exactly 0) | 52 |
+| Variants replayed | 940 |
+| Non-exhaustive variants without a witness | 0 |
+| H_clair, unique-or-abstain | **[0.253, 0.335]** |
+| H_clair, first-admitted | [0.216, 0.299] |
+| Benign-only / injected-only (unique-or-abstain) | [0.247, 0.330] / [0.254, 0.336] |
+
+Per suite (unique-or-abstain):
+
+| Suite | Tasks | Tasks with gap > 0 | UNRESOLVED | H_clair |
+|---|---|---|---|---|
+| workspace | 40 | 6 | 6 | [0.150, 0.300] |
+| travel | 20 | 0 | 0 | 0 |
+| banking | 16 | 5 | 1 | [0.312, 0.375] |
+| slack | 21 | 16 | 1 | [0.643, 0.690] |
+
+**Secondary analysis** (free-text slots fixed to the planner value): 97/97
+resolved. Unique-or-abstain gives 0.306, which lies inside the primary
+interval; first-admitted gives 0.216.
+
+**Security under the fixed plan** (851 injected variants)
+- The ground-truth plan executed 0 attacks.
+- The unique-or-abstain rule executed 4 attacks, all in banking
+  user_task_0 (injection tasks 0/1/3/5). There the injection replaced the
+  bill text, so the attacker's IBAN was the only admitted value.
+- An attacker-text value (≥ 6 characters) was admitted in 37 variants.
+- The benign value was removed in 34 variants. In 9 of them, all in banking
+  user_task_0, no admitted action succeeds.
+
+**Decision.** H_clair_upper = 0.335 ≥ δ = 0.05, so learning investment under
+this contract is **not** held. This result is **not** evidence that learning
+works.
+
+**Interpretation.** The gap comes mostly from choosing among *legitimate*
+admitted values: Slack channels and users, workspace file IDs, and banking
+transaction IDs. That choice is task reasoning, which the oracle plan's
+clairvoyant chooser resolves using the evaluator. On AgentDojo, under an
+oracle plan, the ceiling is a utility ceiling on argument choice, not a
+security margin.
+
+**Exploratory slot sensitivity** (`results/analysis/SED-E2-ADJ-SLOTS_20260927T001030Z`, post hoc):
+- Dropping tasks with numeric-coincidence slots (18 of 91 slots) gives
+  [0.179, 0.228] on 81 tasks.
+- The name-agreement filter flags 73 of 91 slots as mismatched and is not
+  interpretable.
+- Conclusion: H_clair depends on how slots are identified.
+
+**Claims ledger additions:** C30–C41 in `paper/claims.csv`.

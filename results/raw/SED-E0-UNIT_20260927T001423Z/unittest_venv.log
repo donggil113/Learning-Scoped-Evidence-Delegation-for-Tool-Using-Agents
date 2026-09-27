@@ -1,0 +1,83 @@
+commit: 06ee68854ba71ab4dc167f5bb67ef9e46057ccd8
+interpreter: replay venv (agentdojo 0.1.35, no LLM SDK)
+command: PYTHONPATH=src taskset -c 0,1 timeout 300 <venv>/bin/python -m unittest discover -s tests -v
+test_abstain_blocks_the_call (test_agentdojo_replay.TestEvaluatorDirection.test_abstain_blocks_the_call) ... ok
+test_attack_success_direction (test_agentdojo_replay.TestEvaluatorDirection.test_attack_success_direction) ... ok
+test_benign_success (test_agentdojo_replay.TestEvaluatorDirection.test_benign_success) ... ok
+test_blocked_call_is_not_an_attack (test_agentdojo_replay.TestEvaluatorDirection.test_blocked_call_is_not_an_attack) ... ok
+test_evaluate_matches_agentdojo_private_checker (test_agentdojo_replay.TestEvaluatorDirection.test_evaluate_matches_agentdojo_private_checker) ... ok
+test_injection_replaces_default_content (test_agentdojo_replay.TestEvaluatorDirection.test_injection_replaces_default_content) ... ok
+test_no_llm_sdk_imported (test_agentdojo_replay.TestEvaluatorDirection.test_no_llm_sdk_imported) ... ok
+test_policy_violation_flag (test_agentdojo_replay.TestEvaluatorDirection.test_policy_violation_flag) ... ok
+test_replays_do_not_share_state (test_agentdojo_replay.TestEvaluatorDirection.test_replays_do_not_share_state) ... ok
+test_tool_error_is_recorded_and_not_success (test_agentdojo_replay.TestEvaluatorDirection.test_tool_error_is_recorded_and_not_success) ... ok
+test_lexicographic_weights_reproduce_rule_on_sample (test_analysis_claims.TestExpressivityClaims.test_lexicographic_weights_reproduce_rule_on_sample) ... ok
+test_logit_argmax_does_not_tie_on_saturated_probabilities (test_analysis_claims.TestExpressivityClaims.test_logit_argmax_does_not_tie_on_saturated_probabilities) ... ok
+test_set_level_abstention_counterexample_premise (test_analysis_claims.TestExpressivityClaims.test_set_level_abstention_counterexample_premise)
+Two candidate sets in which one candidate has an identical feature ... ok
+test_every_feature_declares_its_input_origin (test_analysis_claims.TestNoLabelLeakage.test_every_feature_declares_its_input_origin) ... ok
+test_features_are_invariant_to_hidden_labels (test_analysis_claims.TestNoLabelLeakage.test_features_are_invariant_to_hidden_labels) ... ok
+test_category_signatures_are_distinct (test_categories.TestCategories.test_category_signatures_are_distinct)
+(validator decision on the planted value, outcome label) differs by category. ... ok
+test_helpful_data_is_bound_and_allowed (test_categories.TestCategories.test_helpful_data_is_bound_and_allowed) ... ok
+test_insufficient_permission_variants_refuse_with_reason (test_categories.TestCategories.test_insufficient_permission_variants_refuse_with_reason) ... ok
+test_malicious_in_scope_is_allowed_by_boundary_and_labelled_as_attack (test_categories.TestCategories.test_malicious_in_scope_is_allowed_by_boundary_and_labelled_as_attack) ... ok
+test_malicious_out_of_scope_is_denied_by_boundary (test_categories.TestCategories.test_malicious_out_of_scope_is_denied_by_boundary) ... ok
+test_mixed_other_field_separates_field_and_document_boundaries (test_categories.TestCategories.test_mixed_other_field_separates_field_and_document_boundaries) ... ok
+test_mixed_same_field_rule_abstains_without_history (test_categories.TestCategories.test_mixed_same_field_rule_abstains_without_history) ... ok
+test_wrong_fact_is_allowed_but_labelled_wrong_not_attack (test_categories.TestCategories.test_wrong_fact_is_allowed_but_labelled_wrong_not_attack) ... ok
+test_empty_assignment_witness_counts (test_headroom.TestCensusBounds.test_empty_assignment_witness_counts) ... ok
+test_action_space_cap (test_headroom.TestHeadroomCore.test_action_space_cap) ... ok
+test_gap_when_rule_abstains_on_resolvable_case (test_headroom.TestHeadroomCore.test_gap_when_rule_abstains_on_resolvable_case) ... ok
+test_hold_only_when_upper_bound_below_delta (test_headroom.TestHeadroomCore.test_hold_only_when_upper_bound_below_delta) ... ok
+test_jsonl_roundtrip_and_ambiguity_proxy (test_headroom.TestHeadroomCore.test_jsonl_roundtrip_and_ambiguity_proxy) ... ok
+test_needs_more_than_binding_is_flagged_not_added (test_headroom.TestHeadroomCore.test_needs_more_than_binding_is_flagged_not_added) ... ok
+test_rule_outside_action_set_is_unresolved (test_headroom.TestHeadroomCore.test_rule_outside_action_set_is_unresolved) ... ok
+test_unresolved_stays_in_denominator (test_headroom.TestHeadroomCore.test_unresolved_stays_in_denominator) ... ok
+test_variants_are_nested_not_independent (test_headroom.TestHeadroomCore.test_variants_are_nested_not_independent) ... ok
+test_sim_records_rule_in_action_set_and_oracle_bound (test_headroom.TestSimAdapter.test_sim_records_rule_in_action_set_and_oracle_bound) ... ok
+test_sinks_are_typed_and_have_recipient (test_labels_schema.TestSchema.test_sinks_are_typed_and_have_recipient) ... ok
+test_accepts_well_formed_values (test_labels_schema.TestTypes.test_accepts_well_formed_values) ... ok
+test_labels_are_frozen (test_labels_schema.TestTypes.test_labels_are_frozen) ... ok
+test_readers (test_labels_schema.TestTypes.test_readers) ... ok
+test_rejects_malformed_or_mixed_values (test_labels_schema.TestTypes.test_rejects_malformed_or_mixed_values) ... ok
+test_trains_and_stays_within_boundary (test_router_bounds.TestLearnedRouter.test_trains_and_stays_within_boundary) ... ok
+test_adversarial_router_never_violates_reference_or_leaks (test_router_bounds.TestRouterCannotBypass.test_adversarial_router_never_violates_reference_or_leaks) ... ok
+test_non_string_proposal_is_rejected (test_router_bounds.TestRouterCannotBypass.test_non_string_proposal_is_rejected) ... ok
+test_router_input_exposes_no_capability_or_validator (test_router_bounds.TestRouterCannotBypass.test_router_input_exposes_no_capability_or_validator) ... ok
+test_selector_scope_view_matches_validator_scope (test_router_bounds.TestRouterCannotBypass.test_selector_scope_view_matches_validator_scope)
+from_requested_field (what selectors/features see) must agree with the ... ok
+test_unknown_candidate_id_is_rejected (test_router_bounds.TestRouterCannotBypass.test_unknown_candidate_id_is_rejected) ... ok
+test_paired_difference (test_splits_metrics.TestMetrics.test_paired_difference) ... ok
+test_summarize_macro_and_attack_rate (test_splits_metrics.TestMetrics.test_summarize_macro_and_attack_rate) ... ok
+test_environment_split_disjoint_domains (test_splits_metrics.TestSplits.test_environment_split_disjoint_domains) ... ok
+test_instance_split_has_disjoint_seeds (test_splits_metrics.TestSplits.test_instance_split_has_disjoint_seeds) ... ok
+test_template_split_disjoint_and_covering (test_splits_metrics.TestSplits.test_template_split_disjoint_and_covering) ... ok
+test_episode_generation_is_deterministic (test_trace_and_isolation.TestIsolation.test_episode_generation_is_deterministic) ... ok
+test_no_network_and_no_secret_in_sinks (test_trace_and_isolation.TestIsolation.test_no_network_and_no_secret_in_sinks) ... ok
+test_abstention_is_traced (test_trace_and_isolation.TestTrace.test_abstention_is_traced) ... ok
+test_trace_records_allow_deny_evidence_and_scopes (test_trace_and_isolation.TestTrace.test_trace_records_allow_deny_evidence_and_scopes) ... ok
+test_camel_mode_asks_confirmation_only_when_otherwise_valid (test_validator.TestProvenanceScopes.test_camel_mode_asks_confirmation_only_when_otherwise_valid) ... ok
+test_flow_violation_blocks_restricted_readers (test_validator.TestProvenanceScopes.test_flow_violation_blocks_restricted_readers) ... ok
+test_limit_exceeded (test_validator.TestProvenanceScopes.test_limit_exceeded) ... ok
+test_other_field_of_delegated_document (test_validator.TestProvenanceScopes.test_other_field_of_delegated_document) ... ok
+test_out_of_scope_attacker_document_is_denied (test_validator.TestProvenanceScopes.test_out_of_scope_attacker_document_is_denied) ... ok
+test_capability_is_immutable (test_validator.TestReadsAndImmutability.test_capability_is_immutable) ... ok
+test_frozen_dataclasses_are_not_isolation (test_validator.TestReadsAndImmutability.test_frozen_dataclasses_are_not_isolation) ... ok
+test_read_scopes (test_validator.TestReadsAndImmutability.test_read_scopes) ... ok
+test_validator_trusts_provenance_labels_it_is_given (test_validator.TestReadsAndImmutability.test_validator_trusts_provenance_labels_it_is_given) ... ok
+test_call_budget_and_dry_run (test_validator.TestValidatorAllowAndBasicDenials.test_call_budget_and_dry_run) ... ok
+test_gold_binding_is_allowed (test_validator.TestValidatorAllowAndBasicDenials.test_gold_binding_is_allowed) ... ok
+test_missing_extra_and_unlabeled_args (test_validator.TestValidatorAllowAndBasicDenials.test_missing_extra_and_unlabeled_args) ... ok
+test_no_capability (test_validator.TestValidatorAllowAndBasicDenials.test_no_capability) ... ok
+test_requested_scope_must_match_provenance (test_validator.TestValidatorAllowAndBasicDenials.test_requested_scope_must_match_provenance) ... ok
+test_trusted_literal_not_allowed_where_only_delegation_is_granted (test_validator.TestValidatorAllowAndBasicDenials.test_trusted_literal_not_allowed_where_only_delegation_is_granted) ... ok
+test_type_error_on_mixed_string (test_validator.TestValidatorAllowAndBasicDenials.test_type_error_on_mixed_string) ... ok
+test_unknown_tool (test_validator.TestValidatorAllowAndBasicDenials.test_unknown_tool) ... ok
+test_vtype_mismatch (test_validator.TestValidatorAllowAndBasicDenials.test_vtype_mismatch) ... ok
+
+----------------------------------------------------------------------
+Ran 71 tests in 0.935s
+
+OK
+exit_code: 0

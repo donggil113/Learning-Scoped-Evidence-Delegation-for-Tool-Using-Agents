@@ -1,7 +1,7 @@
 {
  "project": "Learning Scoped Evidence Delegation for Tool-Using Agents",
- "manifest_version": 4,
- "updated_utc": "2026-09-27 (fourth session)",
+ "manifest_version": 5,
+ "updated_utc": "2026-09-27 (fifth session)",
  "environment": {
   "python": "3.11.15 (system)",
   "third_party_python_packages_used": [],
@@ -373,5 +373,35 @@
   "failed_or_rerun_runs": "none of the census; one unit-test invocation failed to start (/usr/bin/time missing)",
   "gpu_seconds": 0,
   "llm_api_calls": 0
+ },
+ "session5": {
+  "operational_decision": "LEARNED_BINDER_METHOD = HOLD (user instruction); owner UNASSIGNED",
+  "new_experiments": "NONE (no census, calibration, seed sweep, API, GPU, download or training)",
+  "reaggregation_of_existing_raw": {
+   "inputs": "results/raw/SED-E2-CONTRACT-CLOSURE_20260927T053244Z (summary.json, task_results_{fallback,strict}.jsonl)",
+   "purpose": "flag overlap (ORACLE_OUTPUT_DEPENDENT x HAS_ORACLE_COMPOSED), secure/attack envelope counts, vacuous identifiability rows",
+   "results_viewed": true,
+   "wall_seconds": 0.11,
+   "cpu_seconds": 0.06,
+   "threads": 1,
+   "finding": "v3 statement '77 variants keep [0,1]' corrected: 77 incomplete searches (9 tasks); secure/utility [0,1] for 30 (3 tasks); attack reachability open for 75. Flags overlap in 4 tasks (union 44)."
+  },
+  "table_regeneration": {
+   "command": "python3 scripts/make_paper_tables.py",
+   "wall_seconds_each": 0.08,
+   "runs": 4,
+   "results_viewed": true
+  },
+  "tex_static_checks": {
+   "runs": 2,
+   "wall_seconds_each": "<0.5"
+  },
+  "packages": {
+   "internal": "export_bundle/ (python3 scripts/make_export_bundle.py; copy only, no re-execution)",
+   "anonymous": "submission_anon/ (python3 scripts/make_export_bundle.py --anon; anonymity scan 0 hits; negative control caught 6 planted identifiers)",
+   "wall_seconds": 0.22
+  },
+  "unit_tests": "NOT_RUN in session 5 (no src/ or tests/ change; last PASS results/raw/SED-E0-UNIT_20260927T061527Z)",
+  "compile": "COMPILE_NOT_RUN (latexmk/pdflatex/xelatex/lualatex/tectonic absent; icml2026 style absent)"
  }
 }

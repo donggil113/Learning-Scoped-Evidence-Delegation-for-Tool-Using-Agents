@@ -208,18 +208,24 @@ def main() -> None:
         (OUT / "cc_h.tex").write_text(
             "\\begin{tabular}{llccc}\n\\toprule\nEmpty-slot mode & Baseline & Official, secure & Effect, secure & Official, utility only \\\\\n\\midrule\n"
             + "\n".join(hrows) + "\n\\bottomrule\n\\end{tabular}\n")
-        arows = []
         ao, ae = F["attack_room"]["official"], F["attack_room"]["effect"]
+        so, se = St["attack_room"]["official"], St["attack_room"]["effect"]
+
+        def cnt(x, key):
+            return f"{x[key + '_attack_count']}"
+
+        arows = []
         for b, bl in (("resolver", "typed resolver"), ("rule_unique", "unique-or-abstain"), ("all_abstain", "abstain on every write")):
-            arows.append(f"{bl} & {ao[b + '_attack_count']} & {ae[b + '_attack_count']} \\\\")
-        arows.append(f"ground-truth path (gold admitted, {ao['gt_path_n_variants_gold_admitted']} variants) & "
-                     f"{ao['gt_path_attack_count']} & {ae['gt_path_attack_count']} \\\\")
-        arows.append(f"some admitted action reaches the attacker goal & "
-                     f"{ao['attack_reachable_count_lower']}--{ao['attack_reachable_count_lower'] + ao['attack_reachable_count_undetermined']} & "
-                     f"{ae['attack_reachable_count_lower']}--{ae['attack_reachable_count_lower'] + ae['attack_reachable_count_undetermined']} \\\\")
+            arows.append(f"{bl} & {cnt(ao, b)} & {cnt(ae, b)} & {cnt(so, b)} & {cnt(se, b)} \\\\")
+        arows.append("ground-truth path$^a$ & " + " & ".join(f"{x['gt_path_attack_count']}/{x['gt_path_n_variants_gold_admitted']}"
+                                                         for x in (ao, ae, so, se)) + " \\\\")
+        arows.append("some admitted action$^b$ & " + " & ".join(
+            f"{x['attack_reachable_count_lower']}--{x['attack_reachable_count_lower'] + x['attack_reachable_count_undetermined']}"
+            for x in (ao, ae, so, se)) + " \\\\")
         (OUT / "cc_attack.tex").write_text(
-            "\\begin{tabular}{lcc}\n\\toprule\n"
-            f"Injected variants ({ao['n_injected_variants']}), fallback mode & Official & Effect \\\\\n\\midrule\n"
+            "\\begin{tabular}{lcccc}\n\\toprule\n"
+            "& \\multicolumn{2}{c}{fallback} & \\multicolumn{2}{c}{strict} \\\\\n"
+            "Path (of " + str(ao["n_injected_variants"]) + " injected variants) & Off. & Eff. & Off. & Eff. \\\\\n\\midrule\n"
             + "\n".join(arows) + "\n\\bottomrule\n\\end{tabular}\n")
         per = F["primary_per_task"]
         ident = cc.get("identifiability_rows", [])
@@ -235,9 +241,11 @@ def main() -> None:
             n_unres = sum(p["status"] != "OK" for p in ts)
             sel = sum(1 for r in ident if r["task"].startswith(sn + "/"))
             nr = sum(1 for r in ident if r["task"].startswith(sn + "/") and r["status"] == "NOT_REFUTED")
-            srows.append(f"{sn} & {len(ts)} & {n_gap} & {n_und} & {n_unres} & [{lo:.3f}, {up:.3f}] & {sel} & {nr} \\\\")
+            vac = sum(1 for r in ident if r["task"].startswith(sn + "/") and r["status"] == "NOT_REFUTED"
+                      and r["view_group_size"] == 1)
+            srows.append(f"{sn} & {len(ts)} & {n_gap} & {n_und} & {n_unres} & [{lo:.3f}, {up:.3f}] & {sel} & {nr} ({vac}) \\\\")
         (OUT / "cc_suite.tex").write_text(
-            "\\begin{tabular}{lccccccc}\n\\toprule\nSuite & Tasks & Gap$>0$ & Undet. & Unres. & $[H_{\\mathrm{lower}}, H_{\\mathrm{upper}}]$ & Sel.\\ fail. & Not refuted \\\\\n\\midrule\n"
+            "\\begin{tabular}{lccccccc}\n\\toprule\nSuite & Tasks & Gap$>0$ & Undet. & Unres. & $[H_{\\mathrm{lower}}, H_{\\mathrm{upper}}]$ & Sel.\\ fail. & Not refuted (vacuous) \\\\\n\\midrule\n"
             + "\n".join(srows) + "\n\\bottomrule\n\\end{tabular}\n")
         if adj is not None:
             P = adj["results"]["primary"]
@@ -330,7 +338,8 @@ def main() -> None:
         for mac, key, R in (("CcH", "resolver|official|secure", F), ("CcHRule", "rule_unique|official|secure", F),
                             ("CcHEff", "resolver|effect|secure", F), ("CcHTask", "resolver|official|task", F),
                             ("CcHRuleTask", "rule_unique|official|task", F),
-                            ("CcHStrict", "resolver|official|secure", St), ("CcHBen", "resolver|official|secure|benign", F),
+                            ("CcHStrict", "resolver|official|secure", St), ("CcHRuleStrict", "rule_unique|official|secure", St),
+                            ("CcHBen", "resolver|official|secure|benign", F),
                             ("CcHInj", "resolver|official|secure|injected", F)):
             lo, up = lohi(key, R)
             nums[mac + "Lo"], nums[mac + "Up"] = lo, up
@@ -387,6 +396,31 @@ def main() -> None:
                                     if (p["official_task"], p["official_attack"]) != (p["effect_task"], p["effect_attack"])))
         nums["CcPathRecs"] = f'{sum(len(v["paths"]) for r in recs for v in r["variants"]):,}'.replace(",", "{,}")
         nums["CcToolErrPaths"] = str(sum(p["n_tool_errors"] > 0 for r in recs for v in r["variants"] for p in v["paths"].values()))
+        srecs = [json.loads(line) for line in open(ROOT / src["cc_census"] / "task_results_strict.jsonl")]
+
+        def flagged(rs, f):
+            return {(r["suite"], r["task_id"]) for r in rs if f in r["flags"]}
+
+        od, oc = flagged(recs, "ORACLE_OUTPUT_DEPENDENT"), flagged(recs, "HAS_ORACLE_COMPOSED")
+        wset = {(r["suite"], r["task_id"]) for r in wr}
+        vs = [(r, v) for r in recs for v in r["variants"]]
+        sec_und = [(r, v) for r, v in vs if v["bounds"]["official_secure"] == [0.0, 1.0]]
+        inc = [(r, v) for r, v in vs if v["search"]["ran"] and not v["search"]["complete"] and not v["search"]["exhaustive"]]
+        so, sse = St["attack_room"]["official"], St["selectable"]["resolver|official"]
+        vac_tasks = {r["task"] for r in idr} - {r["task"] for r in idr if r["view_group_size"] > 1}
+        nums.update({
+            "CcOutDepWrite": str(len(od & wset)), "CcOutDepCompOverlap": str(len(od & oc)),
+            "CcOutDepCompUnion": str(len(od | oc)), "CcSOutDep": str(len(flagged(srecs, "ORACLE_OUTPUT_DEPENDENT"))),
+            "CcSecUndet": str(len(sec_und)), "CcSecUndetTasks": str(len({(r["suite"], r["task_id"]) for r, v in sec_und})),
+            "CcIncompleteTasks": str(len({(r["suite"], r["task_id"]) for r, v in inc})),
+            "CcAtkUndet": str(F["attack_room"]["official"]["attack_reachable_count_undetermined"]),
+            "CcSResAtk": str(so["resolver_attack_count"]), "CcSRuleAtk": str(so["rule_unique_attack_count"]),
+            "CcSReachLo": str(so["attack_reachable_count_lower"]),
+            "CcSReachUp": str(so["attack_reachable_count_lower"] + so["attack_reachable_count_undetermined"]),
+            "CcSGtN": str(so["gt_path_n_variants_gold_admitted"]),
+            "CcSSelN": str(sse["n_variants"]), "CcSSelTasks": str(sse["n_tasks"]),
+            "CcVacuousTasks": str(len(vac_tasks)),
+        })
     if src.get("cc_coverage"):
         cov = json.loads((ROOT / src["cc_coverage"] / "coverage.json").read_text())
         br = cov["by_reason"]

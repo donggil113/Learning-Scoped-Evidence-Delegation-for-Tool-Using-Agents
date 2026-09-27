@@ -1,0 +1,15 @@
+Anonymous paper-source package (review).
+
+Status: COMPILE_NOT_RUN in the authoring environment (no TeX installation;
+the official ICML style files are not included). No PDF is included.
+
+Requirements: TeX Live (latexmk, pdflatex, bibtex) and the unmodified
+official ICML 2026 style archive (icml2026.sty, icml2026.bst) copied next
+to main.tex. TARGET_YEAR=2027 is not published; TEMPLATE_YEAR=2026.
+
+Build:
+  latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+
+Then check: main body (Introduction to the last sentence of the Conclusion)
+<= 8 pages; no undefined references (grep -i undefined main.log).
+Code and raw results are not part of this package.

@@ -1,12 +1,12 @@
 {
- "created_utc": "2026-09-27T06:16:55Z",
- "git_head_at_export": "5e59956190045c4a92c48b6bd348328d77974d07",
+ "created_utc": "2026-09-27T08:56:41Z",
+ "git_head_at_export": "acb1f0f42859d317538445cff6d55258aa2eed53",
  "pdf": "NOT_BUILT (no TeX installation in this environment; icml2026 style files not in the repository)",
  "files": [
   {
    "path": "paper/main.tex",
-   "bytes": 73600,
-   "sha256": "3155ca909a20556743bc260bc5c6a64b3f7bb1fd01aa01f025b7eee9051fcde0"
+   "bytes": 73486,
+   "sha256": "9da5c8247dadfcaa97ff3982072277dcc5288ad1a8fd951271860751cd332e57"
   },
   {
    "path": "paper/references.bib",
@@ -15,8 +15,8 @@
   },
   {
    "path": "paper/claims.csv",
-   "bytes": 15439,
-   "sha256": "dc8b2526c23b008ab6f028de5523797206e6582b41554b92a1380870045d1631"
+   "bytes": 16947,
+   "sha256": "33b25a0965b24e0bb8d8162cb6f74c3945ace30a953630d165b84ee3a4814b3e"
   },
   {
    "path": "paper/sources.json",
@@ -60,8 +60,8 @@
   },
   {
    "path": "scripts/make_paper_tables.py",
-   "bytes": 25824,
-   "sha256": "25fa152acaa3fff2c8de2ccf743d3a347245aad02e36962d3291e1188931f330"
+   "bytes": 28112,
+   "sha256": "ee459979e5b30cf95f3a4f481b5bd2a7069fe50c608ea5f16f99036eb452f4a7"
   },
   {
    "path": "scripts/check_tex_static.py",
@@ -75,8 +75,8 @@
   },
   {
    "path": "scripts/make_export_bundle.py",
-   "bytes": 3183,
-   "sha256": "687bdf5bca7cf899e55cf85019be421a43a70f4658d01b0626050f572acfe6c4"
+   "bytes": 6760,
+   "sha256": "8ce1e15c9cf2cbec0f8a8d80a8a81e927d3002143da73cf36d155b7699b5b22c"
   },
   {
    "path": "scripts/analyze_contract_v2_coverage.py",
@@ -105,13 +105,13 @@
   },
   {
    "path": "STATUS.md",
-   "bytes": 5325,
-   "sha256": "1ad9e6a99cba375cebc7f347583dc9e4f910fb3686c61b4cb0270acefe4e9d3d"
+   "bytes": 5305,
+   "sha256": "098e956ef4650a396e1b64a29bc129a3263e31aa293ae6e3ad2f66242143c256"
   },
   {
    "path": "run_manifest.json",
-   "bytes": 18212,
-   "sha256": "e936f3ec5f5868d98064c674bae2e0db6ff9eed9b997342517315b95c914a156"
+   "bytes": 19781,
+   "sha256": "65f0f37c2d6e9420649f9b204204c542ebb1e6bb4666c5b05cd982702ab4c52f"
   },
   {
    "path": "paper/tables/adj_census.tex",
@@ -135,8 +135,8 @@
   },
   {
    "path": "paper/tables/cc_attack.tex",
-   "bytes": 345,
-   "sha256": "cdce8b221577233d35078c52b84617b6618bcf53d9b21ca636d90cbff7bd7ddc"
+   "bytes": 431,
+   "sha256": "26723dd87a86ad0d9246ef54bc2dcf234ed8709eb283e8786dcf0171618441c3"
   },
   {
    "path": "paper/tables/cc_h.tex",
@@ -145,8 +145,8 @@
   },
   {
    "path": "paper/tables/cc_suite.tex",
-   "bytes": 408,
-   "sha256": "628eae26d7808134c7a5494886ab0698eece19b592bed85de5f701fe1c5f80fa"
+   "bytes": 438,
+   "sha256": "37f07747e05f457d7c7be3840e7340e3b660197ee0cb40ae2961495839bfcc1b"
   },
   {
    "path": "paper/tables/cc_v1v2.tex",
@@ -195,8 +195,8 @@
   },
   {
    "path": "paper/tables/numbers.tex",
-   "bytes": 3932,
-   "sha256": "9eae14a0e15d8d6932793430028be34cc6e81c8f0ff3ed37c30c88b10491228a"
+   "bytes": 4494,
+   "sha256": "deb4d39204192072a3deb932ea49cb2045a9bb6224c778882ad25ada19ecc735"
   },
   {
    "path": "results/raw/SED-E2-CONTRACT-CLOSURE_20260927T053244Z/summary.json",
@@ -245,5 +245,7 @@
    "bytes": 756515,
    "sha256": "8e237979b146c71d93a8ff05aa2eb0788f26cfd6b22b628e1fa296d9fa03640c"
   }
- ]
+ ],
+ "missing_or_hash_mismatch": [],
+ "referenced_missing_in_repo": []
 }

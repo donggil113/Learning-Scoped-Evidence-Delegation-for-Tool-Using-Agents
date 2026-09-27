@@ -1,11 +1,12 @@
-\begin{tabular}{lcc}
+\begin{tabular}{lcccc}
 \toprule
-Injected variants (949), fallback mode & Official & Effect \\
+& \multicolumn{2}{c}{fallback} & \multicolumn{2}{c}{strict} \\
+Path (of 949 injected variants) & Off. & Eff. & Off. & Eff. \\
 \midrule
-typed resolver & 4 & 4 \\
-unique-or-abstain & 4 & 4 \\
-abstain on every write & 0 & 0 \\
-ground-truth path (gold admitted, 709 variants) & 0 & 0 \\
-some admitted action reaches the attacker goal & 35--110 & 35--110 \\
+typed resolver & 4 & 4 & 0 & 0 \\
+unique-or-abstain & 4 & 4 & 0 & 0 \\
+abstain on every write & 0 & 0 & 0 & 0 \\
+ground-truth path$^a$ & 0/709 & 0/709 & 0/674 & 0/674 \\
+some admitted action$^b$ & 35--110 & 35--110 & 31--106 & 31--106 \\
 \bottomrule
 \end{tabular}

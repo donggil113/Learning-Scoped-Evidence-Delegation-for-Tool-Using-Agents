@@ -1,97 +1,103 @@
 # STATUS
 
-Last updated 2026-09-27 (fourth session). Branch `claude/keen-lovelace-jat7ua`.
+Last updated 2026-09-27 (fifth session). Branch `claude/keen-lovelace-jat7ua`.
 
-## This session: SED-E2-CONTRACT-CLOSURE (one decision experiment)
+## Operational state
 
-No learning was run. There was no new install or download; the existing
-replay venv was reused. Everything ran offline on 2 CPU cores, with no LLM
-API, GPU or service account.
+- **LEARNED_BINDER_METHOD = HOLD.** This is an operational decision by the
+  user in session 5. It is not a result, and it does not say that all
+  evidence-binding research is infeasible.
+- **No new experiment was run in session 5.** There were no downloads, no
+  API or GPU use, no prompted-binder run, no new attacks or AgentDyn, no
+  extractor changes and no training.
+- **The manuscript is NOT ICML-ready.** It was edited to audit scope (v4)
+  and is SUBMISSION_READY = false.
+- **Owner: UNASSIGNED.**
 
-| Item | Where | Status |
-|------|-------|--------|
-| Gold-boundary audit of the V1 census | RESEARCH_PACKET §6-CC; `tests/test_contract_v2.py` | V1 slots, contracts, writes and baseline scopes are **functions of hidden gold**. V1 is kept as the V1 contract's result, not as a deployable ceiling. |
-| CONTRACT_V2 (schema-typed slots, actor-view candidates) | `src/scoped_evidence/adapters/agentdojo_contract_v2.py` | Mutation tests pass on 5 variants, and the negative control is detected. |
-| Official vs executed-effect channels | same module; fixtures | Official is the primary channel. Abstention is a separate event and emits no assistant call. |
-| Frozen protocol | `configs/agentdojo_contract_v2.json` (sha256 `758868cb…`, commit `325da98`) | POST_V1_REVISION, DEVELOPMENT-INFORMED |
-| DEVELOPMENT smoke run (4 tasks) | `results/analysis/DEV-SED-E2-CONTRACT-CLOSURE_20260927T052947Z` | Exposed a number-extraction bug, which was fixed before the freeze |
-| Census | `results/raw/SED-E2-CONTRACT-CLOSURE_20260927T053244Z` | COMPLETED, 97/97 resolved, 2183 s wall, 4100 CPU-s |
-| Coverage diagnostic | `results/analysis/SED-E2-CC-COVERAGE_20260927T061102Z` | EXPLORATORY, post hoc |
-| Manuscript v3 (edited from v2) | `paper/main.tex`, `paper/tables/`, `paper/claims.csv` (51 claims; CORE-1..3 = C45–C47) | COMPILE_NOT_RUN |
-| Export bundle | `export_bundle/` (MANIFEST.json, BUILD.md) | No PDF |
+## What the current census shows (CONTRACT_V2, AgentDojo v1.2.2)
 
-## Key numbers (CONTRACT_V2, AgentDojo v1.2.2, oracle plan, official channel)
+Every number below is ORACLE_PLAN_CONDITIONAL, in both arms. The call
+sequence, read arguments, free-text arguments and final answer are ground
+truth.
 
-- **H_clair over the typed resolver: [0.273, 0.293]** (fallback, primary).
-  - Unique-or-abstain: [0.314, 0.334].
-  - Strict mode: [0.271, 0.292].
-  - This is a computation interval, not a confidence interval.
-- **Utility-only ceiling = secure ceiling.** All 248 selectable failures
-  (28 tasks) are utility failures.
-- **Attacks.**
-  - The baselines executed 4/949 (all banking user_task_0), and 0 in strict
-    mode.
-  - The ground-truth path executed 0/709, and full abstention 0.
-  - **Within-contract attack room: 35–110 injected variants** in which some
-    admitted action achieves the attacker goal.
-- **Channels.** Official = effect on all 4,184 path outcomes, because
-  nothing is denied in this replay.
-- **Coverage.** 14 of 61 write tasks cannot be completed by any admitted
-  action. 43 gold slot values in 21 tasks are not admitted (29 are not in
-  the actor view).
-- **Identifiability screen.** 248 NOT_REFUTED, 0 REFUTED. It is vacuous for
-  148 of them (singleton views).
+| Quantity (official channel) | strict | fallback |
+|---|---|---|
+| Envelope, typed resolver | [0.271, 0.292] | [0.273, 0.293] |
+| Envelope, unique-or-abstain | [0.302, 0.323] | [0.314, 0.334] |
+| Utility-only envelope | = secure envelope | = secure envelope |
+| Selectable failures (all utility) | 247 variants / 27 tasks | 248 / 28 |
+| Baseline-executed attacker goal (of 949) | 0 | 4 |
+| Some admitted choice achieves it (witness bounds) | 31–106 | 35–110 |
 
-## Decision (corrected wording)
+- **Envelopes.** These are computational envelopes over partially searched
+  trees. They are not CIs, achieved gains or learnable security gains.
+- **Fallback is not gold-free.** It inserts gold values into slots that
+  have no candidate (6 tasks). Only the actor-view derivation (slot types,
+  candidates, baseline decisions) is gold-free, and that was checked on 5
+  variants.
+- **Output-dependent tasks.** 42 tasks (fallback) and 38 (strict) are
+  ORACLE_OUTPUT_DEPENDENT. In fallback, 4 of them are also ORACLE_COMPOSED,
+  so the union is 44.
+- **"97/97 resolved"** means no replay error or budget exhaustion. It does
+  not mean every optimum was found. 77 variants in 9 tasks had incomplete
+  searches: 30 of them (3 workspace tasks) keep the secure/utility
+  envelope [0, 1], and 75 keep attack reachability open.
+- **Channels.** Official = effect on all 4,184 path records of this trace
+  set. That is an observation, not an evaluator equivalence (the
+  dual-channel fixture is kept).
+- **Attack witnesses.** The 31–106 / 35–110 witness counts are not attack
+  rates. They also rule out a no-risk claim.
+- **Identifiability screen.** 248 NOT_REFUTED, but it is vacuous for 148
+  (all rows vacuous in 15 of 28 tasks). NOT_REFUTED is not evidence of
+  identifiability.
+- **Candidate coverage.** 14 of 61 write tasks cannot be completed by any
+  candidate *our generator* admits. That is not a limit of every binder.
 
-- **Hold condition.** H_upper < δ = 0.05 is **sufficient** to hold. It was
-  not met (0.293).
-- **This does not require investment.** Holding a *trained* binder remains
-  justified: the gap is utility-only, identifiability is only not refuted,
-  and novelty is a measurement framing only.
-- **Frozen follow-up rule.** The NOT_REFUTED rate is 0.273 ≥ δ, so the
-  rule gives **PROPOSE_CONDITIONAL_NOT_RUN**.
-- **Correction of session 3.** "H_upper ≥ δ, so investment is not held"
-  over-read the rule. Also, [0.253, 0.335] is a computation interval, and
-  it belongs to a gold-derived contract.
+## Corrections made in session 5 (from existing raw only)
 
-## Evidence levels (kept separate)
+- v3 text and report said that 77 variants keep [0, 1]. The correct
+  statement is: 77 incomplete searches, of which 30 are [0, 1] for
+  secure/utility and 75 are open for attack reachability.
+- The v3 claim of a "gold-free contract" is narrowed to the actor-view
+  derivation. The arms are oracle-conditioned, and fallback inserts gold.
+- The strict and fallback numbers are now reported side by side, and the
+  ORACLE_OUTPUT_DEPENDENT / ORACLE_COMPOSED overlap is taken from the flags.
+- Changed claims: C43–C47, C49 and C50 in `paper/claims.csv`.
 
-- **Engineering:** 80 tests. All pass in the replay venv. Under system
-  python, 62 pass and 18 are skipped (replay and contract tests need
-  agentdojo).
-- **Toy (simulator):** the learned binder does not beat the rules. The
-  failure is one of estimation (appendix of the manuscript).
-- **Benchmark offline replay:** the AgentDojo V1 census (gold-derived
-  contract) and the V2 census above. Both are oracle-plan ceilings, not
-  performance.
-- **Real-model results:** none.
-- **Novelty:** unchanged. The work contributes a measurement framing only.
+## Where things are
 
-## Kept STOP / FAIL / INVALID
+| Item | Path | Status |
+|------|------|--------|
+| Census raw | `results/raw/SED-E2-CONTRACT-CLOSURE_20260927T053244Z` | COMPLETED (session 4) |
+| Frozen config | `configs/agentdojo_contract_v2.json` (sha256 `758868cb…`) | unchanged |
+| Coverage diagnostic | `results/analysis/SED-E2-CC-COVERAGE_20260927T061102Z` | EXPLORATORY |
+| V1 census | `results/raw/SED-E2-ADJ-HEADROOM_20260927T000630Z` | kept; gold-derived contract |
+| INVALID run | `results/raw/SED-E2-ADJ-HEADROOM_20260927T000131Z` | kept |
+| Manuscript v4 | `paper/main.tex`, `paper/tables/`, `paper/claims.csv` | COMPILE_NOT_RUN (no TeX, no icml2026 style) |
+| Internal evidence package | `export_bundle/` | MANIFEST.json with sha256; large raw referenced, not copied |
+| Anonymous source package | `submission_anon/` | paper sources only; anonymity scan in its MANIFEST |
 
-- E1 stop condition (the learned router does not beat the rules).
-- Retracted v1 claims (expressivity; A2; the ambiguity-based rule).
-- INVALID census run `SED-E2-ADJ-HEADROOM_20260927T000131Z`.
-- The V1 census (`…000630Z`) is kept unchanged and is now labelled
-  gold-derived contract. Claim C35 is marked CORRECTED (see C48).
+Kept STOP / FAIL / INVALID: the E1 stop condition, the retracted v1
+claims, the INVALID census run, and C35 marked CORRECTED.
 
-## Blocked / needs approval
+## Resume conditions (all three required)
 
-- **Learned or prompted binder follow-up** (proposed, not run). Needs an
-  LLM backend (paid API or GPU); not approved.
-- **AgentDyn:** not requested; license NOT_CHECKED.
-- **Manuscript compile:** no TeX installation, and icml2026.zip is absent.
-  The main body is about 4,620 words plus 3 tables; the page count is
-  UNVERIFIED.
+1. A human researcher fixes a new security research question and threat
+   model.
+2. There are independently executed traces, or a clear conditional
+   evaluation contract, in which the actor is not given oracle answers or
+   future observations.
+3. A contribution distinct from the direct prior work (ROPE, PACT, ARGUS,
+   CaMeL), plus explicit approval of a bounded execution budget.
 
-## Reproduce
+None of these is met. Owner: UNASSIGNED.
+
+## Reproduce (existing artefacts; no need to re-run for the manuscript)
 
 ```
-scripts/setup_agentdojo_replay_env.sh <venv> <dl_dir>
-PYTHONPATH=src:tests taskset -c 0,1 <venv>/bin/python -m unittest discover -s tests -v
-PYTHONPATH=src taskset -c 0,1 timeout 7800 <venv>/bin/python scripts/run_contract_v2_census.py --config configs/agentdojo_contract_v2.json
-PYTHONPATH=src taskset -c 0,1 <venv>/bin/python scripts/analyze_contract_v2_coverage.py --census results/raw/SED-E2-CONTRACT-CLOSURE_20260927T053244Z
 python3 scripts/make_paper_tables.py && python3 scripts/check_tex_static.py
-python3 scripts/make_export_bundle.py
+python3 scripts/make_export_bundle.py            # internal evidence package
+python3 scripts/make_export_bundle.py --anon     # anonymous paper-source package
+# census (only if re-running is ever approved):
+PYTHONPATH=src taskset -c 0,1 timeout 7800 <venv>/bin/python scripts/run_contract_v2_census.py --config configs/agentdojo_contract_v2.json
 ```

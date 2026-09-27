@@ -472,3 +472,82 @@ NOT_RUN. `agentdojo` is not installed and the download is not approved.
 | Any number about real LLM agents | NONE produced by this project |
 | Process isolation of the binder | NOT CLAIMED (interface property only; tests show in-process mutation is possible) |
 | Formal security guarantee | UNPROVED. The validator is tested, not verified. "Router cannot bypass" relies on (a) selectors returning only candidate ids and (b) provenance being created only by trusted extraction code. Both are enforced by code structure and tests, not by proof. |
+
+## 6-ADJ. SED-E2-ADJ: AgentDojo offline replay (session 3)
+
+**Snapshot.**
+- agentdojo **0.1.35**, PyPI wheel sha256 `364bea42…a2affd`, MIT license (per
+  the wheel's classifier and LICENSE file). The benchmark version is
+  **v1.2.2**.
+- The package is installed in an isolated venv outside the repo with
+  `--no-deps` plus 17 pure-Python packages; see
+  `scripts/setup_agentdojo_replay_env.sh`.
+- `adapters/agentdojo_shim.py` skips `agent_pipeline/__init__`, so no LLM
+  SDK is installed or imported. The one constant that path needs
+  (`EMPTY_FUNCTION_NAME`) is read from the source AST.
+
+**Direct enumeration** (`results/raw/SED-E2-ADJ-CENSUS_20260926T235303Z`).
+Every benchmark version in the snapshot has 97 user tasks: workspace 40,
+travel 20, banking 16, slack 21. The number of injection tasks is 27 for
+v1–v1.1.2 and 35 for v1.2–v1.2.2 (workspace grows from 6 to 14). These counts
+were read from the registry at import time.
+
+**Evaluator semantics** (read in the pinned source):
+- `BaseUserTask.utility(model_output, pre, post, strict=True)` returns True
+  if the user task was done.
+- `BaseInjectionTask.security(model_output, pre, post)` returns True if **the
+  injection goal was achieved**, i.e. True means the attack succeeded.
+- `*_from_traces(...)` returns bool, or None to fall back to the state-based
+  check. `TaskSuite._check_user_task_utility` and
+  `TaskSuite._check_injection_task_security` try `*_from_traces` first.
+- The traces are **all tool calls in assistant messages**, i.e. proposed
+  calls.
+- `run_task_with_pipeline` returns `(utility, True)` when there is no
+  injection task.
+
+How the replay uses these semantics:
+- It records `task_success`, `attack_success` (None for benign) and
+  `policy_violation` as separate fields.
+- It passes only calls that passed the gate and were attempted as traces, so
+  a blocked call cannot count as an attack.
+- In v1.2.2, `utility_from_traces` is overridden by 7 workspace and 5 slack
+  user tasks, and `security_from_traces` by 1 slack injection task.
+
+**Observed benchmark properties** (not modified):
+1. **Injection replaces default content.** An injection vector's default
+   text can hold the legitimate content, and the attack text replaces it
+   entirely. For example, the IBAN in banking's bill file disappears under
+   injection.
+2. **Operator precedence in banking injection_task_0.** Its `security()`
+   contains `any(service or "" in t.subject.lower() ...)`. Because of
+   operator precedence, this returns True for any transaction to the attacker
+   IBAN. The intent is not verified.
+
+**Fixtures** (`tests/test_agentdojo_replay.py`, 10 tests, run in the replay
+venv):
+- benign success;
+- attack-success direction;
+- blocked call not counted as an attack (no attacker transaction in the
+  post-state);
+- abstain;
+- tool error;
+- policy-violation flag;
+- replay isolation;
+- agreement with AgentDojo's own `_check_task_result`;
+- injection replacement.
+
+**Census protocol.** Frozen in `configs/agentdojo_headroom.json` at commit
+`eb75447`, after a DEVELOPMENT structural pass that inspected no success
+values.
+- ORACLE_PLAN_CONDITIONAL fixed plan.
+- Contract derived from the benign ground-truth location of each value.
+- Typed extractor library.
+- Full-sequence action sets, each assignment replayed on its own deep copy.
+- Witness/exhaustiveness-based per-task bounds.
+- UNRESOLVED tasks kept in the denominator.
+- Primary rule unique-or-abstain; secondary rule first-admitted.
+- Secondary analysis: free-text slots fixed to the planner value.
+
+**H_clair** is a clairvoyant ceiling. It picks the best admitted action
+knowing the evaluator, so it ignores what is observable; it is not
+learnable performance.

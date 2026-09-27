@@ -95,3 +95,18 @@ class TestSimAdapter(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestCensusBounds(unittest.TestCase):
+    def test_empty_assignment_witness_counts(self):
+        from pathlib import Path
+
+        src = (Path(__file__).resolve().parents[1] / "scripts" / "run_agentdojo_headroom.py").read_text()
+        self.assertIn("variant_bounds(witness is not None, exhaustive)", src)
+        self.assertNotIn("1.0 if witness else", src)
+        ns: dict = {}
+        exec(src[src.index("def variant_bounds"):src.index("def run_task")], ns)
+        vb = ns["variant_bounds"]
+        self.assertEqual(vb({} is not None, True), (1.0, 1.0))  # empty-dict witness (zero-slot task)
+        self.assertEqual(vb(False, True), (0.0, 0.0))
+        self.assertEqual(vb(False, False), (0.0, 1.0))

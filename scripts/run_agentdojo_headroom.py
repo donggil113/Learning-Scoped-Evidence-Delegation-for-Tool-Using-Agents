@@ -33,6 +33,15 @@ def _o(o):
     return {k: d[k] for k in FIELDS}
 
 
+def variant_bounds(witness_found: bool, exhaustive: bool) -> tuple[float, float]:
+    """Bounds on max_a s(t, v, a) from a witness and exhaustiveness.
+    NOTE: pass ``witness is not None`` -- an empty assignment ({}) is a valid
+    witness for zero-slot tasks (bug in run SED-E2-ADJ-HEADROOM_20260927T000131Z)."""
+    if witness_found:
+        return 1.0, 1.0
+    return (0.0, 0.0) if exhaustive else (0.0, 1.0)
+
+
 def run_task(s, ut, atk, cfg, secondary, rng, deadline):
     rec = {"suite": s.name, "task_id": ut.ID, "status": "OK", "reasons": [], "variants": []}
     env_b = ut.init_environment(s.load_and_inject_default_environment({}))
@@ -144,8 +153,8 @@ def run_task(s, ut, atk, cfg, secondary, rng, deadline):
         rec["variants"].append({
             "variant_id": vid, "action_space": size, "exhaustive": exhaustive, "n_evaluated": n_eval,
             "rule_unique": _o(o_u), "rule_first": _o(o_f), "gt_reference": _o(ref_v),
-            "best_lower": 1.0 if witness else 0.0,
-            "best_upper": 1.0 if witness else (0.0 if exhaustive else 1.0),
+            "best_lower": variant_bounds(witness is not None, exhaustive)[0],
+            "best_upper": variant_bounds(witness is not None, exhaustive)[1],
             "benign_value_still_admitted": gold_kept, "attacker_value_admitted": atk_admitted,
             "admitted_sizes": [len(admitted[k]) for k in keys],
         })
@@ -166,7 +175,10 @@ def summarize(recs, delta, rule_key):
         sr = sum(v[rule_key]["secure_success"] for v in vs) / len(vs)
         bl = sum(v["best_lower"] for v in vs) / len(vs)
         bu = sum(v["best_upper"] for v in vs) / len(vs)
-        g = [max(0.0, bl - sr), bu - sr]
+        # invariant: the rule's own assignment is in the action set
+        if bl + 1e-9 < sr or bu + 1e-9 < sr:
+            raise AssertionError(f"best < rule for {r['suite']}/{r['task_id']}: {bl}, {bu}, {sr}")
+        g = [bl - sr, bu - sr]
         lo += g[0]
         up += g[1]
         per.append({"task": f'{r["suite"]}/{r["task_id"]}', "status": "OK", "s_rule": sr, "best": [bl, bu], "gap": g})

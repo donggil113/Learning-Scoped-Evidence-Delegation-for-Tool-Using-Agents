@@ -605,6 +605,18 @@ interval; first-admitted gives 0.216.
 this contract is **not** held. This result is **not** evidence that learning
 works.
 
+> **Correction (session 4, amendment; the original sentence above is kept).**
+> The sentence above over-reads the rule. H_upper < δ is a *sufficient*
+> condition for holding investment. H_upper ≥ δ does **not** mean that
+> holding is ruled out: holding can still be justified by a contaminated
+> contract (this V1 contract was derived from hidden gold, §6-CC), a weak
+> baseline, a gap that is utility-only, or cost and novelty. Correct reading:
+> "the sufficient condition for holding was not met; nothing follows about
+> learning." Also, [0.253, 0.335] is a **computation/unresolved interval**
+> (witness bounds plus 8 UNRESOLVED tasks counted 0/1), **not** a 95%
+> confidence interval. It is conditional on the oracle plan, the oracle
+> observations and the oracle final answer.
+
 **Interpretation.** The gap comes mostly from choosing among *legitimate*
 admitted values: Slack channels and users, workspace file IDs, and banking
 transaction IDs. That choice is task reasoning, which the oracle plan's
@@ -620,3 +632,106 @@ security margin.
 - Conclusion: H_clair depends on how slots are identified.
 
 **Claims ledger additions:** C30–C41 in `paper/claims.csv`.
+
+## 6-CC. SED-E2-CONTRACT-CLOSURE: CONTRACT_V2 census (session 4)
+
+Label: **CONTRACT_V2, BENCHMARK_OFFLINE_REPLAY, ORACLE_PLAN_CONDITIONAL,
+POST_V1_REVISION, DEVELOPMENT-INFORMED.** This is a revision written after
+the V1 census had been seen, not a blind pre-registration. The V1 results
+above are kept as the result of the V1 contract.
+
+### Gold-information boundary audit of V1 (dataflow read in code)
+
+The V1 census (`adapters/agentdojo_replay.py`, `scripts/run_agentdojo_headroom.py`)
+used hidden gold to build what the actor was allowed to see and choose:
+
+| V1 component | Hidden input | Consequence |
+|---|---|---|
+| `classify_args` (`agentdojo_replay.py:243`) | ground-truth argument values of the plan (`call.args`) | which arguments are slots, their origin and their contract come from where the **gold value** occurs in earlier outputs |
+| `prompt_contains` (`:101`) | gold values | a slot is dropped when its gold value is in the prompt |
+| `state_changing_calls` (`:229`) | post-state diff of the gold-path execution | which calls are writes depends on gold arguments |
+| `admitted_values` (`:278`) | gold-derived contract and an extractor chosen by the **type of the gold value** | the admitted set is gold-shaped |
+| baselines `rule_u`, `rule_f` | the gold-derived admitted set | baseline decisions are functions of gold |
+| `attacker_value_admitted` | injection text | descriptive only; not used in any bound |
+
+`tests/test_contract_v2.py::test_v1_derivation_depends_on_hidden_gold`
+shows the effect: mutating only the gold values of write arguments changes
+the V1 slot/contract derivation. The V1 ceiling is therefore the ceiling of a
+**gold-contaminated contract**. It is kept as that, and it is not comparable
+to a deployable contract.
+
+### CONTRACT_V2 (gold-free actor view)
+
+- **Actor view** = (trusted user prompt, tool schema, declared policy, outputs
+  of calls already executed in this replay).
+- **Writes** are declared from function names (write verbs, `get_webpage` as
+  an external request).
+- **Slot kinds** come from (function, argument name, JSON-schema type,
+  schema description) via `slot_kind`. Binder kinds are IBAN, EMAIL,
+  DATETIME, DATE, URL, ID, NUMBER, ENUM, BOOL, ENTITY, PRINCIPAL and
+  CHANNEL. FREE_TEXT and OTHER stay planner-fixed and are counted, not
+  bound. There is no per-task allowlist.
+- **Candidates** are typed values extracted from the trusted prompt and the
+  observation prefix. No field restriction is applied: an attacker-written
+  value of the right type in an observation **is admitted**. V2 is a
+  provenance-and-type contract, weaker than V1's gold-located one.
+- **Empty binder slot.** In `fallback` mode (primary) it is ORACLE_COMPOSED
+  and takes the planner value. In `strict` mode (sensitivity) the only
+  choice is ABSTAIN (or leaving an optional argument unset).
+- **Baselines** read only the actor view: unique-or-abstain, and the typed
+  lexical/reference `resolver`. The resolver was developed on banking/0,
+  slack/5 and workspace/35 and was not changed after the smoke run.
+- **Gold boundary test.** Mutating gold write values, the final answer and
+  the injection-task object leaves slot kinds, candidate sets and baseline
+  decisions unchanged on five task/variant cases. A negative control, a
+  chooser that reads gold, is detected by the same test.
+
+### Evaluation channels
+
+- **A. OFFICIAL_MESSAGE_BASED (primary).** An assistant/tool transcript is
+  passed unchanged to AgentDojo's `functions_stack_trace_from_messages`,
+  `model_output_from_messages` and `TaskSuite._check_task_result`. Proposed
+  calls, including ones that errored, are in the trace.
+- **ABSTAIN** is a separate candidate event: no assistant call is emitted.
+  Assistant calls are never deleted after the fact.
+- **B. EXECUTED_EFFECT.** Only calls executed without error are in the
+  trace, evaluated together with the post-state. The state-based checks are
+  pure functions of (text, pre, post). They are reused from channel A only
+  when AgentDojo provably took the state-based branch with identical text;
+  equality with recomputation is tested.
+- **Security semantics.** security True means the attack succeeded; benign
+  variants record None (NA), not 0. Policy violation is 0 by construction,
+  because every bound value is admitted.
+- **Fixture.** On slack injection_task_5, proposed-but-denied attacker calls
+  give official attack = True and effect attack = False.
+
+### Protocol (frozen in `configs/agentdojo_contract_v2.json`, commit `325da98`, sha256 `758868cb…`)
+
+- **Replay.** SEQUENTIAL, not counterfactual: each choice executes on a copy
+  of the current state, and later observations and candidates follow from
+  it. Read arguments stay at the oracle plan.
+- **Scope.** All 97 tasks, benign plus DirectAttack variants identical to
+  V1. **No V1 reuse:** V1 stored no candidate values, its contract was
+  gold-derived, and no hash identity exists.
+- **Search.** Gold-first DFS (gold affects order only). Leaf caps are
+  workspace/travel 256 and banking/slack 4096, set from measured cost per
+  leaf. The search stops when all needed witnesses are found (task, secure,
+  attack; official and effect). Baseline and all-abstain paths seed the
+  witnesses.
+- **Bounds and denominator.** Bounds are witness/exhaustiveness bounds.
+  UNRESOLVED tasks stay in the denominator at [0, 1].
+- **Flags.** ORACLE_OUTPUT_DEPENDENT is set when official benign utility on
+  the gold path changes after the final answer is replaced by "".
+- **Identifiability screen** (first write, necessary condition only). For
+  tasks with ≥ 1 selectable failure, the success-reachable first-write set
+  S is computed for every variant. Variants with an identical first-write
+  actor view and provably disjoint S are REFUTED_NONIDENTIFIABLE.
+  Otherwise the status is NOT_REFUTED (not a proof of identifiability) or
+  UNKNOWN.
+- **Decision rule (corrected wording).** H_upper < δ = 0.05 is sufficient
+  to hold. H_upper ≥ δ does not require investment. A learner follow-up is
+  *proposed* (not run) only if the task-nested rate of NOT_REFUTED
+  selectable failures is ≥ δ.
+- **DEVELOPMENT smoke run** (4 tasks, `results/analysis/DEV-SED-E2-CONTRACT-CLOSURE_20260927T052947Z`).
+  It exposed a real extraction bug (sentence-final numbers dropped), fixed
+  with a regression test before the freeze.

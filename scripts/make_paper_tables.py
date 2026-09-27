@@ -190,6 +190,69 @@ def main() -> None:
             "\\begin{tabular}{lcccc}\n\\toprule\nSuite & Tasks & Tasks with gap $>0$ & Unresolved & per-suite $[H_{\\mathrm{lower}}, H_{\\mathrm{upper}}]$ \\\\\n\\midrule\n"
             + "\n".join(srows) + "\n\\bottomrule\n\\end{tabular}\n")
 
+    # --- CONTRACT_V2 census (SED-E2-CONTRACT-CLOSURE) -----------------------------------------------
+    cc = None
+    if src.get("cc_census"):
+        cc = json.loads((ROOT / src["cc_census"] / "summary.json").read_text())
+        F, St = cc["results"]["fallback"], cc["results"]["strict"]
+
+        def iv(h):
+            return f"[{h['H_lower']:.3f}, {h['H_upper']:.3f}]"
+
+        hrows = []
+        for mode, R in (("fallback (primary)", F), ("strict", St)):
+            for b, bl in (("resolver", "typed resolver"), ("rule_unique", "unique-or-abstain")):
+                H = R["H"]
+                hrows.append(f"{mode} & {bl} & {iv(H[f'{b}|official|secure'])} & {iv(H[f'{b}|effect|secure'])} & "
+                             f"{iv(H[f'{b}|official|task'])} \\\\")
+        (OUT / "cc_h.tex").write_text(
+            "\\begin{tabular}{llccc}\n\\toprule\nEmpty-slot mode & Baseline & Official, secure & Effect, secure & Official, utility only \\\\\n\\midrule\n"
+            + "\n".join(hrows) + "\n\\bottomrule\n\\end{tabular}\n")
+        arows = []
+        ao, ae = F["attack_room"]["official"], F["attack_room"]["effect"]
+        for b, bl in (("resolver", "typed resolver"), ("rule_unique", "unique-or-abstain"), ("all_abstain", "abstain on every write")):
+            arows.append(f"{bl} & {ao[b + '_attack_count']} & {ae[b + '_attack_count']} \\\\")
+        arows.append(f"ground-truth path (gold admitted, {ao['gt_path_n_variants_gold_admitted']} variants) & "
+                     f"{ao['gt_path_attack_count']} & {ae['gt_path_attack_count']} \\\\")
+        arows.append(f"some admitted action reaches the attacker goal & "
+                     f"{ao['attack_reachable_count_lower']}--{ao['attack_reachable_count_lower'] + ao['attack_reachable_count_undetermined']} & "
+                     f"{ae['attack_reachable_count_lower']}--{ae['attack_reachable_count_lower'] + ae['attack_reachable_count_undetermined']} \\\\")
+        (OUT / "cc_attack.tex").write_text(
+            "\\begin{tabular}{lcc}\n\\toprule\n"
+            f"Injected variants ({ao['n_injected_variants']}), fallback mode & Official & Effect \\\\\n\\midrule\n"
+            + "\n".join(arows) + "\n\\bottomrule\n\\end{tabular}\n")
+        per = F["primary_per_task"]
+        ident = cc.get("identifiability_rows", [])
+        srows = []
+        for sn in ("workspace", "travel", "banking", "slack"):
+            ts = [p for p in per if p["task"].startswith(sn + "/")]
+            if not ts:
+                continue
+            lo = sum(p["gap"][0] for p in ts) / len(ts)
+            up = sum(p["gap"][1] for p in ts) / len(ts)
+            n_gap = sum(p["status"] == "OK" and p["gap"][0] > 1e-9 for p in ts)
+            n_und = sum(p["status"] == "OK" and p["gap"][1] - p["gap"][0] > 1e-9 for p in ts)
+            n_unres = sum(p["status"] != "OK" for p in ts)
+            sel = sum(1 for r in ident if r["task"].startswith(sn + "/"))
+            nr = sum(1 for r in ident if r["task"].startswith(sn + "/") and r["status"] == "NOT_REFUTED")
+            srows.append(f"{sn} & {len(ts)} & {n_gap} & {n_und} & {n_unres} & [{lo:.3f}, {up:.3f}] & {sel} & {nr} \\\\")
+        (OUT / "cc_suite.tex").write_text(
+            "\\begin{tabular}{lccccccc}\n\\toprule\nSuite & Tasks & Gap$>0$ & Undet. & Unres. & $[H_{\\mathrm{lower}}, H_{\\mathrm{upper}}]$ & Sel.\\ fail. & Not refuted \\\\\n\\midrule\n"
+            + "\n".join(srows) + "\n\\bottomrule\n\\end{tabular}\n")
+        if adj is not None:
+            P = adj["results"]["primary"]
+            vrows = [
+                f"V1: slots and contract from benign ground truth & unique-or-abstain & {P['n_resolved']}/{P['n_user_tasks']} & "
+                f"[{P['rule_unique']['H_clair_lower']:.3f}, {P['rule_unique']['H_clair_upper']:.3f}] & "
+                f"{round(P['rule_unique_attack_success_rate_injected'] * P['injected_variants'])}/{P['injected_variants']} \\\\",
+            ]
+            for b, bl in (("rule_unique", "unique-or-abstain"), ("resolver", "typed resolver")):
+                vrows.append(f"V2: schema slots, actor-view candidates & {bl} & {F['n_resolved']}/{F['n_tasks']} & "
+                             f"{iv(F['H'][f'{b}|official|secure'])} & {ao[b + '_attack_count']}/{ao['n_injected_variants']} \\\\")
+            (OUT / "cc_v1v2.tex").write_text(
+                "\\begin{tabular}{llccc}\n\\toprule\nContract & Baseline & Resolved & $[H_{\\mathrm{lower}}, H_{\\mathrm{upper}}]$ & Executed attacks \\\\\n\\midrule\n"
+                + "\n".join(vrows) + "\n\\bottomrule\n\\end{tabular}\n")
+
     # --- number macros -------------------------------------------------------------------------------
     inv = m["engineering_invariants"]
     tpl = m["metrics"]["template"]
@@ -255,6 +318,62 @@ def main() -> None:
         nums.update({"AdjNumKept": str(d["n_tasks_kept"]), "AdjNumLo": f"{d['H_lower']:.3f}",
                      "AdjNumUp": f"{d['H_upper']:.3f}", "AdjNumericSlots": str(sl["n_numeric_slots"]),
                      "AdjSlots": str(sl["n_slots"])})
+    if cc is not None:
+        F, St = cc["results"]["fallback"], cc["results"]["strict"]
+        H, ao, ae = F["H"], F["attack_room"]["official"], F["attack_room"]["effect"]
+        sel = F["selectable"]["resolver|official"]
+        idr = cc.get("identifiability_rows", [])
+
+        def lohi(key, R=F):
+            return f"{R['H'][key]['H_lower']:.3f}", f"{R['H'][key]['H_upper']:.3f}"
+
+        for mac, key, R in (("CcH", "resolver|official|secure", F), ("CcHRule", "rule_unique|official|secure", F),
+                            ("CcHEff", "resolver|effect|secure", F), ("CcHTask", "resolver|official|task", F),
+                            ("CcHRuleTask", "rule_unique|official|task", F),
+                            ("CcHStrict", "resolver|official|secure", St), ("CcHBen", "resolver|official|secure|benign", F),
+                            ("CcHInj", "resolver|official|secure|injected", F)):
+            lo, up = lohi(key, R)
+            nums[mac + "Lo"], nums[mac + "Up"] = lo, up
+        fl = F["flags"]
+        nums.update({
+            "CcTasks": str(F["n_tasks"]), "CcResolved": str(F["n_resolved"]),
+            "CcUnresolved": str(F["n_tasks"] - F["n_resolved"]),
+            "CcStrictResolved": str(St["n_resolved"]),
+            "CcVariants": f"{F['n_variants']:,}".replace(",", "{,}"),
+            "CcInjVariants": str(ao["n_injected_variants"]),
+            "CcNoWrite": str(F["n_tasks_without_writes"]),
+            "CcIncomplete": str(F["n_variants_search_incomplete"]),
+            "CcLeaves": f"{F['leaves_total'] + St['leaves_total']:,}".replace(",", "{,}"),
+            "CcResAtk": str(ao["resolver_attack_count"]), "CcRuleAtk": str(ao["rule_unique_attack_count"]),
+            "CcAbsAtk": str(ao["all_abstain_attack_count"]), "CcGtAtk": str(ao["gt_path_attack_count"]),
+            "CcGtN": str(ao["gt_path_n_variants_gold_admitted"]),
+            "CcResAtkEff": str(ae["resolver_attack_count"]), "CcRuleAtkEff": str(ae["rule_unique_attack_count"]),
+            "CcReachLo": str(ao["attack_reachable_count_lower"]),
+            "CcReachUp": str(ao["attack_reachable_count_lower"] + ao["attack_reachable_count_undetermined"]),
+            "CcReachEffLo": str(ae["attack_reachable_count_lower"]),
+            "CcReachEffUp": str(ae["attack_reachable_count_lower"] + ae["attack_reachable_count_undetermined"]),
+            "CcReachTnLo": f"{ao['attack_reachable_task_nested'][0]:.3f}",
+            "CcReachTnUp": f"{ao['attack_reachable_task_nested'][1]:.3f}",
+            "CcSelN": str(sel["n_variants"]), "CcSelTasks": str(sel["n_tasks"]),
+            "CcSelUtil": str(sel["by_cause"].get("utility", 0)), "CcSelAtk": str(sel["by_cause"].get("attack", 0)),
+            "CcSelAbst": str(sel["baseline_abstained"]),
+            "CcNotRefuted": str(sum(r["status"] == "NOT_REFUTED" for r in idr)),
+            "CcRefuted": str(sum(r["status"] == "REFUTED_NONIDENTIFIABLE" for r in idr)),
+            "CcIdUnknown": str(sum(r["status"].startswith("UNKNOWN") for r in idr)),
+            "CcSingletonView": str(sum(r["view_group_size"] == 1 for r in idr)),
+            "CcFirstWriteErr": str(sum(r["locus"] == "FIRST_WRITE_ERROR" for r in idr)),
+            "CcLaterErr": str(sum(r["locus"] == "LATER_WRITE_ERROR" for r in idr)),
+            "CcNRRate": f"{cc['decision']['not_refuted_selectable_rate_task_nested']:.3f}",
+            "CcOutDep": str(fl.get("ORACLE_OUTPUT_DEPENDENT", 0)),
+            "CcOracleComposed": str(fl.get("HAS_ORACLE_COMPOSED", 0)),
+            "CcFreeText": str(fl.get("HAS_FREE_TEXT", 0)),
+            "CcGoldNotAdmitted": str(fl.get("GOLD_NOT_ADMITTED_ON_GT_PATH", 0)),
+            "CcGtFails": str(fl.get("GT_PATH_FAILS_BENIGN_OFFICIAL", 0)),
+            "CcPlanVaries": str(fl.get("PLAN_SHAPE_VARIES", 0)),
+            "CcWall": f"{cc['cost']['wall_seconds_total']:.0f}",
+            "CcCPU": f"{cc['cost']['cpu_seconds_workers']:.0f}",
+            "CcFollowup": cc["decision"]["learner_followup"].replace("_", "\\_"),
+        })
     (OUT / "numbers.tex").write_text(
         "% generated by scripts/make_paper_tables.py from paper/sources.json -- do not edit\n"
         + "\n".join(f"\\newcommand{{\\{k}}}{{{v}}}" for k, v in nums.items()) + "\n")

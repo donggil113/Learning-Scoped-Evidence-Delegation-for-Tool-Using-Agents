@@ -146,6 +146,50 @@ def main() -> None:
         f"Ambiguity proxy & & & & {f3(hs['ambiguity_proxy_fraction'])} \\\\\n"
         "\\bottomrule\n\\end{tabular}\n")
 
+    # --- AgentDojo offline census (SED-E2-ADJ) --------------------------------------------------------
+    adj = None
+    if src.get("adj_headroom"):
+        adj = json.loads((ROOT / src["adj_headroom"] / "summary.json").read_text())
+        census = json.loads((ROOT / src["adj_census"] / "task_census.json").read_text())
+        v = census["versions"]["v1.2.2"]
+        crow = [f"{sn} & {v[sn]['n_user']} & {v[sn]['n_injection']} \\\\" for sn in ("workspace", "travel", "banking", "slack")]
+        crow.append(f"total & {v['_total']['n_user']} & {v['_total']['n_injection']} \\\\")
+        (OUT / "adj_census.tex").write_text(
+            "\\begin{tabular}{lcc}\n\\toprule\nSuite (v1.2.2) & User tasks & Injection tasks \\\\\n\\midrule\n"
+            + "\n".join(crow) + "\n\\bottomrule\n\\end{tabular}\n")
+        R = adj["results"]
+        hrows = []
+        for mode, label in (("primary", "free-text slots UNRESOLVED"), ("secondary", "free-text slots planner-fixed")):
+            x = R[mode]
+            for rk, rl in (("rule_unique", "unique-or-abstain"), ("rule_first", "first-admitted")):
+                h = x[rk]
+                hrows.append(f"{label} & {rl} & {x['n_resolved']}/{x['n_user_tasks']} & "
+                             f"[{h['H_clair_lower']:.3f}, {h['H_clair_upper']:.3f}] \\\\")
+        (OUT / "adj_h.tex").write_text(
+            "\\begin{tabular}{llcc}\n\\toprule\nSlots & Rule & Resolved & $[H^{\\mathrm{clair}}_{\\mathrm{lower}}, H^{\\mathrm{clair}}_{\\mathrm{upper}}]$ \\\\\n\\midrule\n"
+            + "\n".join(hrows) + "\n\\bottomrule\n\\end{tabular}\n")
+        x = R["primary"]
+        brows = [
+            f"benign variants only & [{x['benign_only_rule_unique']['H_clair_lower']:.3f}, {x['benign_only_rule_unique']['H_clair_upper']:.3f}] \\\\",
+            f"injected variants only & [{x['injected_only_rule_unique']['H_clair_lower']:.3f}, {x['injected_only_rule_unique']['H_clair_upper']:.3f}] \\\\",
+        ]
+        (OUT / "adj_h_split.tex").write_text(
+            "\\begin{tabular}{lc}\n\\toprule\nVariants (primary, unique-or-abstain) & $[H_{\\mathrm{lower}}, H_{\\mathrm{upper}}]$ \\\\\n\\midrule\n"
+            + "\n".join(brows) + "\n\\bottomrule\n\\end{tabular}\n")
+        # per-suite gap sums (primary, unique)
+        per = x["rule_unique_per_task"]
+        srows = []
+        for sn in ("workspace", "travel", "banking", "slack"):
+            ts = [p for p in per if p["task"].startswith(sn + "/")]
+            n_unres = sum(p["status"] != "OK" for p in ts)
+            n_gap = sum(p["status"] == "OK" and p["gap"][0] > 1e-9 for p in ts)
+            lo = sum(p["gap"][0] for p in ts) / len(ts)
+            up = sum(p["gap"][1] for p in ts) / len(ts)
+            srows.append(f"{sn} & {len(ts)} & {n_gap} & {n_unres} & [{lo:.3f}, {up:.3f}] \\\\")
+        (OUT / "adj_suite.tex").write_text(
+            "\\begin{tabular}{lcccc}\n\\toprule\nSuite & Tasks & Tasks with gap $>0$ & Unresolved & per-suite $[H_{\\mathrm{lower}}, H_{\\mathrm{upper}}]$ \\\\\n\\midrule\n"
+            + "\n".join(srows) + "\n\\bottomrule\n\\end{tabular}\n")
+
     # --- number macros -------------------------------------------------------------------------------
     inv = m["engineering_invariants"]
     tpl = m["metrics"]["template"]
@@ -176,6 +220,41 @@ def main() -> None:
         "LearnOutOfScopeProposals": str(reagg["levels"]["template/learned_router"]["native_denial_reason_codes"].get("PROVENANCE_OUT_OF_SCOPE", 0)),
         "AgentDojoStatus": dj["status"].replace("_", "\\_"),
     }
+    if adj is not None:
+        P, S = adj["results"]["primary"], adj["results"]["secondary"]
+        nums.update({
+            "AdjUser": str(P["n_user_tasks"]),
+            "AdjResolved": str(P["n_resolved"]),
+            "AdjUnresolved": str(P["n_user_tasks"] - P["n_resolved"]),
+            "AdjZeroSlot": str(P["n_tasks_zero_slots"]),
+            "AdjVariants": f"{P['n_variants']:,}".replace(",", "{,}"),
+            "AdjInjVariants": str(P["injected_variants"]),
+            "AdjHlo": f"{P['rule_unique']['H_clair_lower']:.3f}",
+            "AdjHup": f"{P['rule_unique']['H_clair_upper']:.3f}",
+            "AdjHfirstLo": f"{P['rule_first']['H_clair_lower']:.3f}",
+            "AdjHfirstUp": f"{P['rule_first']['H_clair_upper']:.3f}",
+            "AdjHsecLo": f"{S['rule_unique']['H_clair_lower']:.3f}",
+            "AdjHsecUp": f"{S['rule_unique']['H_clair_upper']:.3f}",
+            "AdjBenignHlo": f"{P['benign_only_rule_unique']['H_clair_lower']:.3f}",
+            "AdjInjHlo": f"{P['injected_only_rule_unique']['H_clair_lower']:.3f}",
+            "AdjRuleAtk": str(round(P["rule_unique_attack_success_rate_injected"] * P["injected_variants"])),
+            "AdjGtAtk": str(round(P["gt_reference_attack_success_rate_injected"] * P["injected_variants"])),
+            "AdjRemoved": str(P["injected_variants_with_benign_value_removed"]),
+            "AdjAtkAdmitted": str(P["injected_variants_with_attacker_value_admitted"]),
+            "AdjWall": str(adj["wall_clock_seconds"]),
+            "AdjNonExh": str(P["n_nonexhaustive_variants_without_witness"]),
+        })
+        prim = [json.loads(line) for line in open(ROOT / src["adj_headroom"] / "task_results_primary.jsonl")]
+        unsolv = [(r["suite"], r["task_id"]) for r in prim if r["status"] == "OK"
+                  for vv in r["variants"] if vv["best_upper"] == 0]
+        nums["AdjUnsolvable"] = str(len(unsolv))
+        nums["AdjUnsolvableTasks"] = str(len(set(unsolv)))
+    if src.get("adj_slots"):
+        sl = json.loads((ROOT / src["adj_slots"] / "slots.json").read_text())
+        d = sl["drop_tasks_with_numeric_slots"]
+        nums.update({"AdjNumKept": str(d["n_tasks_kept"]), "AdjNumLo": f"{d['H_lower']:.3f}",
+                     "AdjNumUp": f"{d['H_upper']:.3f}", "AdjNumericSlots": str(sl["n_numeric_slots"]),
+                     "AdjSlots": str(sl["n_slots"])})
     (OUT / "numbers.tex").write_text(
         "% generated by scripts/make_paper_tables.py from paper/sources.json -- do not edit\n"
         + "\n".join(f"\\newcommand{{\\{k}}}{{{v}}}" for k, v in nums.items()) + "\n")

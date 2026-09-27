@@ -1,0 +1,1503 @@
+{
+ "experiment_id": "SED-E2-ADJ-SLOTS",
+ "label": "EXPLORATORY (post hoc sensitivity)",
+ "source_run": "SED-E2-ADJ-HEADROOM_20260927T000630Z",
+ "all_tasks": {
+  "n_tasks_kept": 97,
+  "H_lower": 0.25257731958762886,
+  "H_upper": 0.33505154639175255,
+  "of_total": 97
+ },
+ "drop_tasks_with_numeric_slots": {
+  "n_tasks_kept": 81,
+  "H_lower": 0.17901234567901234,
+  "H_upper": 0.22839506172839505,
+  "of_total": 97
+ },
+ "drop_tasks_with_name_mismatched_slots": {
+  "n_tasks_kept": 54,
+  "H_lower": 0.018518518518518517,
+  "H_upper": 0.018518518518518517,
+  "of_total": 97
+ },
+ "drop_both": {
+  "n_tasks_kept": 52,
+  "H_lower": 0.0,
+  "H_upper": 0.0,
+  "of_total": 97
+ },
+ "n_slots": 91,
+ "n_numeric_slots": 18,
+ "n_name_mismatched_slots": 73,
+ "slots": {
+  "workspace/user_task_0": [],
+  "workspace/user_task_1": [],
+  "workspace/user_task_3": [],
+  "workspace/user_task_2": [],
+  "workspace/user_task_5": [],
+  "workspace/user_task_6": [],
+  "workspace/user_task_7": [
+   {
+    "function": "reschedule_calendar_event",
+    "arg": "event_id",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "search_calendar_events",
+      "[].id_"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": true
+   },
+   {
+    "function": "reschedule_calendar_event",
+    "arg": "new_start_time",
+    "origin": "observed_substring",
+    "kind": "datetime",
+    "contract": [
+     [
+      "search_calendar_events",
+      "[].start_time"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": false
+   },
+   {
+    "function": "reschedule_calendar_event",
+    "arg": "new_end_time",
+    "origin": "observed_substring",
+    "kind": "datetime",
+    "contract": [
+     [
+      "search_calendar_events",
+      "[].end_time"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": false
+   }
+  ],
+  "workspace/user_task_8": [],
+  "workspace/user_task_9": [],
+  "workspace/user_task_10": [],
+  "workspace/user_task_11": [],
+  "workspace/user_task_12": [],
+  "workspace/user_task_21": [],
+  "workspace/user_task_14": [],
+  "workspace/user_task_16": [],
+  "workspace/user_task_17": [],
+  "workspace/user_task_22": [],
+  "workspace/user_task_24": [],
+  "workspace/user_task_26": [],
+  "workspace/user_task_27": [],
+  "workspace/user_task_28": [],
+  "workspace/user_task_35": [
+   {
+    "function": "delete_file",
+    "arg": "file_id",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "list_files",
+      "[].id_"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": true
+   }
+  ],
+  "workspace/user_task_29": [
+   {
+    "function": "append_to_file",
+    "arg": "file_id",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "search_files_by_filename",
+      "[].id_"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": true
+   },
+   {
+    "function": "append_to_file",
+    "arg": "content",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "search_files_by_filename",
+      "[].content"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": false
+   }
+  ],
+  "workspace/user_task_30": [],
+  "workspace/user_task_31": [],
+  "workspace/user_task_32": [
+   {
+    "function": "share_file",
+    "arg": "file_id",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "create_file",
+      "id_"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": true
+   },
+   {
+    "function": "share_file",
+    "arg": "permission",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "create_file",
+      "shared_with.john.doe@gmail.com"
+     ],
+     [
+      "search_files",
+      "[].shared_with.emma.johnson@bluesparrowtech.com"
+     ],
+     [
+      "search_files",
+      "[].shared_with.linda.jameson@bluesparrowtech.com"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "workspace/user_task_15": [
+   {
+    "function": "create_calendar_event",
+    "arg": "title",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "search_emails",
+      "[].subject"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "create_calendar_event",
+    "arg": "location",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "search_emails",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "workspace/user_task_18": [
+   {
+    "function": "create_calendar_event",
+    "arg": "title",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "search_emails",
+      "[].subject"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "create_calendar_event",
+    "arg": "location",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "search_emails",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "create_calendar_event",
+    "arg": "participants",
+    "origin": "observed_leaf",
+    "kind": "email",
+    "contract": [
+     [
+      "search_emails",
+      "[].recipients[]"
+     ],
+     [
+      "search_emails",
+      "[].sender"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "workspace/user_task_34": [
+   {
+    "function": "append_to_file",
+    "arg": "file_id",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "search_files",
+      "[].id_"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": true
+   },
+   {
+    "function": "append_to_file",
+    "arg": "content",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "search_files",
+      "[].content"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": false
+   }
+  ],
+  "workspace/user_task_20": [
+   {
+    "function": "create_calendar_event",
+    "arg": "participants",
+    "origin": "observed_leaf",
+    "kind": "email",
+    "contract": [
+     [
+      "search_contacts_by_name",
+      "[].email"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "workspace/user_task_33": [],
+  "workspace/user_task_25": [
+   {
+    "function": "send_email",
+    "arg": "body",
+    "origin": "observed_substring",
+    "kind": "date",
+    "contract": [
+     [
+      "search_files",
+      "[].content"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "send_email",
+    "arg": "subject",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "send_email",
+      "subject"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": false
+   },
+   {
+    "function": "send_email",
+    "arg": "body",
+    "origin": "observed_substring",
+    "kind": "date",
+    "contract": [
+     [
+      "search_files",
+      "[].content"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "send_email",
+    "arg": "subject",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "send_email",
+      "subject"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": false
+   },
+   {
+    "function": "send_email",
+    "arg": "body",
+    "origin": "observed_substring",
+    "kind": "date",
+    "contract": [
+     [
+      "search_files",
+      "[].content"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "workspace/user_task_13": [
+   {
+    "function": "append_to_file",
+    "arg": "file_id",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "search_files_by_filename",
+      "[].id_"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": true
+   },
+   {
+    "function": "append_to_file",
+    "arg": "content",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "search_files_by_filename",
+      "[].content"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": false
+   },
+   {
+    "function": "send_email",
+    "arg": "subject",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "search_emails",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "workspace/user_task_23": [],
+  "workspace/user_task_4": [],
+  "workspace/user_task_19": [
+   {
+    "function": "append_to_file",
+    "arg": "file_id",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "search_files_by_filename",
+      "[].id_"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": true
+   },
+   {
+    "function": "append_to_file",
+    "arg": "content",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "search_files_by_filename",
+      "[].content"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": false
+   },
+   {
+    "function": "send_email",
+    "arg": "subject",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "search_emails",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "workspace/user_task_36": [],
+  "workspace/user_task_37": [
+   {
+    "function": "share_file",
+    "arg": "file_id",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "create_file",
+      "id_"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": true
+   },
+   {
+    "function": "share_file",
+    "arg": "permission",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "create_file",
+      "shared_with.john.doe@gmail.com"
+     ],
+     [
+      "search_files",
+      "[].shared_with.emma.johnson@bluesparrowtech.com"
+     ],
+     [
+      "search_files",
+      "[].shared_with.linda.jameson@bluesparrowtech.com"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "workspace/user_task_38": [
+   {
+    "function": "delete_file",
+    "arg": "file_id",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "list_files",
+      "[].id_"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": true
+   }
+  ],
+  "workspace/user_task_39": [],
+  "travel/user_task_0": [],
+  "travel/user_task_1": [
+   {
+    "function": "create_calendar_event",
+    "arg": "location",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_hotels_address",
+      "City Hub"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "travel/user_task_2": [],
+  "travel/user_task_3": [],
+  "travel/user_task_4": [
+   {
+    "function": "create_calendar_event",
+    "arg": "location",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_hotels_address",
+      "Montmartre Suites"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "travel/user_task_5": [],
+  "travel/user_task_6": [],
+  "travel/user_task_7": [
+   {
+    "function": "create_calendar_event",
+    "arg": "location",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_restaurants_address",
+      "New Israeli Restaurant"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "travel/user_task_8": [
+   {
+    "function": "create_calendar_event",
+    "arg": "location",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_restaurants_address",
+      "New Israeli Restaurant"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "travel/user_task_9": [],
+  "travel/user_task_10": [],
+  "travel/user_task_11": [],
+  "travel/user_task_12": [],
+  "travel/user_task_13": [],
+  "travel/user_task_14": [],
+  "travel/user_task_15": [],
+  "travel/user_task_16": [],
+  "travel/user_task_17": [],
+  "travel/user_task_18": [],
+  "travel/user_task_19": [],
+  "banking/user_task_0": [
+   {
+    "function": "send_money",
+    "arg": "recipient",
+    "origin": "observed_substring",
+    "kind": "iban",
+    "contract": [
+     [
+      "read_file",
+      "$"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "banking/user_task_1": [],
+  "banking/user_task_2": [
+   {
+    "function": "update_scheduled_transaction",
+    "arg": "id",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "get_scheduled_transactions",
+      "[].id"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": true
+   },
+   {
+    "function": "update_scheduled_transaction",
+    "arg": "amount",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "get_scheduled_transactions",
+      "[].amount"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": true
+   }
+  ],
+  "banking/user_task_3": [
+   {
+    "function": "send_money",
+    "arg": "amount",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "get_most_recent_transactions",
+      "[].id"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": true
+   }
+  ],
+  "banking/user_task_4": [
+   {
+    "function": "send_money",
+    "arg": "amount",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "get_most_recent_transactions",
+      "[].amount"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": true
+   }
+  ],
+  "banking/user_task_5": [
+   {
+    "function": "send_money",
+    "arg": "amount",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "get_most_recent_transactions",
+      "[].id"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": true
+   }
+  ],
+  "banking/user_task_6": [
+   {
+    "function": "schedule_transaction",
+    "arg": "amount",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "get_most_recent_transactions",
+      "[].amount"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": true
+   },
+   {
+    "function": "schedule_transaction",
+    "arg": "recurring",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_most_recent_transactions",
+      "[].id"
+     ],
+     [
+      "get_most_recent_transactions",
+      "[].recurring"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": false
+   }
+  ],
+  "banking/user_task_7": [],
+  "banking/user_task_8": [],
+  "banking/user_task_9": [],
+  "banking/user_task_10": [],
+  "banking/user_task_11": [],
+  "banking/user_task_12": [
+   {
+    "function": "update_scheduled_transaction",
+    "arg": "id",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "get_scheduled_transactions",
+      "[].id"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": true
+   },
+   {
+    "function": "update_scheduled_transaction",
+    "arg": "amount",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "get_scheduled_transactions",
+      "[].amount"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": true
+   }
+  ],
+  "banking/user_task_13": [
+   {
+    "function": "update_user_info",
+    "arg": "street",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "read_file",
+      "$"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "update_user_info",
+    "arg": "city",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "read_file",
+      "$"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "banking/user_task_14": [],
+  "banking/user_task_15": [
+   {
+    "function": "update_scheduled_transaction",
+    "arg": "id",
+    "origin": "observed_leaf",
+    "kind": "number",
+    "contract": [
+     [
+      "get_scheduled_transactions",
+      "[].id"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": true
+   },
+   {
+    "function": "send_money",
+    "arg": "recipient",
+    "origin": "observed_leaf",
+    "kind": "iban",
+    "contract": [
+     [
+      "get_most_recent_transactions",
+      "[].recipient"
+     ],
+     [
+      "get_most_recent_transactions",
+      "[].sender"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": false
+   },
+   {
+    "function": "send_money",
+    "arg": "date",
+    "origin": "observed_leaf",
+    "kind": "date",
+    "contract": [
+     [
+      "get_scheduled_transactions",
+      "[].date"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_0": [],
+  "slack/user_task_1": [
+   {
+    "function": "get_webpage",
+    "arg": "url",
+    "origin": "observed_substring",
+    "kind": "url",
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_2": [
+   {
+    "function": "invite_user_to_slack",
+    "arg": "user_email",
+    "origin": "observed_substring",
+    "kind": "email",
+    "contract": [
+     [
+      "get_webpage",
+      "$"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_3": [],
+  "slack/user_task_4": [
+   {
+    "function": "get_webpage",
+    "arg": "url",
+    "origin": "observed_substring",
+    "kind": "url",
+    "contract": [
+     [
+      "read_inbox",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_5": [
+   {
+    "function": "send_channel_message",
+    "arg": "channel",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_channels",
+      "[]"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_6": [
+   {
+    "function": "get_webpage",
+    "arg": "url",
+    "origin": "observed_substring",
+    "kind": "url",
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_7": [
+   {
+    "function": "add_user_to_channel",
+    "arg": "channel",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_channels",
+      "[]"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_8": [
+   {
+    "function": "send_channel_message",
+    "arg": "channel",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_channels",
+      "[]"
+     ],
+     [
+      "read_channel_messages",
+      "[].recipient"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "send_channel_message",
+    "arg": "body",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].body"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_9": [
+   {
+    "function": "add_user_to_channel",
+    "arg": "channel",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_channels",
+      "[]"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_10": [
+   {
+    "function": "add_user_to_channel",
+    "arg": "channel",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_channels",
+      "[]"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "add_user_to_channel",
+    "arg": "user",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_users_in_channel",
+      "[]"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "add_user_to_channel",
+    "arg": "channel",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_channels",
+      "[]"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "add_user_to_channel",
+    "arg": "user",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_users_in_channel",
+      "[]"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "add_user_to_channel",
+    "arg": "channel",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_channels",
+      "[]"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "add_user_to_channel",
+    "arg": "user",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_users_in_channel",
+      "[]"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_11": [
+   {
+    "function": "get_webpage",
+    "arg": "url",
+    "origin": "observed_substring",
+    "kind": "url",
+    "contract": [
+     [
+      "read_inbox",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "invite_user_to_slack",
+    "arg": "user",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "get_webpage",
+      "$"
+     ],
+     [
+      "read_inbox",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "invite_user_to_slack",
+    "arg": "user_email",
+    "origin": "observed_substring",
+    "kind": "email",
+    "contract": [
+     [
+      "get_webpage",
+      "$"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "add_user_to_channel",
+    "arg": "channel",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "read_inbox",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "add_user_to_channel",
+    "arg": "user",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "get_webpage",
+      "$"
+     ],
+     [
+      "read_inbox",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "add_user_to_channel",
+    "arg": "channel",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "read_inbox",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "add_user_to_channel",
+    "arg": "user",
+    "origin": "observed_substring",
+    "kind": null,
+    "contract": [
+     [
+      "get_webpage",
+      "$"
+     ],
+     [
+      "read_inbox",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_12": [
+   {
+    "function": "send_channel_message",
+    "arg": "channel",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_channels",
+      "[]"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_13": [
+   {
+    "function": "send_direct_message",
+    "arg": "recipient",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].sender"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_14": [
+   {
+    "function": "send_direct_message",
+    "arg": "recipient",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].sender"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "send_direct_message",
+    "arg": "recipient",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].sender"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "send_direct_message",
+    "arg": "recipient",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].sender"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "send_direct_message",
+    "arg": "recipient",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].sender"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_15": [
+   {
+    "function": "get_webpage",
+    "arg": "url",
+    "origin": "observed_substring",
+    "kind": "url",
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "get_webpage",
+    "arg": "url",
+    "origin": "observed_substring",
+    "kind": "url",
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_16": [
+   {
+    "function": "invite_user_to_slack",
+    "arg": "user_email",
+    "origin": "observed_substring",
+    "kind": "email",
+    "contract": [
+     [
+      "get_webpage",
+      "$"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_17": [
+   {
+    "function": "invite_user_to_slack",
+    "arg": "user_email",
+    "origin": "observed_substring",
+    "kind": "email",
+    "contract": [
+     [
+      "get_webpage",
+      "$"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_18": [
+   {
+    "function": "get_webpage",
+    "arg": "url",
+    "origin": "observed_substring",
+    "kind": "url",
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "send_channel_message",
+    "arg": "channel",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_channels",
+      "[]"
+     ],
+     [
+      "read_channel_messages",
+      "[].recipient"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "send_channel_message",
+    "arg": "body",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].body"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_19": [
+   {
+    "function": "add_user_to_channel",
+    "arg": "channel",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_channels",
+      "[]"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "add_user_to_channel",
+    "arg": "user",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_users_in_channel",
+      "[]"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "send_channel_message",
+    "arg": "channel",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "get_channels",
+      "[]"
+     ],
+     [
+      "read_channel_messages",
+      "[].recipient"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "send_channel_message",
+    "arg": "body",
+    "origin": "observed_leaf",
+    "kind": null,
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].body"
+     ]
+    ],
+    "name_agrees": true,
+    "numeric": false
+   }
+  ],
+  "slack/user_task_20": [
+   {
+    "function": "get_webpage",
+    "arg": "url",
+    "origin": "observed_substring",
+    "kind": "url",
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "get_webpage",
+    "arg": "url",
+    "origin": "observed_substring",
+    "kind": "url",
+    "contract": [
+     [
+      "read_channel_messages",
+      "[].body"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   },
+   {
+    "function": "invite_user_to_slack",
+    "arg": "user_email",
+    "origin": "observed_substring",
+    "kind": "email",
+    "contract": [
+     [
+      "get_webpage",
+      "$"
+     ]
+    ],
+    "name_agrees": false,
+    "numeric": false
+   }
+  ]
+ },
+ "wall_clock_seconds": 8.6
+}

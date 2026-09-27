@@ -4,5 +4,10 @@
   "e1_reagg": "results/analysis/SED-E1-REAGG_20260926T215328Z",
   "e1_expr": "results/analysis/SED-E1-EXPR_20260926T215236Z",
   "e2_sim": "results/raw/SED-E2-HEADROOM-R-sim_20260926T215754Z",
-  "e2_agentdojo_attempt": "results/raw/SED-E2-HEADROOM-R-agentdojo_20260926T215755Z"
+  "e2_agentdojo_attempt": "results/raw/SED-E2-HEADROOM-R-agentdojo_20260926T215755Z",
+  "adj_census": "results/raw/SED-E2-ADJ-CENSUS_20260926T235303Z",
+  "adj_headroom": "results/raw/SED-E2-ADJ-HEADROOM_20260927T000630Z",
+  "adj_headroom_invalid": "results/raw/SED-E2-ADJ-HEADROOM_20260927T000131Z (INVALID, not used)",
+  "adj_struct_dev": "results/analysis/SED-E2-ADJ-STRUCT-DEV_20260926T235636Z",
+  "adj_slots": "results/analysis/SED-E2-ADJ-SLOTS_20260927T001030Z"
 }

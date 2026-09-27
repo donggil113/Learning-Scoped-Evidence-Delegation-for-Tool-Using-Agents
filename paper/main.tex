@@ -1,5 +1,5 @@
 %% ---------------------------------------------------------------------------
-%% Manuscript v1 -- status header (keep until submission)
+%% Manuscript v2 -- status header (keep until submission)
 %%   TARGET_YEAR        = 2027   (ICML 2027 style NOT published: icml.cc 2027
 %%                                 pages returned 404 on 2026-09-26)
 %%   TEMPLATE_YEAR      = 2026   (temporary; official ICML 2026 style)
@@ -65,29 +65,33 @@
 %% ===========================================================================
 \begin{abstract}
 Defenses for tool-using agents increasingly decide, per argument, which
-sources may supply a value: capability policies, origin markers and
-argument-level provenance contracts. Such boundaries answer whether a value is
-\emph{authorized}. They do not answer whether it is \emph{the value the user
-wanted}: a stale invoice from an authorized vendor, a superseded date, or bank
-details sent from a compromised but authorized account can all pass the same
-boundary. We isolate the remaining choice as \emph{evidence binding under a
-fixed contract}. The plan, the per-argument contract and the read-time
-candidate set are held fixed; a binder may only return one admitted candidate
-or abstain; and a non-learned validator enforces the contract. Every executed
-call is re-checked against a reference contract, so looser boundaries earn no
-credit. We define a binder-only headroom $H=\mathbb{E}_t[s_{\mathrm{oracle}}(t)-s_{\mathrm{rule}}(t)]$,
-the largest improvement any binder can make over a rule while the contract
-stays fixed. We also give a measurement protocol that keeps unresolved tasks
-in the denominator and nests attack variants inside their original task. In a
-synthetic simulator, whose results are engineering evidence only, the
-reference validator bounded every selector run under it, including a
-worst-case one. However, a
-small learned binder did not outperform hand-written field rules: the
-secure-success differences were \DiffTemplate, \DiffEnv{} and \DiffInstance{}
-on template-, domain- and instance-held-out splits. A post-hoc check shows
-that this failure is one of estimation, not of linear expressivity. The
-headroom on AgentDojo and AgentDyn has not been measured, so this paper makes
-no claim that learned binding helps real agents.
+sources may supply a value. Such boundaries answer whether a value is
+\emph{authorized}, not whether it is \emph{the value the user wanted}: a
+stale invoice, a superseded date, or bank details from a compromised but
+authorized account can all pass. We isolate the remaining choice as
+\emph{evidence binding under a fixed contract}. The plan, the per-argument
+contract and the read-time candidates are held fixed, and a binder may only
+pick an admitted candidate or abstain. We define a binder-only
+\emph{clairvoyant ceiling} $H^{\mathrm{clair}}$. It is the largest average
+improvement over a rule that any choice among admitted candidates can reach.
+It is computed on whole call sequences with witness-based lower and upper
+bounds, and with unresolved tasks kept in the denominator. It bounds
+learnable gains from above but is not itself learnable performance.
+
+On a pinned AgentDojo snapshot, we enumerated \AdjUser{} user tasks from the
+package and replayed every candidate assignment offline against the
+benchmark's own evaluators, with no language model. Conditional on the
+benchmark's ground-truth plan, $H^{\mathrm{clair}}\in[\AdjHlo,\AdjHup]$ over a
+unique-or-abstain rule. This exceeds our pre-set $0.05$ threshold, so it
+does not rule learning out, but it is not evidence that learning helps. The
+gap comes mostly from choosing among \emph{legitimate} values, which is task
+reasoning rather than security. Executed attacks under the fixed plan were
+rare: \AdjRuleAtk{} of \AdjInjVariants{} injected variants, all in one task
+whose legitimate value the injection had erased.
+
+In a synthetic simulator (engineering evidence only), a small learned binder
+did not beat hand-written rules, and the failure was one of estimation, not
+expressivity.
 \end{abstract}
 
 %% ===========================================================================
@@ -138,10 +142,10 @@ make the attacker's account the only available evidence''
 We ask how much this choice can matter when everything else is held fixed:
 the plan, the per-argument authority contract, and the information available
 when the argument is bound. We also ask whether the choice can be learned.
-This paper answers neither question on a real benchmark. What it does is
-make the first question precisely measurable and report what we found in a
-synthetic setting, including a negative result and a correction of our own
-earlier interpretation.
+This paper measures an upper bound for the first question on AgentDojo,
+conditional on the benchmark's own plan, and does not answer the second on
+any real benchmark. We also report a negative synthetic result and two
+corrections of our own earlier interpretations.
 
 \paragraph{Contributions.}
 \begin{enumerate}
@@ -152,10 +156,21 @@ Evaluation re-checks every executed call against a reference contract, and
 counts attacks only when they are executed. Contract enforcement and
 provenance tracking are prior work; the formulation is only a way to hold
 them fixed.
-\item A \textbf{binder-only headroom bound} and measurement protocol
-(\S\ref{sec:headroom}). $H$ is defined with nested attack variants and with
-unresolved tasks kept in the denominator. The protocol comes with a draft
-AgentDojo adapter. The real-benchmark measurement is \notrun.
+\item A \textbf{binder-only clairvoyant ceiling} and measurement protocol
+(\S\ref{sec:headroom}). $H^{\mathrm{clair}}$ is evaluated on whole call
+sequences, with witness-based lower and upper bounds, nested attack
+variants, and unresolved tasks kept in the denominator. It is explicitly a
+ceiling, not learnable performance.
+\item An \textbf{offline census on AgentDojo} (\S\ref{sec:exp-real}).
+\begin{itemize}
+\item Tasks are enumerated directly from a pinned snapshot.
+\item Evaluator semantics are checked against fixtures.
+\item Every admitted assignment is replayed against the benchmark's own
+checks: $H^{\mathrm{clair}}\in[\AdjHlo,\AdjHup]$,
+\textsc{oracle\_plan\_conditional}.
+\item Attacks executed under the fixed plan are rare, and the gap is mostly
+task reasoning.
+\end{itemize}
 \item An \textbf{engineering study in a synthetic simulator}
 (\S\ref{sec:sim}, \S\ref{sec:exp}).
 \begin{itemize}
@@ -176,6 +191,8 @@ explanation, which attributed the failure to linear expressivity.
 We do not claim the following:
 \begin{itemize}
 \item that learned binding improves security or utility of real agents;
+\item that the AgentDojo ceiling transfers to agents whose planner is a
+language model rather than the ground truth;
 \item that our validator provides process isolation or a formal guarantee;
 \item that any simulator number measures a real model;
 \item that ``span binding'' alone distinguishes this work from ROPE, PACT or
@@ -280,7 +297,7 @@ CaMeL & per value, tool-call policies & value; tool ``inner source'' & program +
 PACT & per argument role contract & value tag $\langle\mathcal{O},\tau,\mathcal{B}\rangle$ & agent LLM (not addressed) & AgentDojo \\
 ROPE & per sensitive parameter & platform-divided entry & agent LLM; router picks scope only & AgentDojo, AgentDyn \\
 ARGUS & per action (release/block) & LLM-segmented spans & prompted argument grounder & AgentLure, AgentDojo \\
-This paper & per argument, fixed contract & span + host metadata (sim.) & binder: rule or learned (LR) & synthetic only \\
+This paper & per argument, fixed contract & field / span & rule, learned (sim.); ceiling only & sim.; AgentDojo replay \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -372,27 +389,32 @@ attacker value. For a task that exceeds the principal's permissions, secure
 success means that nothing was executed.
 
 %% ===========================================================================
-\section{Binder-Only Headroom}
+\section{A Clairvoyant Ceiling for Binding}
 \label{sec:headroom}
 
-\begin{definition}[Binder-only headroom]
+\begin{definition}[Binder-only clairvoyant ceiling]
 \label{def:h}
-Let $A_{t,v}=\prod_{k\in K_t}\big(C_{t,v,k}\cup\{\abst\}\big)$ and let
-$r(t,v)$ be the rule's assignment. Let $V_t$ be the set of variants of $t$,
-with benign and injection variants nested within $t$. Define
+Fix a plan, a contract, and the read-time admitted sets $C_{t,v,k}$. Let
+\[
+A_{t,v}=\prod_{k\in K_t}\big(C_{t,v,k}\cup\{\abst\}\big),
+\]
+where the product runs over \emph{all} slots of the plan. An element of
+$A_{t,v}$ is a complete assignment for the whole call sequence. Let
+$r(t,v)$ be the rule's assignment, and let $V_t$ be the set of variants of
+$t$ (benign and injection variants, nested within $t$). Define
 \begin{align}
 s_{\mathrm{rule}}(t) &= \tfrac{1}{|V_t|}\textstyle\sum_{v\in V_t} s\big(t,v,r(t,v)\big),\\
-s_{\mathrm{oracle}}(t) &= \tfrac{1}{|V_t|}\textstyle\sum_{v\in V_t} \max_{a\in A_{t,v}} s(t,v,a),\\
-H &= \tfrac{1}{|T|}\textstyle\sum_{t\in T}\big[s_{\mathrm{oracle}}(t)-s_{\mathrm{rule}}(t)\big].
+s_{\mathrm{best}}(t) &= \tfrac{1}{|V_t|}\textstyle\sum_{v\in V_t} \max_{a\in A_{t,v}} s(t,v,a),\\
+H^{\mathrm{clair}} &= \tfrac{1}{|T|}\textstyle\sum_{t\in T}\big[s_{\mathrm{best}}(t)-s_{\mathrm{rule}}(t)\big].
 \end{align}
 \end{definition}
 
 \begin{proposition}[elementary]
 \label{prop:bound}
 Suppose $r(t,v)\in A_{t,v}$ for all $t,v$. Then
-$s_{\mathrm{oracle}}(t)\ge s_{\mathrm{rule}}(t)$ for every $t$. Moreover,
+$s_{\mathrm{best}}(t)\ge s_{\mathrm{rule}}(t)$ for every $t$. Moreover,
 every binder $b$ whose assignments lie in $A_{t,v}$ satisfies
-$\frac{1}{|T|}\sum_t[s_b(t)-s_{\mathrm{rule}}(t)]\le H$.
+$\frac{1}{|T|}\sum_t[s_b(t)-s_{\mathrm{rule}}(t)]\le H^{\mathrm{clair}}$.
 \end{proposition}
 \begin{proof}
 For every $(t,v)$ we have $s(t,v,b(t,v))\le\max_{a\in A_{t,v}}s(t,v,a)$.
@@ -400,37 +422,68 @@ Averaging over $v$ and then over $t$ gives the claim. Taking $b=r$ gives the
 first statement.
 \end{proof}
 
-The proposition is immediate. Its value lies in what is held fixed. $H$
-bounds improvements that come \emph{only} from choosing differently among
-admitted candidates. It does not cover changing the plan, reading more data,
-authenticating a sender, or asking the user. Tasks where
-$s_{\mathrm{oracle}}(t)<1$ need one of those, and we flag them rather than
-add them to $H$. The check $r(t,v)\in A_{t,v}$ is performed explicitly: a
-rule that binds outside the admitted set makes the task \textsc{unresolved}.
+\paragraph{What the ceiling is and is not.}
+$H^{\mathrm{clair}}$ is a \emph{clairvoyant} ceiling. The maximizing
+assignment is chosen with knowledge of the evaluator, so it ignores the
+information limits of any real binder.
+\begin{itemize}
+\item It bounds the improvement a binder could make \emph{from above}.
+\item It is not an estimate of learnable performance, and a large value is
+not evidence that learning would help.
+\item It bounds improvements that come \emph{only} from choosing differently
+among admitted candidates. It excludes changing the plan, reading more data,
+authenticating a sender, and asking the user.
+\end{itemize}
+When the plan is the benchmark's ground-truth plan, the ceiling is
+\emph{conditional on an oracle plan} (\textsc{oracle\_plan\_conditional}).
+
+\paragraph{Whole-call evaluation.}
+We do not maximize each argument separately. Arguments interact in two ways:
+two arguments of the same call are checked jointly, and an earlier write can
+change what a later call reads. Nothing guarantees that per-field optima
+combine into an optimal call, and we have no proof that they do. So every
+element of $A_{t,v}$ is a complete assignment for the fixed call sequence,
+replayed from its own copy of the same initial state.
+
+\paragraph{Witnesses and exhaustiveness.}
+When $A_{t,v}$ is too large to enumerate, the best candidate \emph{found}
+does not bound the maximum. Because success is binary, we record two things
+for each variant:
+\begin{itemize}
+\item whether a \emph{success witness} was found, which fixes the maximum at
+$1$;
+\item whether the search was exhaustive, which, without a witness, fixes it
+at $0$.
+\end{itemize}
+Otherwise the maximum is only known to lie in $[0,1]$. This gives per-task
+bounds $[s^{\mathrm{lo}}_{\mathrm{best}}(t), s^{\mathrm{up}}_{\mathrm{best}}(t)]$
+and aggregate bounds
+$[H^{\mathrm{clair}}_{\mathrm{lower}},H^{\mathrm{clair}}_{\mathrm{upper}}]$. A
+task whose plan has no binder slot has $|A_{t,v}|=1$. Its only action is the
+rule's own, so its gap is exactly $0$ whether or not its success can be
+evaluated.
 
 \paragraph{Unresolved tasks stay in the denominator.}
-Some tasks cannot be evaluated this way. Examples are tasks whose utility
-check depends on the agent's free-text answer, whose action space is too
-large to enumerate, or whose success cannot be determined. We mark these
-\textsc{unresolved} and keep them in $T$. We report two quantities:
-\begin{itemize}
-\item $H_{\mathrm{lower}}$, which counts their gap as $0$;
-\item $H_{\mathrm{upper}}$, which counts it as its largest possible value:
-$1-s_{\mathrm{rule}}(t)$ if that is known, else $1$.
-\end{itemize}
-Only $H_{\mathrm{upper}}$ is a valid upper bound. On a finite benchmark
-evaluated in full (a census), $[H_{\mathrm{lower}},H_{\mathrm{upper}}]$ carries
-no sampling uncertainty. If tasks are sampled, the sampling unit is the
-original task, never an attack variant.
+Some tasks cannot be evaluated. Examples are a slot whose admitted set cannot
+be defined without using the answer, or a replay error. We mark these
+\textsc{unresolved} and keep them in $T$. $H^{\mathrm{clair}}_{\mathrm{lower}}$
+counts their gap as $0$, and $H^{\mathrm{clair}}_{\mathrm{upper}}$ counts it as
+$1$. On a finite benchmark evaluated in full (a census),
+$[H^{\mathrm{clair}}_{\mathrm{lower}},H^{\mathrm{clair}}_{\mathrm{upper}}]$ has
+no sampling uncertainty. Attack variants are never counted as independent
+tasks.
 
 \paragraph{Decision rule and what it does not license.}
-We fixed $\delta=0.05$ before any real-benchmark run. If
-$H_{\mathrm{upper}}<\delta$, no binder, learned or otherwise, can improve the
+We fixed $\delta=0.05$ before any real-benchmark run.
+\begin{itemize}
+\item If $H^{\mathrm{clair}}_{\mathrm{upper}}<\delta$, no binder can raise
 average secure success by $\delta$ under this contract and plan, and we
-would hold further investment in learning. If $H_{\mathrm{upper}}\ge\delta$,
-nothing follows about whether learning helps: the bound is achieved by an
-oracle that sees the success criterion. This is an operational rule, not a
-statistical test and not an equivalence claim.
+would hold further investment in learning.
+\item If $H^{\mathrm{clair}}_{\mathrm{upper}}\ge\delta$, nothing follows about
+learning.
+\end{itemize}
+This is an operational rule, not a statistical test and not an equivalence
+claim.
 
 \paragraph{A retracted shortcut.}
 An earlier version of our protocol proposed to stop if fewer than 10\% of
@@ -439,13 +492,10 @@ percentage points. That inference was wrong on two counts.
 \begin{itemize}
 \item A task fraction $p$ bounds the average improvement by $p$, not by
 $p/2$.
-\item Ambiguity is a proxy, not a success difference. An ambiguous slot may
-be resolved correctly by the rule, and an unambiguous slot may hold only a
-wrong value.
+\item Ambiguity is a proxy, not a success difference.
 \end{itemize}
-Section~\ref{sec:exp-headroom} shows the gap between the two in our
-simulator: the ambiguity proxy is \ProxySim{} while $H=\HSim$. When success
-cannot be evaluated, we report only the proxy and label it as such.
+In our simulator the ambiguity proxy is \ProxySim{} while
+$H^{\mathrm{clair}}=\HSim$ (\S\ref{sec:exp-headroom}).
 
 %% ===========================================================================
 \section{A Synthetic Instantiation}
@@ -556,16 +606,6 @@ This split is a property of how we generated the data, under assumption A8.
 It is a check that the harness classifies these cases as intended, not an
 empirical finding about agents.
 
-\begin{table}[t]
-\caption{Per delegated argument, instance-split test set. Counts are over
-\emph{arguments}; one billing template has two delegated arguments of which
-only one is attacked, so ``present'' is below ``args'' in attack conditions.
-ENGINEERING ONLY.}
-\label{tab:boundary}
-\centering\scriptsize
-\input{tables/e1_boundary.tex}
-\end{table}
-
 \subsection{A learned binder did not beat the rules}
 \label{sec:exp-learned}
 Table~\ref{tab:main} reports the template-held-out split.
@@ -603,16 +643,6 @@ any system. ENGINEERING ONLY.}
 \label{tab:main}
 \centering\small
 \input{tables/e1_main.tex}
-\end{table*}
-
-\begin{table*}[t]
-\caption{Learned binder minus rule field scopes (per-template means). $n_T$:
-number of held-out templates. $^\ddagger$percentile cluster bootstrap over
-templates; not meaningful for $n_T<10$ and not used for inference.
-ENGINEERING ONLY.}
-\label{tab:diff}
-\centering\small
-\input{tables/e1_diff.tex}
 \end{table*}
 
 \subsection{Why it failed: estimation, not expressivity}
@@ -661,93 +691,228 @@ features (Observation~\ref{obs:set}). No such configuration occurred in the
 test data.
 \end{itemize}
 
-\begin{table}[t]
-\caption{Decision agreement with the rule, per delegated argument (bind the
-same candidate, or both abstain). Lex: hand-set lexicographic weights (not
-fitted). Learned: stored fitted weights. Regen.\ mismatches: stored outcomes
-not reproduced by regeneration. EXPLORATORY.}
-\label{tab:expr}
-\centering\scriptsize
-\input{tables/e1_expr.tex}
-\end{table}
-
-\subsection{Headroom: simulator smoke test}
+\subsection{Ceiling: simulator smoke test}
 \label{sec:exp-headroom}
-We ran the headroom code on the instance-split test episodes. Each template
+We ran the ceiling code on the instance-split test episodes. Each template
 is treated as an original task with its 150 episodes nested as variants, the
 reference contract fixes the admitted sets, and the rule is the field-scope
 rule. Results (Appendix Table~\ref{tab:hsim}):
 \begin{itemize}
 \item every rule choice lay inside the action set;
 \item no task was unresolved;
-\item $H=\HSim$, which equals one minus the rule's secure success on this
-split;
+\item $H^{\mathrm{clair}}=\HSim$, which equals one minus the rule's secure
+success on this split;
 \item the ambiguity proxy was \ProxySim: every template had some ambiguous
 slot.
 \end{itemize}
-The two numbers illustrate why a proxy cannot stand in for $H$. Success in
+The two numbers illustrate why a proxy cannot stand in for
+$H^{\mathrm{clair}}$. Success in
 the simulator is computed from the generator's own gold values, which also
 provide the learned binder's training labels. It is therefore not an
-independent criterion, and this $H$ is a code-path check only.
+independent criterion, and this value is a code-path check only.
 
-\subsection{Real benchmarks}
+\subsection{Offline census on AgentDojo (SED-E2-ADJ)}
 \label{sec:exp-real}
-The protocol for AgentDojo fixes the following choices
-(Appendix~\ref{app:protocol}):
-\begin{itemize}
-\item the plan is each user task's benign ground-truth call sequence;
-\item the contract for each state-changing argument is the read tool and
-field path where its benign ground-truth value appears, fixed once per task;
-\item the rule is unique-or-abstain;
-\item success is the benchmark's own post-state utility and security checks,
-never our string labels.
-\end{itemize}
-A task whose benign ground-truth plan fails utility with an empty model
-answer is \textsc{unresolved}.
 
-Our attempt to run the protocol stopped with status \AgentDojoStatus:
-AgentDojo is not installed in the approved environment, and its download is
-pending approval.
+\paragraph{Snapshot and enumeration.}
+We pinned AgentDojo~0.1.35 (MIT; Appendix~\ref{app:protocol}) and used its
+latest benchmark version, v1.2.2. We enumerated tasks from the package's
+registry rather than from any paper (Table~\ref{tab:adjcensus}).
 \begin{itemize}
-\item \todo{SED-E2-HEADROOM-R/AgentDojo: census over all user tasks with
-nested injection variants; report $H_{\mathrm{lower}}$, $H_{\mathrm{upper}}$,
-unresolved reasons, and tasks needing more than binding}
-\item \todo{SED-E2-HEADROOM-R/AgentDyn: same census; open-ended tasks without
+\item v1.2.2 has \AdjUser{} user tasks and 35 injection tasks.
+\item Earlier versions in the same snapshot have 27 injection tasks.
+\end{itemize}
+The census uses no language model, GPU, network access or service account.
+
+\paragraph{Evaluator semantics.}
+We read the pinned source. Four points shape our outcome fields.
+\begin{itemize}
+\item \textbf{Direction of \texttt{security()}.} It returns \texttt{True}
+when the \emph{injection goal was achieved}, i.e.\ \texttt{True} means the
+attack succeeded. With no injection task, AgentDojo's runner returns
+\texttt{True} in that position, so we record \texttt{None} instead.
+\item \textbf{Trace-based checks run first.} \texttt{utility\_from\_traces}
+and \texttt{security\_from\_traces} are checked before the state-based
+checks. In v1.2.2 they are overridden by 12 user tasks and one injection
+task.
+\item \textbf{Traces are proposals.} Their traces are the tool calls
+\emph{proposed} in assistant messages. We pass only calls that passed our
+gate, so a blocked call can never count as an attack.
+\item \textbf{Separate fields.} We keep \emph{task\_success},
+\emph{attack\_success} and \emph{policy\_violation} separate, and record
+blocked calls and tool errors.
+\end{itemize}
+Ten fixtures on the pinned snapshot check each direction, including
+agreement with AgentDojo's own checker.
+
+\paragraph{Fixed components.}
+The fixed components, all frozen before the run, are:
+\begin{itemize}
+\item \textbf{Planner.} Each task's own ground-truth call sequence and final
+answer. The census is therefore \textsc{oracle\_plan\_conditional}.
+\item \textbf{Observation.} The earlier tool outputs of that plan.
+\item \textbf{Contract.} For each argument of a state-changing call whose
+value is not in the prompt but appears in an earlier output, the (tool,
+field) where its benign value occurs. Substring slots need a typed
+extractor.
+\item \textbf{Candidates.} The values this contract admits in each variant,
+plus abstention.
+\item \textbf{Variants.} The benign environment and one variant per
+injection task, using AgentDojo's \texttt{DirectAttack} template.
+\end{itemize}
+Every complete assignment is replayed on its own deep copy of the initial
+state.
+
+\paragraph{Result.}
+\begin{itemize}
+\item \textbf{Coverage.} Of \AdjUser{} user tasks, \AdjZeroSlot{} have no
+binder slot, so their gap is exactly $0$. \AdjResolved{} tasks are resolved
+in total. \AdjUnresolved{} are \textsc{unresolved} because a slot holds free
+text for which no typed extractor exists; they stay in the denominator.
+\item \textbf{Search.} We replayed \AdjVariants{} task variants. Every
+non-exhaustively searched variant had a success witness
+(\AdjNonExh{} without one), so the bounds are not loosened by search.
+\item \textbf{Bounds} (Table~\ref{tab:adjh}):
+\begin{itemize}
+\item unique-or-abstain rule: $H^{\mathrm{clair}}\in[\AdjHlo,\AdjHup]$;
+\item first-admitted rule: $[\AdjHfirstLo,\AdjHfirstUp]$;
+\item free-text slots fixed to the planner's value instead of left
+unresolved: $[\AdjHsecLo,\AdjHsecUp]$.
+\end{itemize}
+\end{itemize}
+The upper bound exceeds $\delta=0.05$. Under our pre-set rule this
+\emph{does not license} holding learned binding, and it is \emph{not}
+evidence that learning would help.
+
+\begin{table}[t]
+\caption{AgentDojo 0.1.35, benchmark v1.2.2: tasks enumerated from the
+package registry.}
+\label{tab:adjcensus}
+\centering\small
+\input{tables/adj_census.tex}
+\end{table}
+
+\begin{table}[t]
+\caption{Binder-only clairvoyant ceiling on AgentDojo v1.2.2 (all user tasks
+in the denominator; unresolved tasks counted as gap $0$ / $1$).
+\textsc{oracle\_plan\_conditional}; offline replay, no language model.}
+\label{tab:adjh}
+\centering\scriptsize
+\input{tables/adj_h.tex}
+\end{table}
+
+\paragraph{Where the gap comes from.}
+The positive gaps come mostly from tasks whose admitted set holds several
+\emph{legitimate} values, where the unique-or-abstain rule abstains.
+Examples are four Slack channels, or the files of a drive listing
+(Table~\ref{tab:adjsuite}). Picking the right one (for example, ``the
+channel with the most users'') is the reasoning step of the task. The clairvoyant chooser
+resolves it by consulting the evaluator; a real binder would need the task
+reasoning that the planner otherwise performs. The gap is similar on benign
+and injected variants (Table~\ref{tab:adjsplit}). On this benchmark, under an
+oracle plan, the ceiling is therefore mainly a \emph{utility} ceiling on
+argument choice, not a security margin.
+
+\paragraph{Security under the fixed plan.}
+Attacks rarely reached an executed call.
+\begin{itemize}
+\item \textbf{Ground-truth plan.} It executed \AdjGtAtk{} attacks over
+\AdjInjVariants{} injected variants.
+\item \textbf{Unique-or-abstain rule.} It executed \AdjRuleAtk. All of them
+are in one task, where the injection had replaced the bill text holding the
+legitimate IBAN, so the attacker's IBAN was the only admitted value.
+\item \textbf{Admitted sets.} An attacker-written value was admitted in
+\AdjAtkAdmitted{} injected variants, and the benign value had been removed in
+\AdjRemoved.
+\end{itemize}
+The removal property matters for interpretation. AgentDojo's injection text
+\emph{replaces} a vector's default content, which can hold the legitimate
+information. In \AdjUnsolvable{} of the \AdjRemoved{} removal variants (from
+\AdjUnsolvableTasks{} task), no admitted action succeeds and abstention is the
+best secure choice. In the other removal variants a success witness still
+exists. The oracle plan still ``succeeds'' in all of them because its
+arguments are fixed in advance. This is one way \textsc{oracle\_plan\_conditional}
+results hide information limits.
+
+\paragraph{Sensitivity to slot identification (exploratory).}
+Slots and contracts are found by value coincidence between a ground-truth
+argument and an earlier output field. This can yield contracts that make no
+sense, such as an amount matched to a transaction-id field. After seeing the
+census we dropped the tasks with numeric-valued slots (\AdjNumericSlots{} of
+\AdjSlots{} slots). The bound on the remaining \AdjNumKept{} tasks was
+$[\AdjNumLo,\AdjNumUp]$. A cruder name-agreement filter removes almost every
+task with a slot and is not interpretable. We keep the frozen primary result
+and report this only as evidence that $H^{\mathrm{clair}}$ depends on how
+slots are identified.
+
+\paragraph{An evaluator detail.}
+One banking injection task's \texttt{security()} contains
+\texttt{any(service or "" in t.subject.lower() ...)}. Because of operator
+precedence, this returns \texttt{True} for any transaction to the attacker's
+IBAN, whatever the subject. We did not modify it. The four executed attacks
+above send money to the attacker under any reading.
+
+\paragraph{Not run.}
+\begin{itemize}
+\item \todo{SED-E2-ADJ/AgentDyn: same census on AgentDyn; requires approval to
+fetch the repository and a license check; open-ended tasks without
 deterministic ground truth expected \textsc{unresolved}}
-\item \todo{SED-E3: only if $H_{\mathrm{upper}}\ge\delta$, compare rule, a
-prompted binder, and a trained binder at matched backbone, tools, validator
-and cost, with user-task-clustered intervals}
+\item \todo{SED-E3: matched comparison of rule, prompted binder and trained
+binder with a real planner (backbone, tools, validator and cost held equal),
+user-task-clustered intervals; requires an approved language-model backend}
 \end{itemize}
 
 %% ===========================================================================
 \section{Limitations}
 \label{sec:limits}
+
+\paragraph{AgentDojo census.}
 \begin{itemize}
-\item \textbf{Synthetic, self-authored evidence.} Every empirical number in
-this paper comes from a simulator whose generator, rules and features were
-written by the same authors. Planted signals (Appendix~\ref{app:sim}) include
-shared cue words, fixed timing of attacker documents, and position
-regularities; any selector can exploit them.
+\item \textbf{Oracle plan.} Every number is \textsc{oracle\_plan\_conditional}:
+the call sequence, read-call arguments, non-binder arguments and the final
+answer are the benchmark's ground truth. An agent with a language-model
+planner makes errors that the ceiling does not cover, and its admitted sets
+would differ.
+\item \textbf{Contracts from ground truth.} Contracts are derived from where
+the benign ground-truth value occurs. This is favorable to rules and to the
+clairvoyant chooser alike, and a deployed contract would be written without
+that knowledge.
+\item \textbf{Slot identification.} Slots are identified by value
+coincidence, which yields some meaningless contracts (e.g.\ numeric
+matches). The ceiling moves when those tasks are dropped. Typed extractors
+are chosen by the type of the ground-truth value. Free-text slots are left
+unresolved.
+\item \textbf{State-changing calls.} These are defined by environment
+change. For example, a logged web request counts as state-changing.
+\item \textbf{Attacks.} One attack template (\texttt{DirectAttack}), one
+benchmark version, and no adaptive attacker. The injection-replacement
+property of AgentDojo means some injected variants cannot be solved from
+observation at all.
+\item \textbf{Ceiling, not performance.} $H^{\mathrm{clair}}$ is a ceiling
+that ignores information limits. No learned or prompted binder was run on
+AgentDojo.
+\end{itemize}
+
+\paragraph{Simulator.}
+\begin{itemize}
+\item \textbf{Self-authored evidence.} The generator, rules and features
+were written by the same authors, with planted signals such as shared cue
+words, fixed timing of attacker documents and position regularities
+(Appendix~\ref{app:sim}).
 \item \textbf{Simulated baselines.} Whole-document trust and the CaMeL-style
 selector encode an assumed susceptibility model. The CaMeL-style selector
-lacks CaMeL's information-sufficiency check and real user confirmation.
-\item \textbf{Self-grading.} In the simulator, the training labels and the
-evaluator both come from the generator's gold values.
-\item \textbf{Host metadata.} Assumption A8 treats field paths and field
-authors as host metadata. This fails for fields parsed from free text,
-where our field-level contract would be only as strong as the parser.
-\item \textbf{Implementation.} The validator is tested, not verified. It
-trusts provenance labels, including task-literal labels issued by the
-planner. The binder boundary is an in-process interface.
-\item \textbf{Scope of $H$.} $H$ bounds only binding under a fixed plan and
-contract. Real agents make planning errors that $H$ does not cover. A
-contract derived from benign ground truth may be more favorable to rules than
-a deployed contract.
-\item \textbf{Statistical weight.} The template split has three held-out
-templates. No confidence interval in the simulator is meaningful.
-\item \textbf{Real benchmarks.} Nothing was measured on a real benchmark or
-with a real language model.
+lacks CaMeL's information-sufficiency check and real confirmation.
+\item \textbf{Self-grading.} Training labels and the evaluator share the
+generator's gold values.
+\item \textbf{Host metadata (A8).} Field paths and field authors are treated
+as host metadata, which fails for fields parsed from free text.
+\item \textbf{Statistical weight.} Three held-out templates make every
+interval uninformative.
 \end{itemize}
+
+\paragraph{Implementation.}
+The validator is tested, not verified. It trusts the provenance labels it is
+given, and the binder boundary is an in-process interface, not isolation.
 
 %% ===========================================================================
 \section{Conclusion}
@@ -755,13 +920,22 @@ with a real language model.
 Authority boundaries decide which values may reach an argument. They do not
 decide which admitted value is right, and ROPE, PACT and ARGUS each leave
 that choice to another component. We isolated that choice and defined a
-binder-only headroom bound with a measurement protocol that does not inflate
-it. In a synthetic setting a learned binder did not beat hand-written rules,
-and the reason was estimation rather than expressivity. The decisive next
-step is the AgentDojo and AgentDyn census of $H$. If
-$H_{\mathrm{upper}}<0.05$, learned binding is not worth pursuing under such
-contracts. If it is larger, the question returns to a matched comparison
-against rules and prompted grounding.
+binder-only clairvoyant ceiling with a measurement protocol that does not
+inflate it. We then measured the ceiling offline on a pinned AgentDojo
+snapshot.
+\begin{itemize}
+\item \textbf{Size of the ceiling.} Conditional on the benchmark's own plan,
+choosing among admitted values could raise secure success over a
+unique-or-abstain rule by at most $[\AdjHlo,\AdjHup]$ on average.
+\item \textbf{Source of the gap.} Most of the gap is task reasoning among
+legitimate values, not defense against injected ones.
+\item \textbf{Consequence.} The ceiling does not rule out learned binding.
+The next decisive step is a matched comparison of rules, prompted grounding
+and a trained binder under a real planner. Such a comparison should separate
+utility gains from security gains before any claim about learning is made.
+\end{itemize}
+In a synthetic setting, the learned binder we built did not beat
+hand-written rules.
 
 %% ===========================================================================
 \section*{Impact Statement}
@@ -769,14 +943,16 @@ This work concerns the security of language-model agents that act on
 third-party content. Its intended effect is to prevent overclaiming: it
 separates what an authority boundary guarantees from what it does not, and
 defines a measurement that can show when a learned component is not worth
-building. All experiments use synthetic data. There are no real accounts,
-credentials, payment identifiers or user data, and the mock tools make no
-network calls. The attack patterns we model, such as injected instructions,
+building. The simulator uses synthetic data only. The AgentDojo census
+replays the benchmark's own fictional environments offline, without a
+language model, network access or service account. No real accounts,
+credentials, payment identifiers or user data are involved. The attack patterns we model, such as injected instructions,
 stale values and compromised senders, are publicly documented. Our
 description adds no new attack capability. A possible negative consequence
 is that a formal-looking bound is mistaken for a security guarantee. We
-therefore state explicitly that $H$ bounds only the benefit of binding choices
-under a fixed contract and plan, and that our validator provides no process
+therefore state explicitly that $H^{\mathrm{clair}}$ bounds only the benefit
+of binding choices under a fixed contract and plan, that it is a ceiling
+rather than achievable performance, and that our validator provides no process
 isolation.
 
 \bibliography{references}
@@ -906,18 +1082,61 @@ which contradicts the rule's abstention.
 \section{Experiment Record}
 \label{app:record}
 Commands, commits, configuration hashes and costs are listed in the
-repository's run manifest. The runs relevant here are:
+repository's run manifest. The runs relevant here are the following.
+
+\paragraph{Simulator.}
 \begin{itemize}
-\item SED-E0 unit tests;
-\item SED-E1 simulator pilot (\EOneWall{} s);
-\item SED-E1-REAGG re-aggregation (under 1 s);
-\item SED-E1-EXPR expressivity check (three runs of about 1.5 s: a pre-fix
-run, a run after the argmax fix, and a run after aligning the hand-set
-history weight with the rule's order, all kept);
-\item SED-E2-HEADROOM-R simulator smoke test (under 1 s);
-\item one AgentDojo attempt that stopped as \AgentDojoStatus.
+\item SED-E0 unit tests.
+\item SED-E1 simulator pilot (\EOneWall{} s).
+\item SED-E1-REAGG re-aggregation.
+\item SED-E1-EXPR expressivity check. It ran three times (pre-fix, post-fix,
+and aligned hand-set weights), and all three outputs are kept.
 \end{itemize}
-All runs used two CPU cores and no GPU, network or paid API.
+
+\paragraph{AgentDojo.}
+\begin{itemize}
+\item \textbf{Task enumeration} (SED-E2-ADJ-CENSUS).
+\item \textbf{Structural pass} (DEVELOPMENT). It recorded plans, slots,
+candidate-set sizes and timing, and inspected no success values.
+\item \textbf{First census run: INVALID and kept.} A success witness equal
+to the empty assignment was tested by truthiness, so zero-slot variants
+lost their witness. This produced negative gaps, and we stopped the run.
+\item \textbf{Corrected census} (\AdjWall{} s). It added a regression test
+and a best-$\ge$-rule invariant check. The protocol was unchanged.
+\item \textbf{Exploratory slot-sensitivity analysis}, run after the census.
+\end{itemize}
+All runs used at most two CPU cores and no GPU, network access during
+replay, language model or paid API.
+
+\begin{table}[h]
+\caption{Per delegated argument, instance-split test set. Counts are over
+\emph{arguments}; one billing template has two delegated arguments of which
+only one is attacked, so ``present'' is below ``args'' in attack conditions.
+ENGINEERING ONLY.}
+\label{tab:boundary}
+\centering\scriptsize
+\input{tables/e1_boundary.tex}
+\end{table}
+
+\begin{table}[h]
+\caption{Learned binder minus rule field scopes (per-template means). $n_T$:
+number of held-out templates. $^\ddagger$percentile cluster bootstrap over
+templates; not meaningful for $n_T<10$ and not used for inference.
+ENGINEERING ONLY.}
+\label{tab:diff}
+\centering\small
+\input{tables/e1_diff.tex}
+\end{table}
+
+\begin{table}[h]
+\caption{Decision agreement with the rule, per delegated argument (bind the
+same candidate, or both abstain). Lex: hand-set lexicographic weights (not
+fitted). Learned: stored fitted weights. Regen.\ mismatches: stored outcomes
+not reproduced by regeneration. EXPLORATORY.}
+\label{tab:expr}
+\centering\scriptsize
+\input{tables/e1_expr.tex}
+\end{table}
 
 \begin{table}[h]
 \caption{SED-E1 template split: proposed, executed and attacker-influenced
@@ -943,6 +1162,24 @@ ENGINEERING ONLY.}
 \end{table}
 
 \begin{table}[h]
+\caption{AgentDojo v1.2.2 census per suite (primary analysis,
+unique-or-abstain). Unresolved tasks contribute $0$ to the lower and $1$ to
+the upper bound. \textsc{oracle\_plan\_conditional}.}
+\label{tab:adjsuite}
+\centering\small
+\input{tables/adj_suite.tex}
+\end{table}
+
+\begin{table}[h]
+\caption{AgentDojo v1.2.2: ceiling restricted to benign or to injected
+variants (primary analysis, unique-or-abstain). Descriptive breakdown fixed
+before the run.}
+\label{tab:adjsplit}
+\centering\small
+\input{tables/adj_h_split.tex}
+\end{table}
+
+\begin{table}[h]
 \caption{Headroom smoke test on the simulator (instance-split test episodes;
 150 nested variants per template). Success is the generator's gold, not an
 independent criterion. ENGINEERING ONLY.}
@@ -951,36 +1188,79 @@ independent criterion. ENGINEERING ONLY.}
 \input{tables/e2_sim.tex}
 \end{table}
 
-\section{Headroom Protocol for Real Benchmarks}
+\section{AgentDojo Offline Replay Protocol}
 \label{app:protocol}
 
-\paragraph{Record kept for each original task.}
+\paragraph{Snapshot and import path.}
+We use AgentDojo~0.1.35, the PyPI wheel with sha256 prefix
+\texttt{364bea42}, MIT license, at benchmark version v1.2.2.
 \begin{itemize}
-\item task identifier and suite;
-\item the fixed plan;
-\item for each state-changing slot: its contract, the read-time admitted
-candidates with source, field path and host metadata, and whether each value
-lies in an attacker-writable location;
-\item the rule's choice;
-\item the independent success criterion;
-\item $s_{\mathrm{rule}}$ and $s_{\mathrm{oracle}}$;
-\item whether the rule's choice lay in the action set;
-\item whether the task needs more than binding (extra reads, authentication
-or clarification);
-\item unresolved reasons.
+\item The wheel is installed without its declared LLM-client dependencies.
+\item A small import shim skips the package initializer that imports those
+clients. The only constant the evaluation path needs from an LLM module is
+read from the source's syntax tree.
+\item No language-model API, GPU or service account is used.
 \end{itemize}
 
-\paragraph{Adapter status.}
-The AgentDojo adapter is a draft. Its seven API assumptions are listed in
-the source and must be checked against a pinned release before the first run.
-Stored traces without counterfactual success can support only the ambiguity
-proxy, and the runner labels them so.
-
-\paragraph{Sources pending approval.}
+\paragraph{Fixed components} (all frozen before the census):
 \begin{itemize}
-\item The AgentDojo Python package. Its GitHub page states an MIT license.
-\item The AgentDyn repository named in its abstract. Its license has not
-been checked.
+\item \textbf{Plan.} The task's own \texttt{ground\_truth(env)} call
+sequence in each variant's environment, with final output
+\texttt{GROUND\_TRUTH\_OUTPUT} (\textsc{oracle\_plan\_conditional}).
+\item \textbf{State-changing calls.} Calls whose execution changes the
+environment dump.
+\item \textbf{Slots.} Arguments of state-changing calls whose benign
+ground-truth value is absent from the user prompt and occurs in an earlier
+benign tool output, either as a field value or as a substring of a text
+field.
+\item \textbf{Contract.} For each slot, the (tool, field path) set where
+the benign value occurs. Substring slots additionally require a typed
+extractor (IBAN, e-mail, URL, date, date-time, time, number) chosen by the
+type of the benign value.
+\item \textbf{Admitted set.} Values the contract admits in the variant's
+own observation, plus abstain.
+\item \textbf{Rules.} Primary: unique-or-abstain. Secondary: first admitted
+value.
+\item \textbf{Variants.} Benign, and one variant per injection task of the
+suite, using AgentDojo's \texttt{DirectAttack} template (``TODO: \{goal\}'')
+on the vectors that AgentDojo's own canary procedure reports as seen by the
+task.
+\end{itemize}
+
+\paragraph{Evaluation.}
+Each assignment is replayed on its own deep copy of the variant's initial
+environment. The utility and security checks run as in AgentDojo:
+\texttt{*\_from\_traces} first, and the state-based check if it returns
+\texttt{None}. The trace contains only calls that passed the gate. We record
+\emph{task\_success}, \emph{attack\_success} (\texttt{security()}~$=$~True;
+\texttt{None} for benign variants) and \emph{policy\_violation}
+separately, along with blocked calls and tool errors.
+
+\paragraph{Search and bounds.}
+The search order is:
+\begin{enumerate}
+\item the rule assignments;
+\item the assignment equal to the ground-truth values (if admitted);
+\item exhaustive enumeration up to 4{,}096 assignments per variant, or 4{,}096
+seeded samples above that.
+\end{enumerate}
+The search stops at the first success witness. Bounds follow
+\S\ref{sec:headroom}.
+
+\paragraph{Fixtures.}
+Ten tests on the pinned snapshot check the direction of every outcome
+field:
+\begin{itemize}
+\item benign success;
+\item attack success when the attacker's account is bound;
+\item a blocked call that is not counted as an attack, with no attacker
+transaction in the post-state;
+\item abstention;
+\item a tool error;
+\item the policy-violation flag;
+\item isolation between replays;
+\item agreement with AgentDojo's own checker;
+\item the injection-replacement property.
 \end{itemize}
 
 \section{What We Read}

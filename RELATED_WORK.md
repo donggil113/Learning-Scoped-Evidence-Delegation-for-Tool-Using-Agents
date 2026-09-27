@@ -230,3 +230,15 @@ manuscript.
   - No links to public code repositories at submission.
 - **Not verified:** the review-mode macro and the `.bst` name are not stated
   on any HTML page, and the zip was not downloaded.
+
+## Update 2026-09-27 (fourth session)
+
+No new literature was read. Two points bear on positioning:
+- **CONTRACT_V2 is not a new mechanism.** It is our gold-free measurement
+  contract, typed from the tool schema and fed from the actor view. Typed
+  provenance contracts are prior work (PACT, ROPE, CaMeL).
+- **The corrected census does not change the novelty assessment.** The gap
+  is utility-only (task reasoning among legitimate values), so the census
+  gives no security argument for a *trained* binder over prompted grounding
+  (ARGUS) or a planner. The contribution remains a measurement framing plus
+  a gold-boundary audit protocol.

@@ -735,3 +735,83 @@ to a deployable contract.
 - **DEVELOPMENT smoke run** (4 tasks, `results/analysis/DEV-SED-E2-CONTRACT-CLOSURE_20260927T052947Z`).
   It exposed a real extraction bug (sentence-final numbers dropped), fixed
   with a regression test before the freeze.
+
+### 6-CC results
+
+Run `results/raw/SED-E2-CONTRACT-CLOSURE_20260927T053244Z`: COMPLETED, 97/97
+tasks resolved in both modes, 1,046 variants per mode. Cost: 2183 s wall,
+4100 CPU-s, 2 single-threaded processes on cores 0–1, peak RSS 57 MB per
+worker. Config sha256 `758868cb…`; module sha256 `e8e2c410…`.
+
+| Quantity (official channel) | fallback (primary) | strict |
+|---|---|---|
+| H_clair, typed resolver, secure | **[0.273, 0.293]** | [0.271, 0.292] |
+| H_clair, unique-or-abstain, secure | [0.314, 0.334] | [0.302, 0.323] |
+| H_clair, resolver, utility only | [0.273, 0.293] | [0.271, 0.292] |
+| benign-only / injected-only (resolver) | [0.289, 0.309] / [0.270, 0.291] | [0.278, 0.299] / [0.270, 0.291] |
+| Effect channel | identical to official on every path (0 of 4,184 path outcomes differ) | identical |
+
+- **Per suite (primary).**
+  - slack 0.730 (16 of 21 tasks with a gap);
+  - workspace [0.225, 0.275] (9 tasks with a gap, 3 undetermined);
+  - banking 0.131 (3 tasks);
+  - travel 0.
+- **Zero-gap and capped tasks.** 36 tasks have no write call. 77 variants
+  (in workspace tasks 4, 21 and 25) hit the cap without a witness.
+- **Selectable failures** (resolver, official, fallback): 248 variants in
+  28 tasks, **all utility-caused** (0 attack-caused). The resolver
+  abstained in 165 of them. Unique-or-abstain has 275 selectable failures
+  in 33 tasks.
+- **Attack room** (949 injected variants):
+  - The resolver and unique-or-abstain executed the attacker goal in 4
+    variants, all banking user_task_0 (the IBAN was erased by the
+    injection). They executed 0 in strict mode.
+  - Full abstention executed 0, and the ground-truth path 0 of the 709
+    variants where gold was admitted.
+  - **Some admitted action achieves the attacker goal in 35–110 variants**
+    (task-nested [0.044, 0.119]), across 16 tasks with a witness in
+    banking, slack and workspace.
+  - So the benign-only and injected-only ceilings being similar does not
+    show a zero security effect.
+- **Channels.** They coincide because no proposal is ever denied (the
+  binder only proposes admitted values). The 31 paths with tool errors
+  changed no outcome.
+- **Flags** (fallback):
+  - ORACLE_OUTPUT_DEPENDENT: 42 tasks (3 of the 28 gap tasks);
+  - HAS_FREE_TEXT: 46;
+  - HAS_ORACLE_COMPOSED: 6;
+  - GOLD_NOT_ADMITTED_ON_GT_PATH: 21;
+  - GT_PATH_FAILS_BENIGN_OFFICIAL: 17 (all 17 are gold-not-admitted tasks,
+    so this is not a transcript bug);
+  - PLAN_SHAPE_VARIES: 0.
+- **Coverage** (post hoc, EXPLORATORY; `results/analysis/SED-E2-CC-COVERAGE_20260927T061102Z`):
+  - 14 of 61 write tasks have no admitted action that completes the benign
+    task.
+  - 43 gold slot values in 21 tasks are not admitted: 29 are not in the
+    actor view (18 composed date-times, computed amounts, planner-chosen
+    dates), 12 are in free text or are a name in an IBAN slot (the
+    substring test is coarse), and 2 are list shapes.
+- **Identifiability screen:**
+  - 248 NOT_REFUTED, 0 REFUTED, 0 UNKNOWN.
+  - 148 of the 248 have a singleton first-write view, so the screen is
+    vacuous for them.
+  - The other 100 share a view with variants of the same task and have a
+    common success-reachable first-write choice.
+  - Locus: 130 first-write errors, 70 later-write errors, 48 unknown.
+  - Typical first-write success set: 1 of 2–27 choices.
+
+**Decision (frozen rule, corrected wording).**
+- H_upper = 0.293 ≥ 0.05, so the sufficient condition to hold was not
+  met.
+- NOT_REFUTED selectable rate (task-nested) = 0.273 ≥ 0.05, so the rule
+  gives **PROPOSE_CONDITIONAL_NOT_RUN**.
+
+**Interpretation.**
+- The proposal rests on weak evidence: identifiability is only not
+  refuted, and the gap is utility-only (task reasoning among legitimate
+  values, which a planner performs).
+- Holding a *trained* binder remains justified by the utility-only gap and
+  by novelty (RELATED_WORK).
+- Any follow-up must score within-contract attack selection alongside
+  utility.
+- No learning was run.

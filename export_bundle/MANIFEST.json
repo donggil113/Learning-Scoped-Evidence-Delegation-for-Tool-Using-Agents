@@ -1,0 +1,249 @@
+{
+ "created_utc": "2026-09-27T06:16:55Z",
+ "git_head_at_export": "5e59956190045c4a92c48b6bd348328d77974d07",
+ "pdf": "NOT_BUILT (no TeX installation in this environment; icml2026 style files not in the repository)",
+ "files": [
+  {
+   "path": "paper/main.tex",
+   "bytes": 73600,
+   "sha256": "3155ca909a20556743bc260bc5c6a64b3f7bb1fd01aa01f025b7eee9051fcde0"
+  },
+  {
+   "path": "paper/references.bib",
+   "bytes": 7033,
+   "sha256": "e93f5c9479b6bf6c1f925ee4d1ccacf160ef7667811bde88274edcb68ecb6711"
+  },
+  {
+   "path": "paper/claims.csv",
+   "bytes": 15439,
+   "sha256": "dc8b2526c23b008ab6f028de5523797206e6582b41554b92a1380870045d1631"
+  },
+  {
+   "path": "paper/sources.json",
+   "bytes": 1206,
+   "sha256": "49d4727d110ffd061dde3423a9c131ed6724fc835f9009485349604bec0f053c"
+  },
+  {
+   "path": "configs/agentdojo_contract_v2.json",
+   "bytes": 9365,
+   "sha256": "758868cb939a7dc1d37ef6717c0cf934f110bcd15fce0d6752ff7ddc5feeabf1"
+  },
+  {
+   "path": "configs/agentdojo_headroom.json",
+   "bytes": 5550,
+   "sha256": "c96569f5447b93788fcd30c55011e49c8a6076ab0add401ba0bb66092566e6b6"
+  },
+  {
+   "path": "src/scoped_evidence/adapters/agentdojo_contract_v2.py",
+   "bytes": 29624,
+   "sha256": "e8e2c410e21da29bb332d3c6efaa320313a47a87b1733831781075f4c7681ebb"
+  },
+  {
+   "path": "src/scoped_evidence/adapters/agentdojo_shim.py",
+   "bytes": 3690,
+   "sha256": "38a63bec5b91df2edd3546ce1dd99f642ec6d69c0b90e8e9d3b00b5776aafff8"
+  },
+  {
+   "path": "src/scoped_evidence/adapters/agentdojo_replay.py",
+   "bytes": 12351,
+   "sha256": "d46402007e242be7fe3938afd499106c39d40e754a368dc02a9c6aad985674fe"
+  },
+  {
+   "path": "scripts/run_contract_v2_census.py",
+   "bytes": 25000,
+   "sha256": "731153b39f9645e0f97661d169789246a17c95ab060c459c760c20aba9953756"
+  },
+  {
+   "path": "scripts/run_agentdojo_headroom.py",
+   "bytes": 13279,
+   "sha256": "1aa52e432c8275117572220b83948bc7e3cfc1a45db2b23f6c9b2a8c52d61d89"
+  },
+  {
+   "path": "scripts/make_paper_tables.py",
+   "bytes": 25824,
+   "sha256": "25fa152acaa3fff2c8de2ccf743d3a347245aad02e36962d3291e1188931f330"
+  },
+  {
+   "path": "scripts/check_tex_static.py",
+   "bytes": 2982,
+   "sha256": "d4a21a03d6285bcc3af24d0486b5fdf21ad41ebc26298eb309e2d469ea33e071"
+  },
+  {
+   "path": "scripts/setup_agentdojo_replay_env.sh",
+   "bytes": 1159,
+   "sha256": "424ea48a3e7d73aeff370ac58c1c16eb199dc339d2090387a3157fc0cc80ce31"
+  },
+  {
+   "path": "scripts/make_export_bundle.py",
+   "bytes": 3183,
+   "sha256": "687bdf5bca7cf899e55cf85019be421a43a70f4658d01b0626050f572acfe6c4"
+  },
+  {
+   "path": "scripts/analyze_contract_v2_coverage.py",
+   "bytes": 4871,
+   "sha256": "98ff24e36f51047f1536976e4c9ae883e4f6c86b3ae7b410f6a3ad313a351223"
+  },
+  {
+   "path": "paper/BUILD.md",
+   "bytes": 1626,
+   "sha256": "249b70361920f4af9dc7f79c6e48a5ef7ec1fb2f9fafb735e91a2419abbb6bef"
+  },
+  {
+   "path": "tests/test_contract_v2.py",
+   "bytes": 11072,
+   "sha256": "e1fefe68613ded9a150fce4325030f3a7fe769f6a090e6874c665b70a62b8b15"
+  },
+  {
+   "path": "tests/test_agentdojo_replay.py",
+   "bytes": 6005,
+   "sha256": "388c6634000b5e1c728369dd98a9019f81a9fdee39d1af117f8af554c3350a33"
+  },
+  {
+   "path": "tests/helpers.py",
+   "bytes": 2158,
+   "sha256": "c860d80cc0a4c02a99fdbde48abd0ce9243ed95a61f1d365e123b3722b9d6b0b"
+  },
+  {
+   "path": "STATUS.md",
+   "bytes": 5325,
+   "sha256": "1ad9e6a99cba375cebc7f347583dc9e4f910fb3686c61b4cb0270acefe4e9d3d"
+  },
+  {
+   "path": "run_manifest.json",
+   "bytes": 18212,
+   "sha256": "e936f3ec5f5868d98064c674bae2e0db6ff9eed9b997342517315b95c914a156"
+  },
+  {
+   "path": "paper/tables/adj_census.tex",
+   "bytes": 213,
+   "sha256": "10205127bdd4fba984c7fcc24c09a29f85b8621e9f83ad28d511b93772d21223"
+  },
+  {
+   "path": "paper/tables/adj_h.tex",
+   "bytes": 472,
+   "sha256": "ee5f1fe9356342d535071cfb8e39f02788a9abf7393ec828dc546c1c0e8b1c9a"
+  },
+  {
+   "path": "paper/tables/adj_h_split.tex",
+   "bytes": 234,
+   "sha256": "eab7358f8438c5050d51212a36b7aeadfabd51e1026e74945e4bf3cef13792b1"
+  },
+  {
+   "path": "paper/tables/adj_suite.tex",
+   "bytes": 338,
+   "sha256": "e31d0dcb781bfaebeffe9820333fc576266f56b7672b1062337d0f9383b88a53"
+  },
+  {
+   "path": "paper/tables/cc_attack.tex",
+   "bytes": 345,
+   "sha256": "cdce8b221577233d35078c52b84617b6618bcf53d9b21ca636d90cbff7bd7ddc"
+  },
+  {
+   "path": "paper/tables/cc_h.tex",
+   "bytes": 500,
+   "sha256": "898935931a539548ec27ba715262a487a207fa643dff029d019c61388bf47efb"
+  },
+  {
+   "path": "paper/tables/cc_suite.tex",
+   "bytes": 408,
+   "sha256": "628eae26d7808134c7a5494886ab0698eece19b592bed85de5f701fe1c5f80fa"
+  },
+  {
+   "path": "paper/tables/cc_v1v2.tex",
+   "bytes": 458,
+   "sha256": "b84191431241bdb589184df2a8bf6d568a42ca51e292ff7a4ad19eba3855eb02"
+  },
+  {
+   "path": "paper/tables/e1_boundary.tex",
+   "bytes": 566,
+   "sha256": "0c567be2d0d03068107ba650dfe351cad25f68999cebf6763d526ee8b221b47b"
+  },
+  {
+   "path": "paper/tables/e1_diff.tex",
+   "bytes": 482,
+   "sha256": "0d43f4f829f8f7376ec6a67bb0f80d87ea5361cb87fb30316511665f5619d843"
+  },
+  {
+   "path": "paper/tables/e1_environment.tex",
+   "bytes": 591,
+   "sha256": "d039312b036d00f0f53627a33ed13d356318be16ebc1c9430216f3810efcca20"
+  },
+  {
+   "path": "paper/tables/e1_expr.tex",
+   "bytes": 278,
+   "sha256": "35b1e49e0d4241732493ce6a65b7bf2670ddf3e90aec6dfe54353173bd2d32a8"
+  },
+  {
+   "path": "paper/tables/e1_instance.tex",
+   "bytes": 591,
+   "sha256": "18d92ac971f90eab486d09d82b0f7fb61af2f7c90bff2b565cca425953307047"
+  },
+  {
+   "path": "paper/tables/e1_levels.tex",
+   "bytes": 789,
+   "sha256": "4a180eda88694f9d7b68955b33c6b64b5368d1381188b0da239b72efaf243cce"
+  },
+  {
+   "path": "paper/tables/e1_main.tex",
+   "bytes": 725,
+   "sha256": "54697a2ed057cbdb03710a34c00ae8423f9734917afd42d890919d0d9dbe5d31"
+  },
+  {
+   "path": "paper/tables/e2_sim.tex",
+   "bytes": 554,
+   "sha256": "b400d005b43883a3c3de790ae59af660217fa00144e0edf7363b18060b7fbaa8"
+  },
+  {
+   "path": "paper/tables/numbers.tex",
+   "bytes": 3932,
+   "sha256": "9eae14a0e15d8d6932793430028be34cc6e81c8f0ff3ed37c30c88b10491228a"
+  },
+  {
+   "path": "results/raw/SED-E2-CONTRACT-CLOSURE_20260927T053244Z/summary.json",
+   "bytes": 119201,
+   "sha256": "bd18504651166463ede720beddc5636e52c5c3a7331c8007a39ec9e847c52bab"
+  },
+  {
+   "path": "results/analysis/SED-E2-CC-COVERAGE_20260927T061102Z/README.txt",
+   "bytes": 811,
+   "sha256": "9218c04196ccf601c69a933519d85a656664ab186270ad6a3dcdd8b27f554eca"
+  },
+  {
+   "path": "results/analysis/SED-E2-CC-COVERAGE_20260927T061102Z/coverage.json",
+   "bytes": 9916,
+   "sha256": "07b0ddf65e5aacd1ad8b030ec96cf40274c0a9a31ec61292eb23eb49c325ae66"
+  },
+  {
+   "path": "results/raw/SED-E2-ADJ-HEADROOM_20260927T000630Z/summary.json",
+   "bytes": 140083,
+   "sha256": "6a7e76c33cf927ff2e506b4dd11c9469b240800fe06ab597228879bb632ac18b"
+  },
+  {
+   "path": "results/raw/SED-E2-ADJ-CENSUS_20260926T235303Z/task_census.json",
+   "bytes": 23624,
+   "sha256": "31292e39e5113b607ceadd080a34959005bccae390e0944ca1a57855dcbcaf0b"
+  }
+ ],
+ "referenced_not_copied": [
+  {
+   "path": "results/raw/SED-E2-CONTRACT-CLOSURE_20260927T053244Z/task_results_fallback.jsonl",
+   "bytes": 1835283,
+   "sha256": "1b11310f0196bfc1cda5cd4725fa4eecf2d91f80a6b60cccdb850bda42eb9a80"
+  },
+  {
+   "path": "results/raw/SED-E2-CONTRACT-CLOSURE_20260927T053244Z/task_results_strict.jsonl",
+   "bytes": 1642941,
+   "sha256": "14f4c83af63f60132e7ae635d3e109537a75bccf81209c6064a755b6bb0306cd"
+  },
+  {
+   "path": "results/raw/SED-E2-ADJ-HEADROOM_20260927T000630Z/task_results_primary.jsonl",
+   "bytes": 687218,
+   "sha256": "4a3ffe1ed986880a2ef6dcd55624cc69ce072a0b00188cf3a5c9ee0452d223a7"
+  },
+  {
+   "path": "results/raw/SED-E2-ADJ-HEADROOM_20260927T000630Z/task_results_secondary.jsonl",
+   "bytes": 756515,
+   "sha256": "8e237979b146c71d93a8ff05aa2eb0788f26cfd6b22b628e1fa296d9fa03640c"
+  }
+ ]
+}

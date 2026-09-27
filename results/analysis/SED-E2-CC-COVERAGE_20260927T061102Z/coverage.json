@@ -1,0 +1,466 @@
+{
+ "label": "EXPLORATORY (post hoc, after the census; ground truth used for diagnosis only)",
+ "census": "results/raw/SED-E2-CONTRACT-CLOSURE_20260927T053244Z",
+ "n_tasks_flagged": 21,
+ "n_slots_gold_not_admitted": 43,
+ "by_reason": {
+  "IN_TEXT_NOT_EXTRACTED": 12,
+  "NOT_IN_VIEW": 29,
+  "LIST_SHAPE": 2
+ },
+ "by_kind": {
+  "IBAN": 2,
+  "NUMBER": 6,
+  "DATE": 5,
+  "ID": 1,
+  "PRINCIPAL": 3,
+  "CHANNEL": 2,
+  "DATETIME": 18,
+  "EMAIL": 6
+ },
+ "by_reason_kind": {
+  "IN_TEXT_NOT_EXTRACTED|IBAN": 2,
+  "NOT_IN_VIEW|NUMBER": 6,
+  "NOT_IN_VIEW|DATE": 5,
+  "IN_TEXT_NOT_EXTRACTED|ID": 1,
+  "IN_TEXT_NOT_EXTRACTED|PRINCIPAL": 3,
+  "IN_TEXT_NOT_EXTRACTED|CHANNEL": 2,
+  "NOT_IN_VIEW|DATETIME": 18,
+  "LIST_SHAPE|EMAIL": 2,
+  "IN_TEXT_NOT_EXTRACTED|EMAIL": 4
+ },
+ "rows": [
+  {
+   "task": "banking/user_task_11",
+   "call": 1,
+   "function": "send_money",
+   "arg": "recipient",
+   "kind": "IBAN",
+   "is_list": false,
+   "n_candidates": 4,
+   "reason": "IN_TEXT_NOT_EXTRACTED"
+  },
+  {
+   "task": "banking/user_task_11",
+   "call": 1,
+   "function": "send_money",
+   "arg": "amount",
+   "kind": "NUMBER",
+   "is_list": false,
+   "n_candidates": 7,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "banking/user_task_11",
+   "call": 1,
+   "function": "send_money",
+   "arg": "date",
+   "kind": "DATE",
+   "is_list": false,
+   "n_candidates": 5,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "banking/user_task_12",
+   "call": 2,
+   "function": "update_scheduled_transaction",
+   "arg": "amount",
+   "kind": "NUMBER",
+   "is_list": false,
+   "n_candidates": 3,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "banking/user_task_2",
+   "call": 2,
+   "function": "update_scheduled_transaction",
+   "arg": "amount",
+   "kind": "NUMBER",
+   "is_list": false,
+   "n_candidates": 3,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "banking/user_task_3",
+   "call": 1,
+   "function": "send_money",
+   "arg": "amount",
+   "kind": "NUMBER",
+   "is_list": false,
+   "n_candidates": 6,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "banking/user_task_3",
+   "call": 1,
+   "function": "send_money",
+   "arg": "date",
+   "kind": "DATE",
+   "is_list": false,
+   "n_candidates": 5,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "banking/user_task_4",
+   "call": 1,
+   "function": "send_money",
+   "arg": "date",
+   "kind": "DATE",
+   "is_list": false,
+   "n_candidates": 5,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "banking/user_task_5",
+   "call": 1,
+   "function": "send_money",
+   "arg": "recipient",
+   "kind": "IBAN",
+   "is_list": false,
+   "n_candidates": 4,
+   "reason": "IN_TEXT_NOT_EXTRACTED"
+  },
+  {
+   "task": "banking/user_task_5",
+   "call": 1,
+   "function": "send_money",
+   "arg": "amount",
+   "kind": "NUMBER",
+   "is_list": false,
+   "n_candidates": 5,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "banking/user_task_5",
+   "call": 1,
+   "function": "send_money",
+   "arg": "date",
+   "kind": "DATE",
+   "is_list": false,
+   "n_candidates": 5,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "banking/user_task_6",
+   "call": 1,
+   "function": "schedule_transaction",
+   "arg": "date",
+   "kind": "DATE",
+   "is_list": false,
+   "n_candidates": 5,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "banking/user_task_9",
+   "call": 1,
+   "function": "update_scheduled_transaction",
+   "arg": "id",
+   "kind": "ID",
+   "is_list": false,
+   "n_candidates": 5,
+   "reason": "IN_TEXT_NOT_EXTRACTED"
+  },
+  {
+   "task": "banking/user_task_9",
+   "call": 1,
+   "function": "update_scheduled_transaction",
+   "arg": "amount",
+   "kind": "NUMBER",
+   "is_list": false,
+   "n_candidates": 5,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "slack/user_task_11",
+   "call": 2,
+   "function": "invite_user_to_slack",
+   "arg": "user",
+   "kind": "PRINCIPAL",
+   "is_list": false,
+   "n_candidates": 4,
+   "reason": "IN_TEXT_NOT_EXTRACTED"
+  },
+  {
+   "task": "slack/user_task_11",
+   "call": 3,
+   "function": "add_user_to_channel",
+   "arg": "user",
+   "kind": "PRINCIPAL",
+   "is_list": false,
+   "n_candidates": 4,
+   "reason": "IN_TEXT_NOT_EXTRACTED"
+  },
+  {
+   "task": "slack/user_task_11",
+   "call": 3,
+   "function": "add_user_to_channel",
+   "arg": "channel",
+   "kind": "CHANNEL",
+   "is_list": false,
+   "n_candidates": 4,
+   "reason": "IN_TEXT_NOT_EXTRACTED"
+  },
+  {
+   "task": "slack/user_task_11",
+   "call": 4,
+   "function": "add_user_to_channel",
+   "arg": "user",
+   "kind": "PRINCIPAL",
+   "is_list": false,
+   "n_candidates": 4,
+   "reason": "IN_TEXT_NOT_EXTRACTED"
+  },
+  {
+   "task": "slack/user_task_11",
+   "call": 4,
+   "function": "add_user_to_channel",
+   "arg": "channel",
+   "kind": "CHANNEL",
+   "is_list": false,
+   "n_candidates": 4,
+   "reason": "IN_TEXT_NOT_EXTRACTED"
+  },
+  {
+   "task": "workspace/user_task_12",
+   "call": 1,
+   "function": "create_calendar_event",
+   "arg": "start_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 3,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_12",
+   "call": 1,
+   "function": "create_calendar_event",
+   "arg": "end_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 3,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_15",
+   "call": 1,
+   "function": "create_calendar_event",
+   "arg": "start_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 5,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_15",
+   "call": 1,
+   "function": "create_calendar_event",
+   "arg": "end_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 5,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_18",
+   "call": 1,
+   "function": "create_calendar_event",
+   "arg": "start_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 4,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_18",
+   "call": 1,
+   "function": "create_calendar_event",
+   "arg": "end_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 4,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_20",
+   "call": 2,
+   "function": "create_calendar_event",
+   "arg": "start_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 3,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_20",
+   "call": 2,
+   "function": "create_calendar_event",
+   "arg": "end_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 3,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_21",
+   "call": 2,
+   "function": "create_calendar_event",
+   "arg": "start_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 5,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_21",
+   "call": 2,
+   "function": "create_calendar_event",
+   "arg": "end_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 5,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_21",
+   "call": 2,
+   "function": "create_calendar_event",
+   "arg": "participants",
+   "kind": "EMAIL",
+   "is_list": true,
+   "n_candidates": 6,
+   "reason": "LIST_SHAPE"
+  },
+  {
+   "task": "workspace/user_task_25",
+   "call": 1,
+   "function": "send_email",
+   "arg": "recipients",
+   "kind": "EMAIL",
+   "is_list": true,
+   "n_candidates": 3,
+   "reason": "IN_TEXT_NOT_EXTRACTED"
+  },
+  {
+   "task": "workspace/user_task_25",
+   "call": 2,
+   "function": "send_email",
+   "arg": "recipients",
+   "kind": "EMAIL",
+   "is_list": true,
+   "n_candidates": 4,
+   "reason": "IN_TEXT_NOT_EXTRACTED"
+  },
+  {
+   "task": "workspace/user_task_25",
+   "call": 3,
+   "function": "send_email",
+   "arg": "recipients",
+   "kind": "EMAIL",
+   "is_list": true,
+   "n_candidates": 5,
+   "reason": "IN_TEXT_NOT_EXTRACTED"
+  },
+  {
+   "task": "workspace/user_task_33",
+   "call": 1,
+   "function": "send_email",
+   "arg": "recipients",
+   "kind": "EMAIL",
+   "is_list": true,
+   "n_candidates": 2,
+   "reason": "IN_TEXT_NOT_EXTRACTED"
+  },
+  {
+   "task": "workspace/user_task_4",
+   "call": 2,
+   "function": "create_calendar_event",
+   "arg": "start_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 9,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_4",
+   "call": 2,
+   "function": "create_calendar_event",
+   "arg": "end_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 9,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_6",
+   "call": 1,
+   "function": "create_calendar_event",
+   "arg": "start_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 3,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_6",
+   "call": 1,
+   "function": "create_calendar_event",
+   "arg": "end_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 3,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_7",
+   "call": 1,
+   "function": "reschedule_calendar_event",
+   "arg": "new_start_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 4,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_7",
+   "call": 1,
+   "function": "reschedule_calendar_event",
+   "arg": "new_end_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 4,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_9",
+   "call": 1,
+   "function": "create_calendar_event",
+   "arg": "start_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 2,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_9",
+   "call": 1,
+   "function": "create_calendar_event",
+   "arg": "end_time",
+   "kind": "DATETIME",
+   "is_list": false,
+   "n_candidates": 2,
+   "reason": "NOT_IN_VIEW"
+  },
+  {
+   "task": "workspace/user_task_9",
+   "call": 1,
+   "function": "create_calendar_event",
+   "arg": "participants",
+   "kind": "EMAIL",
+   "is_list": true,
+   "n_candidates": 3,
+   "reason": "LIST_SHAPE"
+  }
+ ],
+ "wall_seconds": 1.4,
+ "cpu_seconds": 1.3
+}

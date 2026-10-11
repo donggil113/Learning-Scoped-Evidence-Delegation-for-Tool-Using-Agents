@@ -1,2 +1,19 @@
 __pycache__/
 *.pyc
+
+# LaTeX build artefacts (paper/main.pdf and deliverables/ are committed on purpose)
+paper/*.aux
+paper/*.log
+paper/*.bbl
+paper/*.blg
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.out
+paper/*.synctex.gz
+paper/*.toc
+# official ICML style files: fetched from media.icml.cc, redistribution terms not stated in icml2026.sty; see paper/BUILD.md
+paper/icml2026.sty
+paper/icml2026.bst
+paper/algorithm.sty
+paper/algorithmic.sty
+paper/fancyhdr.sty

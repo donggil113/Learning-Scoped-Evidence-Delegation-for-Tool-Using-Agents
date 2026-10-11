@@ -1,0 +1,103 @@
+{
+ "run_id": "R8-P4-TYPESET_20261011T025136Z",
+ "project": "P4",
+ "frozen_before_start": true,
+ "scope": "manuscript typesetting, build, render, visual check, packaging and delivery only. Research HOLD unchanged: no census, replay, AgentDojo install, LLM, API, GPU, training, re-scoring.",
+ "manuscript_version": "v4-typeset (scientific content unchanged)",
+ "source_commit_at_start": "caa026d2d016f29fbdd0ffb0d37540fb4249db2d",
+ "allowed_stages": [
+  "env_check",
+  "tex_install",
+  "style_fetch",
+  "render_env",
+  "build",
+  "render",
+  "visual_check",
+  "package",
+  "deliver"
+ ],
+ "inputs_sha256": {
+  "paper/main.tex": "9da5c8247dadfcaa97ff3982072277dcc5288ad1a8fd951271860751cd332e57",
+  "paper/references.bib": "e93f5c9479b6bf6c1f925ee4d1ccacf160ef7667811bde88274edcb68ecb6711",
+  "paper/BUILD.md": "249b70361920f4af9dc7f79c6e48a5ef7ec1fb2f9fafb735e91a2419abbb6bef",
+  "paper/tables/adj_census.tex": "10205127bdd4fba984c7fcc24c09a29f85b8621e9f83ad28d511b93772d21223",
+  "paper/tables/adj_h.tex": "ee5f1fe9356342d535071cfb8e39f02788a9abf7393ec828dc546c1c0e8b1c9a",
+  "paper/tables/adj_h_split.tex": "eab7358f8438c5050d51212a36b7aeadfabd51e1026e74945e4bf3cef13792b1",
+  "paper/tables/adj_suite.tex": "e31d0dcb781bfaebeffe9820333fc576266f56b7672b1062337d0f9383b88a53",
+  "paper/tables/cc_attack.tex": "26723dd87a86ad0d9246ef54bc2dcf234ed8709eb283e8786dcf0171618441c3",
+  "paper/tables/cc_h.tex": "898935931a539548ec27ba715262a487a207fa643dff029d019c61388bf47efb",
+  "paper/tables/cc_suite.tex": "37f07747e05f457d7c7be3840e7340e3b660197ee0cb40ae2961495839bfcc1b",
+  "paper/tables/cc_v1v2.tex": "b84191431241bdb589184df2a8bf6d568a42ca51e292ff7a4ad19eba3855eb02",
+  "paper/tables/e1_boundary.tex": "0c567be2d0d03068107ba650dfe351cad25f68999cebf6763d526ee8b221b47b",
+  "paper/tables/e1_diff.tex": "0d43f4f829f8f7376ec6a67bb0f80d87ea5361cb87fb30316511665f5619d843",
+  "paper/tables/e1_environment.tex": "d039312b036d00f0f53627a33ed13d356318be16ebc1c9430216f3810efcca20",
+  "paper/tables/e1_expr.tex": "35b1e49e0d4241732493ce6a65b7bf2670ddf3e90aec6dfe54353173bd2d32a8",
+  "paper/tables/e1_instance.tex": "18d92ac971f90eab486d09d82b0f7fb61af2f7c90bff2b565cca425953307047",
+  "paper/tables/e1_levels.tex": "4a180eda88694f9d7b68955b33c6b64b5368d1381188b0da239b72efaf243cce",
+  "paper/tables/e1_main.tex": "54697a2ed057cbdb03710a34c00ae8423f9734917afd42d890919d0d9dbe5d31",
+  "paper/tables/e2_sim.tex": "b400d005b43883a3c3de790ae59af660217fa00144e0edf7363b18060b7fbaa8",
+  "paper/tables/numbers.tex": "deb4d39204192072a3deb932ea49cb2045a9bb6224c778882ad25ada19ecc735"
+ },
+ "sources": {
+  "texlive_installer": {
+   "url": "https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz",
+   "sha512_published": "563b755a3dc6eedf6bfcd08f186e8b244ad2d8b84d331dd8ca179adc166754ffcc7917227909be8569bbc2d705fd0c74db6bb054f321782f8bf011c0e6ad6c05",
+   "scheme": "scheme-basic plus named packages; portable; no docs/src; user-owned directory"
+  },
+  "icml_style": {
+   "url": "https://media.icml.cc/Conferences/ICML2026/Styles/icml2026.zip",
+   "found_on": "https://icml.cc/Conferences/2026/AuthorInstructions (HTTP 200, 2026-10-11)",
+   "use": "unmodified; anonymous review mode (no [accepted])"
+  },
+  "icml_2027": {
+   "checked_urls": [
+    "https://icml.cc/Conferences/2027/AuthorInstructions",
+    "https://icml.cc/Conferences/2027/CallForPapers",
+    "https://icml.cc/Conferences/2027"
+   ],
+   "result": "HTTP 404 on 2026-10-11 for these URLs; not treated as proof that no 2027 guidance exists",
+   "decision": "TEMPLATE_YEAR=2026, TARGET_YEAR=2027, SUBMISSION_READY=false"
+  },
+  "pymupdf": {
+   "index": "https://pypi.org (official PyPI)",
+   "version": "recorded at install",
+   "use": "rasterize PDF pages for visual check"
+  }
+ },
+ "run_counts": {
+  "experiments": 0,
+  "build_attempts_max": 6,
+  "tex_fix_policy": "TeX/layout fixes only; numbers, tables, claims and conclusions unchanged; if body > 8 pages move duplicate explanation/dev history to the appendix, keep oracle-plan limits and core census numbers"
+ },
+ "seed": null,
+ "splits": null,
+ "estimand": "none (no experiment)",
+ "comparison_arms": "none",
+ "solver_precision": "n/a",
+ "stop_conditions": [
+  "a fix would change scientific content",
+  "license or sensitive-information problem in a fetched file",
+  "download hash mismatch",
+  "resource cap exceeded",
+  "duplicate build process for the same run"
+ ],
+ "resource_caps": {
+  "install_wall_seconds": 1800,
+  "download_bytes": 3221225472,
+  "new_disk_bytes": 6442450944,
+  "cpu_cores_available": 4,
+  "ram_gb": 15,
+  "gpu": false,
+  "network_allowed": [
+   "mirror.ctan.org and its redirect mirror",
+   "media.icml.cc",
+   "icml.cc",
+   "pypi.org",
+   "files.pythonhosted.org"
+  ]
+ },
+ "build_command": "latexmk -pdf -interaction=nonstopmode -halt-on-error -no-shell-escape main.tex",
+ "ledger": "results/analysis/R8-P4-TYPESET_20261011T025136Z/ledger.json",
+ "evidence_hashes_completed": {},
+ "next_command": "python3 scripts/r8_stage.py --ledger <ledger> --stage tex_install -- <install-tl ...>"
+}

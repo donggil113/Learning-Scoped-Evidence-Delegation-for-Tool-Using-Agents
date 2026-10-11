@@ -1,12 +1,12 @@
 {
- "created_utc": "2026-10-11T03:07:16Z",
- "git_head_at_export": "b78ed78c395be7e8d25e8a6c74faaef5461c4678",
+ "created_utc": "2026-10-11T03:12:48Z",
+ "git_head_at_export": "e1be34267b4574c19158d8f751f04ba6eaad9f81",
  "pdf": "NOT_BUILT (no TeX installation in this environment; icml2026 style files not in the repository)",
  "files": [
   {
    "path": "paper/main.tex",
-   "bytes": 74014,
-   "sha256": "d07dbc19ce44931296c30e0b4c8510f4b6c171a5435c7fe95113372181569dc8"
+   "bytes": 74164,
+   "sha256": "bdd6ba7525fe5e068f6532abb4ee05e9bfa7e2649714a1a8f86f68efd281ddac"
   },
   {
    "path": "paper/references.bib",
@@ -60,8 +60,8 @@
   },
   {
    "path": "scripts/make_paper_tables.py",
-   "bytes": 28119,
-   "sha256": "e62eaad37fe445ebf1a7732cb6ddac2075371ae5d56a2d3c2804749be57d1123"
+   "bytes": 28151,
+   "sha256": "8f5ab846f00cdbe4f9da06ddee66a91754507dc93623bbf8f1205171b9e930b4"
   },
   {
    "path": "scripts/check_tex_static.py",
@@ -105,13 +105,13 @@
   },
   {
    "path": "STATUS.md",
-   "bytes": 5305,
-   "sha256": "098e956ef4650a396e1b64a29bc129a3263e31aa293ae6e3ad2f66242143c256"
+   "bytes": 6590,
+   "sha256": "c945e26ddd8f3ee2470617580acb3dba8a5949ebbd9c12932f30b229fa3a85a5"
   },
   {
    "path": "run_manifest.json",
-   "bytes": 19781,
-   "sha256": "65f0f37c2d6e9420649f9b204204c542ebb1e6bb4666c5b05cd982702ab4c52f"
+   "bytes": 23044,
+   "sha256": "09af8b4ba456dcb53c239037724a0b81b8aa939ff7404fba11411eb893c28bf5"
   },
   {
    "path": "paper/tables/adj_census.tex",
@@ -180,8 +180,8 @@
   },
   {
    "path": "paper/tables/e1_levels.tex",
-   "bytes": 796,
-   "sha256": "f735c10f4b6717034c82130a897734affdf01e2bb768edfa9214b142b6bbb9ee"
+   "bytes": 826,
+   "sha256": "b3ba66fb102d82f3e363aee4c0c5e60bbe0bd5bbdc88d31fbcad4e909d30735f"
   },
   {
    "path": "paper/tables/e1_main.tex",

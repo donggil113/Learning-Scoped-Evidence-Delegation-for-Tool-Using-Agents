@@ -412,8 +412,8 @@
    "icml2026.zip": "8b29290f5828e176debb57ea9cc00252502973d55ea561a2f18a7f0a326bfc6c",
    "pymupdf": "1.28.2 wheel sha256 397d6715c1f0df7548a92d0afd8ce370fc48fa47aeefac16be2bc04a16a8227f (PyPI)"
   },
-  "source_commit": "b78ed78",
-  "pdf_sha256": "27bcd4b4a584b9fa28bebb9ad0d759b1a2b4ebe5057db60437b8ed983e7a2bef",
+  "source_commit": "e1be342",
+  "pdf_sha256": "b857720cb701913e9f6ec7ecc8c29fe34f724075cff03312d16bf1aa097a797c",
   "deliverables": [
    "deliverables/P4_v4_typeset_b78ed78.pdf",
    "deliverables/P4_source.zip"
@@ -439,9 +439,9 @@
      "failures": 0
     },
     "build": {
-     "wall_seconds": 15.33,
-     "cpu_seconds_children": 15.13,
-     "runs": 7,
+     "wall_seconds": 32.95,
+     "cpu_seconds_children": 32.54,
+     "runs": 13,
      "failures": 2
     },
     "render": {
@@ -451,8 +451,8 @@
      "failures": 0
     }
    },
-   "wall_seconds_measured_total": 315.2,
-   "cpu_seconds_children_total": 77.7,
+   "wall_seconds_measured_total": 332.9,
+   "cpu_seconds_children_total": 95.1,
    "threads": "single-threaded tools (pdflatex, bibtex, latexmk, tlmgr); CPU is user+sys of all waited-for descendants",
    "download_bytes": {
     "texlive_installer_tarball": 5271359,
@@ -468,9 +468,9 @@
    "install_wall_cap_seconds": 1800,
    "not_measured": [
     "interactive page viewing by the main worker",
-    "the read-only reviewer agent (token cost, no CPU ledger)",
-    "three ad-hoc render/debug runs of render.py (~1 s each)",
-    "two make_paper_tables.py runs (~0.13 s each)"
+    "the read-only reviewer agent (89k tokens, 155 s, no CPU ledger)",
+    "four ad-hoc render/debug runs of render.py (~1 s each)",
+    "five make_paper_tables.py runs (~0.13 s each)"
    ],
    "gpu_seconds": 0,
    "llm_api_calls_for_experiments": 0
@@ -483,6 +483,10 @@
    "the read-only reviewer agent (token cost, no CPU ledger)",
    "three ad-hoc render/debug runs of render.py (~1 s each)",
    "two make_paper_tables.py runs (~0.13 s each)"
-  ]
+  ],
+  "superseded_pdf": {
+   "b78ed78": "27bcd4b4a584b9fa28bebb9ad0d759b1a2b4ebe5057db60437b8ed983e7a2bef"
+  },
+  "independent_review": "1 read-only reviewer agent, 1 fix round; see deliverables/P4_delivery.json"
  }
 }

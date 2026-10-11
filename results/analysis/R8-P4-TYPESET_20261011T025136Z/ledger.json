@@ -187,5 +187,89 @@
   "cpu_seconds_children": 2.86,
   "max_rss_kb_children": 29600,
   "note": "reproducibility check: second clean build with the same SOURCE_DATE_EPOCH"
+ },
+ {
+  "stage": "build",
+  "cmd": [
+   "bash",
+   "-c",
+   "cd paper && latexmk -gg -pdf -interaction=nonstopmode -halt-on-error -no-shell-escape main.tex > /tmp/claude-0/-home-user-Learning-Scoped-Evidence-Delegation-for-Tool-Using-Agents/87b085ef-3e37-5503-8c37-48fa6c21ba91/scratchpad/r8/build6.log 2>&1"
+  ],
+  "exit": 0,
+  "started_utc": "2026-10-11T03:08:50Z",
+  "wall_seconds": 2.68,
+  "cpu_seconds_children": 2.67,
+  "max_rss_kb_children": 29568,
+  "note": "fix round after review: Table 3 footnotesize, ragged-right p-columns (Tables 1, 9)"
+ },
+ {
+  "stage": "build",
+  "cmd": [
+   "bash",
+   "-c",
+   "cd paper && latexmk -gg -pdf -interaction=nonstopmode -halt-on-error -no-shell-escape main.tex > /tmp/claude-0/-home-user-Learning-Scoped-Evidence-Delegation-for-Tool-Using-Agents/87b085ef-3e37-5503-8c37-48fa6c21ba91/scratchpad/r8/build7.log 2>&1"
+  ],
+  "exit": 0,
+  "started_utc": "2026-10-11T03:09:34Z",
+  "wall_seconds": 2.92,
+  "cpu_seconds_children": 2.89,
+  "max_rss_kb_children": 29592,
+  "note": "fix round (cont.): Table 3 header label moved into the caption so footnotesize fits one column"
+ },
+ {
+  "stage": "build",
+  "cmd": [
+   "bash",
+   "-c",
+   "cd paper && latexmk -gg -pdf -interaction=nonstopmode -halt-on-error -no-shell-escape main.tex > /tmp/claude-0/-home-user-Learning-Scoped-Evidence-Delegation-for-Tool-Using-Agents/87b085ef-3e37-5503-8c37-48fa6c21ba91/scratchpad/r8/build_fix.log 2>&1"
+  ],
+  "exit": 0,
+  "started_utc": "2026-10-11T03:10:21Z",
+  "wall_seconds": 3.08,
+  "cpu_seconds_children": 3.03,
+  "max_rss_kb_children": 29592,
+  "note": "fix round: Table 3 footnotesize with header label moved to caption"
+ },
+ {
+  "stage": "build",
+  "cmd": [
+   "bash",
+   "-c",
+   "cd paper && latexmk -gg -pdf -interaction=nonstopmode -halt-on-error -no-shell-escape main.tex > /tmp/claude-0/-home-user-Learning-Scoped-Evidence-Delegation-for-Tool-Using-Agents/87b085ef-3e37-5503-8c37-48fa6c21ba91/scratchpad/r8/build_fix2.log 2>&1"
+  ],
+  "exit": 0,
+  "started_utc": "2026-10-11T03:10:57Z",
+  "wall_seconds": 2.98,
+  "cpu_seconds_children": 2.93,
+  "max_rss_kb_children": 29600,
+  "note": "fix round final: Table 3 back to scriptsize (footnotesize overflowed 13.9pt and pushed the Conclusion to page 9); ragged-right p-columns kept"
+ },
+ {
+  "stage": "build",
+  "cmd": [
+   "bash",
+   "-c",
+   "cd paper && latexmk -C > /dev/null 2>&1; SOURCE_DATE_EPOCH=1791688298 FORCE_SOURCE_DATE=1 latexmk -gg -pdf -interaction=nonstopmode -halt-on-error -no-shell-escape main.tex > /tmp/claude-0/-home-user-Learning-Scoped-Evidence-Delegation-for-Tool-Using-Agents/87b085ef-3e37-5503-8c37-48fa6c21ba91/scratchpad/r8/build_v2.log 2>&1"
+  ],
+  "exit": 0,
+  "started_utc": "2026-10-11T03:11:38Z",
+  "wall_seconds": 2.98,
+  "cpu_seconds_children": 2.95,
+  "max_rss_kb_children": 29592,
+  "note": "final v2: clean rebuild from committed source e1be342 with SOURCE_DATE_EPOCH=1791688298"
+ },
+ {
+  "stage": "build",
+  "cmd": [
+   "bash",
+   "-c",
+   "cd paper && latexmk -C > /dev/null 2>&1; SOURCE_DATE_EPOCH=1791688298 FORCE_SOURCE_DATE=1 latexmk -gg -pdf -interaction=nonstopmode -halt-on-error -no-shell-escape main.tex > /tmp/claude-0/-home-user-Learning-Scoped-Evidence-Delegation-for-Tool-Using-Agents/87b085ef-3e37-5503-8c37-48fa6c21ba91/scratchpad/r8/build_v2b.log 2>&1"
+  ],
+  "exit": 0,
+  "started_utc": "2026-10-11T03:11:41Z",
+  "wall_seconds": 2.98,
+  "cpu_seconds_children": 2.94,
+  "max_rss_kb_children": 29568,
+  "note": "final v2 reproducibility check"
  }
 ]

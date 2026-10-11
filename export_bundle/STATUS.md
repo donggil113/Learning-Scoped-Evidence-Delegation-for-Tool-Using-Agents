@@ -1,6 +1,6 @@
 # STATUS
 
-Last updated 2026-09-27 (fifth session). Branch `claude/keen-lovelace-jat7ua`.
+Last updated 2026-10-11 (sixth session, R8: first PDF build). Branch `claude/keen-lovelace-jat7ua`.
 
 ## Operational state
 
@@ -12,6 +12,10 @@ Last updated 2026-09-27 (fifth session). Branch `claude/keen-lovelace-jat7ua`.
   extractor changes and no training.
 - **The manuscript is NOT ICML-ready.** It was edited to audit scope (v4)
   and is SUBMISSION_READY = false.
+- **Session 6 (R8) built the first PDF only.** Manuscript v4-typeset:
+  scientific content unchanged, layout-only edits for the build. No
+  experiment, replay, learning, API or GPU. The research HOLD is unchanged
+  and resumes automatically after this delivery.
 - **Owner: UNASSIGNED.**
 
 ## What the current census shows (CONTRACT_V2, AgentDojo v1.2.2)
@@ -73,7 +77,10 @@ truth.
 | Coverage diagnostic | `results/analysis/SED-E2-CC-COVERAGE_20260927T061102Z` | EXPLORATORY |
 | V1 census | `results/raw/SED-E2-ADJ-HEADROOM_20260927T000630Z` | kept; gold-derived contract |
 | INVALID run | `results/raw/SED-E2-ADJ-HEADROOM_20260927T000131Z` | kept |
-| Manuscript v4 | `paper/main.tex`, `paper/tables/`, `paper/claims.csv` | COMPILE_NOT_RUN (no TeX, no icml2026 style) |
+| Manuscript v4-typeset | `paper/main.tex`, `paper/tables/`, `paper/claims.csv` | **BUILT** 2026-10-11 from commit `e1be342` (first version `b78ed78` superseded, cosmetic) (TeX Live 2026, official icml2026 style, review mode) |
+| Delivered PDF (internal review copy, not submitted) | `deliverables/P4_v4_typeset_e1be342.pdf` (sha256 `b857720c…`, 20 pages, body ends p. 8) | reproducible build; all pages viewed; one read-only layout review (10 findings: 2 fixed, 1 pending bib note, rest cosmetic/not leaks) |
+| Source package / delivery record | `deliverables/P4_source.zip`, `deliverables/P4_delivery.json`, `paper/BUILD.md` | style files not redistributed; acquisition command + hashes given |
+| R8 build contract and ledger | `configs/auto_run_r8.json`, `results/analysis/R8-P4-TYPESET_20261011T025136Z/ledger.json` | install 298 s wall / 60 CPU-s; 294 MiB downloaded; 381 MiB new disk |
 | Internal evidence package | `export_bundle/` | MANIFEST.json with sha256; large raw referenced, not copied |
 | Anonymous source package | `submission_anon/` | paper sources only; anonymity scan in its MANIFEST |
 
@@ -95,6 +102,8 @@ None of these is met. Owner: UNASSIGNED.
 ## Reproduce (existing artefacts; no need to re-run for the manuscript)
 
 ```
+# PDF (see paper/BUILD.md for the toolchain and the style-file acquisition command)
+cd paper && SOURCE_DATE_EPOCH=1791688298 FORCE_SOURCE_DATE=1 latexmk -gg -pdf -interaction=nonstopmode -halt-on-error -no-shell-escape main.tex
 python3 scripts/make_paper_tables.py && python3 scripts/check_tex_static.py
 python3 scripts/make_export_bundle.py            # internal evidence package
 python3 scripts/make_export_bundle.py --anon     # anonymous paper-source package

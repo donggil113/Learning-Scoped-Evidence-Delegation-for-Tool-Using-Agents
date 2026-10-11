@@ -1,12 +1,12 @@
 {
- "created_utc": "2026-10-11T03:07:16Z",
+ "created_utc": "2026-10-11T03:12:48Z",
  "contents": "paper sources only (no code, raw, git metadata or PDF)",
  "pdf": "built separately; see deliverables/P4_delivery.json",
  "files": [
   {
    "path": "main.tex",
-   "bytes": 74014,
-   "sha256": "d07dbc19ce44931296c30e0b4c8510f4b6c171a5435c7fe95113372181569dc8"
+   "bytes": 74164,
+   "sha256": "bdd6ba7525fe5e068f6532abb4ee05e9bfa7e2649714a1a8f86f68efd281ddac"
   },
   {
    "path": "references.bib",
@@ -85,8 +85,8 @@
   },
   {
    "path": "tables/e1_levels.tex",
-   "bytes": 796,
-   "sha256": "f735c10f4b6717034c82130a897734affdf01e2bb768edfa9214b142b6bbb9ee"
+   "bytes": 826,
+   "sha256": "b3ba66fb102d82f3e363aee4c0c5e60bbe0bd5bbdc88d31fbcad4e909d30735f"
   },
   {
    "path": "tables/e1_main.tex",

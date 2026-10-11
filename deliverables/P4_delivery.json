@@ -1,13 +1,13 @@
 {
  "project": "P4",
  "manuscript_version": "v4-typeset (scientific content unchanged; layout-only edits for the first build)",
- "source_commit": "b78ed78",
- "source_commit_full": "b78ed78",
+ "source_commit": "e1be342",
+ "source_commit_full": "e1be342",
  "branch": "claude/keen-lovelace-jat7ua",
  "pdf": {
-  "path": "deliverables/P4_v4_typeset_b78ed78.pdf",
-  "sha256": "27bcd4b4a584b9fa28bebb9ad0d759b1a2b4ebe5057db60437b8ed983e7a2bef",
-  "bytes": 332722,
+  "path": "deliverables/P4_v4_typeset_e1be342.pdf",
+  "sha256": "b857720cb701913e9f6ec7ecc8c29fe34f724075cff03312d16bf1aa097a797c",
+  "bytes": 332535,
   "signature": "%PDF-1.7",
   "pages": 20,
   "body_end_page": 8,
@@ -23,9 +23,9 @@
    "title": "Evidence Binding under Fixed Authority Boundaries in Tool-Using Agents: An Oracle-Plan Audit on AgentDojo",
    "author": "Anonymous Authors",
    "producer": "pdfTeX-1.40.29",
-   "creationDate": "D:20261011030356Z (SOURCE_DATE_EPOCH = commit time)"
+   "creationDate": "D:20261011031138Z (SOURCE_DATE_EPOCH = commit time 1791688298)"
   },
-  "reproducible": "two clean builds from commit b78ed78 with SOURCE_DATE_EPOCH=1791687836 FORCE_SOURCE_DATE=1 gave identical sha256",
+  "reproducible": "two clean builds from commit e1be342 with SOURCE_DATE_EPOCH=1791688298 FORCE_SOURCE_DATE=1 gave identical sha256",
   "identical_copy_of": "paper/main.pdf"
  },
  "style": {
@@ -50,7 +50,7 @@
   "renderer": "PyMuPDF 1.28.2 (venv)",
   "installer_sha512_verified": true
  },
- "build_command_executed": "cd paper && latexmk -C; SOURCE_DATE_EPOCH=1791687836 FORCE_SOURCE_DATE=1 latexmk -gg -pdf -interaction=nonstopmode -halt-on-error -no-shell-escape main.tex",
+ "build_command_executed": "cd paper && latexmk -C; SOURCE_DATE_EPOCH=1791688298 FORCE_SOURCE_DATE=1 latexmk -gg -pdf -interaction=nonstopmode -halt-on-error -no-shell-escape main.tex",
  "build_attempts": [
   {
    "n": 1,
@@ -75,6 +75,18 @@
   {
    "n": "final",
    "result": "clean rebuild from commit b78ed78 with SOURCE_DATE_EPOCH; renders byte-identical to the viewed build-5 pages; reproducibility rebuild identical"
+  },
+  {
+   "n": "fix-1",
+   "result": "after review: Table 3 at footnotesize overflowed (16.7pt, then 13.9pt with a shorter header) and pushed the Conclusion's last sentence to page 9 -> reverted"
+  },
+  {
+   "n": "fix-2",
+   "result": "ragged-right p-columns for Tables 1 and 9 only; 0 errors / 0 overfull; pages 4 and 16 changed, re-viewed at 200 dpi"
+  },
+  {
+   "n": "final v2",
+   "result": "clean rebuild from commit e1be342 with SOURCE_DATE_EPOCH; renders byte-identical to the viewed fix-2 pages; reproducibility rebuild identical"
   }
  ],
  "log_checks": {
@@ -117,10 +129,11 @@
    7,
    16
   ],
-  "notes": "every page of the delivered PDF viewed by the main worker (pages identical to the viewed build-5 renders by PNG hash)",
+  "notes": "every page of version b78ed78 viewed; for e1be342 only pages 4 and 16 differ (PNG hash) and both were re-viewed at 110 and 200 dpi",
   "known_cosmetic": [
    "page 17 lower half and page 18 are float pages created by the clearpage before Appendix E",
-   "Table 9 reason-code column wraps with uneven spacing"
+   "Tables 3, 6, 8 and 9 are set in scriptsize (legible at 200 dpi; a larger Table 3 does not fit the column without pushing the body past page 8)",
+   "bibliography entries print their note field as 'arXiv comment: ...'"
   ]
  },
  "anonymity": {
@@ -128,8 +141,89 @@
   "page1": "Anonymous Authors; review notice present; not a proof of complete anonymity"
  },
  "independent_review": {
-  "status": "PENDING",
-  "scope": "one read-only reviewer agent on the rendered pages of commit b78ed78, 10-minute cap; findings appended when received"
+  "status": "DONE",
+  "scope": "one read-only reviewer agent (general-purpose), fixed commit b78ed78, all 20 rendered pages viewed, 155 s, no files modified",
+  "compliance_checks_reported": {
+   "page1_anonymous_authors_and_review_notice": "PASS",
+   "running_header_pages_2_20": "PASS",
+   "line_numbers": "PASS",
+   "undefined_refs_or_cites_or_duplicate_numbers": "none",
+   "identity_path_repo_session_leak": "none found",
+   "body_end": "Conclusion ends page 8; Impact Statement starts page 9",
+   "fonts_glyphs": "no problem"
+  },
+  "findings": [
+   {
+    "id": 1,
+    "page": 7,
+    "claim": "Table 3 in scriptsize is small at 100% zoom",
+    "certainty": "medium",
+    "disposition": "NOT_CHANGED: footnotesize overflows the column (13.9pt) and pushes the body past page 8; scriptsize kept (legible at 200 dpi)"
+   },
+   {
+    "id": 2,
+    "page": 4,
+    "claim": "Table 1 justified narrow cells: stretched spacing, 're-/lease' hyphenation",
+    "certainty": "medium",
+    "disposition": "VALID_FIXED in e1be342 (ragged-right p-columns)"
+   },
+   {
+    "id": 3,
+    "page": 7,
+    "claim": "loose inter-word spacing before a long small-caps token",
+    "certainty": "medium",
+    "disposition": "NOT_CHANGED (cosmetic underfull; text unchanged)"
+   },
+   {
+    "id": 4,
+    "page": 16,
+    "claim": "Table 9 reason-code cell splits PROVENANCE_OUT_OF_SCOPE as PROVE-/NANCE",
+    "certainty": "medium",
+    "disposition": "VALID_FIXED in e1be342 (ragged-right column via generator spec)"
+   },
+   {
+    "id": 5,
+    "page": "17-18",
+    "claim": "white space on page 17 and a float-only page 18",
+    "certainty": "high",
+    "disposition": "NOT_CHANGED: consequence of keeping Appendix E's tables with their section"
+   },
+   {
+    "id": 6,
+    "page": 15,
+    "claim": "Tables 6 and 8 in scriptsize",
+    "certainty": "low",
+    "disposition": "NOT_CHANGED"
+   },
+   {
+    "id": 7,
+    "page": 14,
+    "claim": "repository-relative script path in text",
+    "certainty": "low",
+    "disposition": "NOT_A_LEAK (relative path, no repository name); unchanged"
+   },
+   {
+    "id": 8,
+    "page": "11,14-17,19",
+    "claim": "run ids with 'SED' prefix, a commit hash and a wheel sha256 prefix",
+    "certainty": "low",
+    "disposition": "NOT_A_LEAK (artifact identifiers; the PDF never states the repository name); unchanged"
+   },
+   {
+    "id": 9,
+    "page": 15,
+    "claim": "'session 4' wording",
+    "certainty": "high",
+    "disposition": "NOT_A_LEAK; unchanged"
+   },
+   {
+    "id": 10,
+    "page": 9,
+    "claim": "bibliography prints note fields as 'arXiv comment: ...'",
+    "certainty": "high",
+    "disposition": "PENDING for the authors: bibliography note text, outside the layout-only scope of this build"
+   }
+  ]
  },
  "research_status": {
   "LEARNED_BINDER_METHOD": "HOLD",
@@ -162,9 +256,9 @@
     "failures": 0
    },
    "build": {
-    "wall_seconds": 15.33,
-    "cpu_seconds_children": 15.13,
-    "runs": 7,
+    "wall_seconds": 32.95,
+    "cpu_seconds_children": 32.54,
+    "runs": 13,
     "failures": 2
    },
    "render": {
@@ -174,8 +268,8 @@
     "failures": 0
    }
   },
-  "wall_seconds_measured_total": 315.2,
-  "cpu_seconds_children_total": 77.7,
+  "wall_seconds_measured_total": 332.9,
+  "cpu_seconds_children_total": 95.1,
   "threads": "single-threaded tools (pdflatex, bibtex, latexmk, tlmgr); CPU is user+sys of all waited-for descendants",
   "download_bytes": {
    "texlive_installer_tarball": 5271359,
@@ -191,25 +285,29 @@
   "install_wall_cap_seconds": 1800,
   "not_measured": [
    "interactive page viewing by the main worker",
-   "the read-only reviewer agent (token cost, no CPU ledger)",
-   "three ad-hoc render/debug runs of render.py (~1 s each)",
-   "two make_paper_tables.py runs (~0.13 s each)"
+   "the read-only reviewer agent (89k tokens, 155 s, no CPU ledger)",
+   "four ad-hoc render/debug runs of render.py (~1 s each)",
+   "five make_paper_tables.py runs (~0.13 s each)"
   ],
   "gpu_seconds": 0,
   "llm_api_calls_for_experiments": 0
  },
  "files": {
+  "deliverables/P4_v4_typeset_e1be342.pdf": {
+   "bytes": 332535,
+   "sha256": "b857720cb701913e9f6ec7ecc8c29fe34f724075cff03312d16bf1aa097a797c"
+  },
   "deliverables/P4_v4_typeset_b78ed78.pdf": {
    "bytes": 332722,
    "sha256": "27bcd4b4a584b9fa28bebb9ad0d759b1a2b4ebe5057db60437b8ed983e7a2bef"
   },
   "deliverables/P4_source.zip": {
-   "bytes": 45573,
-   "sha256": "0a71feb33d5c3b4b6bc877905c831e37666b6eac849e5f69d6c8cb80ab195c14"
+   "bytes": 45639,
+   "sha256": "803c259c5e818c8a07e9cb316cbf783df93070ff4641367436243e1d7847f8a7"
   },
   "paper/main.tex": {
-   "bytes": 74014,
-   "sha256": "d07dbc19ce44931296c30e0b4c8510f4b6c171a5435c7fe95113372181569dc8"
+   "bytes": 74164,
+   "sha256": "bdd6ba7525fe5e068f6532abb4ee05e9bfa7e2649714a1a8f86f68efd281ddac"
   },
   "paper/references.bib": {
    "bytes": 7033,
@@ -220,8 +318,8 @@
    "sha256": "4adaabee3539093772321d7cdd8485aa8c7ecd1633498927361535c47394fc70"
   },
   "configs/auto_run_r8.json": {
-   "bytes": 5023,
-   "sha256": "315b491446aed03db58f77d52dc9072cca3d6239be6fbaafa3f31f2047e9e48c"
+   "bytes": 6007,
+   "sha256": "5690869e8943887316fcc919140f3bcac996b09477b49c228abe5a8a6951ffa0"
   },
   "paper/tables/adj_census.tex": {
    "bytes": 213,
@@ -276,8 +374,8 @@
    "sha256": "18d92ac971f90eab486d09d82b0f7fb61af2f7c90bff2b565cca425953307047"
   },
   "paper/tables/e1_levels.tex": {
-   "bytes": 796,
-   "sha256": "f735c10f4b6717034c82130a897734affdf01e2bb768edfa9214b142b6bbb9ee"
+   "bytes": 826,
+   "sha256": "b3ba66fb102d82f3e363aee4c0c5e60bbe0bd5bbdc88d31fbcad4e909d30735f"
   },
   "paper/tables/e1_main.tex": {
    "bytes": 725,
@@ -292,5 +390,22 @@
    "sha256": "deb4d39204192072a3deb932ea49cb2045a9bb6224c778882ad25ada19ecc735"
   }
  },
- "created_utc": "2026-10-11T03:07:16Z"
+ "created_utc": "2026-10-11T03:12:48Z",
+ "superseded_versions": [
+  {
+   "path": "deliverables/P4_v4_typeset_b78ed78.pdf",
+   "source_commit": "b78ed78",
+   "sha256": "27bcd4b4a584b9fa28bebb9ad0d759b1a2b4ebe5057db60437b8ed983e7a2bef",
+   "bytes": 332722,
+   "pages": 20,
+   "body_end_page": 8,
+   "why_superseded": "cosmetic: justified narrow table cells hyphenated identifiers (Tables 1 and 9); content identical"
+  }
+ ],
+ "source_zip_check": {
+  "n_files": 24,
+  "contains_style_files": false,
+  "contains_pdf": false,
+  "main_tex_in_zip_matches_repo": true
+ }
 }

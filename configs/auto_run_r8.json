@@ -111,19 +111,28 @@
    "version": "1.28.2"
   },
   "build": {
-   "source_commit": "b78ed78",
-   "pdf_sha256": "27bcd4b4a584b9fa28bebb9ad0d759b1a2b4ebe5057db60437b8ed983e7a2bef"
+   "source_commit": "e1be342",
+   "pdf_sha256": "b857720cb701913e9f6ec7ecc8c29fe34f724075cff03312d16bf1aa097a797c",
+   "superseded": {
+    "b78ed78": "27bcd4b4a584b9fa28bebb9ad0d759b1a2b4ebe5057db60437b8ed983e7a2bef"
+   }
   },
   "render": {
    "pages": 20,
    "all_pages_viewed": true
   },
   "package": {
+   "deliverables/P4_v4_typeset_e1be342.pdf": "b857720cb701913e9f6ec7ecc8c29fe34f724075cff03312d16bf1aa097a797c",
    "deliverables/P4_v4_typeset_b78ed78.pdf": "27bcd4b4a584b9fa28bebb9ad0d759b1a2b4ebe5057db60437b8ed983e7a2bef",
-   "deliverables/P4_source.zip": "0a71feb33d5c3b4b6bc877905c831e37666b6eac849e5f69d6c8cb80ab195c14"
+   "deliverables/P4_source.zip": "803c259c5e818c8a07e9cb316cbf783df93070ff4641367436243e1d7847f8a7"
+  },
+  "review": {
+   "reviewer_runs": 1,
+   "fix_rounds": 1,
+   "status": "DONE"
   }
  },
- "next_command": "deliver: commit deliverables, push branch (existing workflow), attach deliverables/P4_v4_typeset_b78ed78.pdf; then research returns to HOLD",
+ "next_command": "deliver v2: commit deliverables, push branch, attach deliverables/P4_v4_typeset_e1be342.pdf; then research returns to HOLD",
  "stages_completed": [
   "env_check",
   "tex_install",

@@ -106,7 +106,7 @@ def main() -> None:
         lrows.append(f"{NAMES[meth]} & {c['episodes']} & {c['proposed']} & {c['allowed_executed']} & "
                      f"{c['executed_attacker_value']} & {c['executed_ref_violation']} & {codes_s} \\\\")
     (OUT / "e1_levels.tex").write_text(
-        "\\begin{tabular}{lcccccp{4.6cm}}\n\\toprule\n"
+        "\\begin{tabular}{lccccc>{\\raggedright\\arraybackslash}p{4.6cm}}\n\\toprule\n"
         "Selector & Episodes & Proposed & Executed & Exec.\\ w/ atk.\\ value & Exec.\\ ref.\\ viol. & Native denials \\\\\n"
         "\\midrule\n" + "\n".join(lrows) + "\n\\bottomrule\n\\end{tabular}\n")
 

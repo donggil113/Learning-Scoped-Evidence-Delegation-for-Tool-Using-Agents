@@ -1,6 +1,8 @@
 %% ---------------------------------------------------------------------------
-%% Manuscript v4 (edited from v3; audit-study scope) -- status header
+%% Manuscript v4-typeset (scientific content unchanged) -- status header
 %%   NOT ICML-READY. Learned-binder method development is on HOLD.
+%%   v4-typeset = v4 text and numbers unchanged; layout-only edits for the
+%%   first build (table widths/placement, a line break, PDF title string).
 %%   TARGET_YEAR        = 2027   (ICML 2027 style NOT published: icml.cc 2027
 %%                                 pages returned 404 on 2026-09-26)
 %%   TEMPLATE_YEAR      = 2026   (temporary; official ICML 2026 style)
@@ -9,8 +11,11 @@
 %%                                 repository; download of icml2026.zip was not
 %%                                 approved. Do not replace them with a
 %%                                 hand-made imitation.)
-%%   COMPILE_STATUS     = COMPILE_NOT_RUN (no TeX installation in the
-%%                        environment; see BUILD.md for exact commands)
+%%   COMPILE_STATUS     = BUILT 2026-10-11 with TeX Live 2026 (user-local
+%%                        install), latexmk -pdf -halt-on-error
+%%                        -no-shell-escape, official icml2026.sty v2.0
+%%                        (2025-10-29); see BUILD.md and
+%%                        deliverables/P4_delivery.json
 %%   REVIEW MODE        = \usepackage{icml2026} without [accepted]. This is
 %%                        inferred from the ICML 2026 author instructions,
 %%                        which name [accepted] for camera-ready; the example
@@ -18,9 +23,9 @@
 %%                        block macros below against it before compiling.
 %%   PAGE LIMIT         = 8 pages main body at submission (ICML 2026 author
 %%                        instructions); impact statement, references and
-%%                        appendices do not count. Length NOT verified by a
-%%                        compile; v3 moves the simulator study and V1 census
-%%                        details to the appendix (word count in STATUS.md).
+%%                        appendices do not count. First build: the last
+%%                        sentence of the Conclusion is on page 8 of 20
+%%                        (verified on the rendered pages).
 %%   SCOPE              = oracle-plan audit (title and abstract); strict and
 %%                        fallback arms reported separately; no language
 %%                        model, no learning.
@@ -32,6 +37,7 @@
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{hyperref}
 \usepackage{xcolor}
 
@@ -55,7 +61,7 @@
 \begin{document}
 
 \twocolumn[
-\icmltitle{Evidence Binding under Fixed Authority Boundaries\\in Tool-Using Agents: An Oracle-Plan Audit on AgentDojo}
+\icmltitle{Evidence Binding under Fixed Authority Boundaries\texorpdfstring{\\}{ }in Tool-Using Agents: An Oracle-Plan Audit on AgentDojo}
 
 \begin{icmlauthorlist}
 \icmlauthor{Anonymous Authors}{anon}
@@ -289,7 +295,7 @@ values. None of the listed systems trains its chooser; RTBAS trains a
 dependency screener, not an argument binder.}
 \label{tab:rw}
 \centering\small
-\begin{tabular}{lllll}
+\begin{tabular}{@{}p{1.5cm}p{3.1cm}p{3.1cm}p{4.3cm}p{3.0cm}@{}}
 \toprule
 System & Authority unit & Provenance granularity & Chooser among admitted values & Evaluation \\
 \midrule
@@ -519,7 +525,7 @@ points.
 \item \texttt{security()} returns \texttt{True} when the \emph{injection
 goal was achieved}. For benign variants we record \texttt{None} (not
 applicable), not $0$.
-\item \texttt{utility\_from\_traces}/\texttt{security\_from\_traces} run
+\item \texttt{utility\_from\_traces}/\allowbreak\texttt{security\_from\_traces} run
 before the state-based checks. They are overridden by 12 user tasks and one
 injection task.
 \item Their traces are the tool calls \emph{proposed} in assistant
@@ -625,16 +631,16 @@ attack reachability, \CcAtkUndet{} do.
 The run took \CcWall{}~s wall-clock and \CcCPU{}~CPU-s on two
 single-threaded processes. No earlier result was reused.
 
-\begin{table}[t]
+\begin{table*}[t]
 \caption{CONTRACT\_V2 envelope $[H_{\mathrm{lower}},H_{\mathrm{upper}}]$ on
 AgentDojo v1.2.2 over all \CcTasks{} tasks, per arm. Computational envelopes
 over partially searched trees, not confidence intervals or achieved gains.
 Both arms are \textsc{oracle\_plan\_conditional}; the fallback arm also
 inserts gold values. Offline replay, no language model.}
 \label{tab:cch}
-\centering\scriptsize
+\centering\small
 \input{tables/cc_h.tex}
-\end{table}
+\end{table*}
 
 \paragraph{Finding 1: utility, not security.} Over the typed resolver, the
 envelope is $[\CcHStrictLo,\CcHStrictUp]$ in the strict arm and
@@ -1244,6 +1250,7 @@ not reproduced by regeneration. EXPLORATORY.}
 \end{table}
 
 \begin{table}[h]
+\renewcommand{\arraystretch}{1.05}\setlength{\tabcolsep}{4pt}
 \caption{SED-E1 template split: proposed, executed and attacker-influenced
 levels, with native denial reason codes. A blocked proposal never counts as
 an attack. ENGINEERING ONLY.}
@@ -1385,9 +1392,11 @@ in the denominator; unresolved tasks counted as gap $0$ / $1$).
 \input{tables/adj_h.tex}
 \end{table}
 
+\clearpage
 \section{CONTRACT\_V2 Census: Additional Tables}
 \label{app:v2}
-\begin{table}[h]
+Tables~\ref{tab:ccsuite} and~\ref{tab:ccv1v2} follow.
+\begin{table}[htbp]
 \caption{CONTRACT\_V2 per suite (fallback arm, typed resolver, official
 channel). Gap$>0$: tasks with positive lower gap; Undet.: tasks with
 capped searches; Sel.\ fail.: selectable-failure variants; Not refuted: by
@@ -1399,7 +1408,7 @@ parentheses.}
 \input{tables/cc_suite.tex}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[htbp]
 \caption{V1 versus V2 contract. The V1 contract was derived from hidden
 ground truth and is not deployable; the rows are not a like-for-like
 comparison of the same contract. Executed attacks: official channel, injected

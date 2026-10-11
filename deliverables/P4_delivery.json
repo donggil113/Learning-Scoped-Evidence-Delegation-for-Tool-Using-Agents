@@ -1,0 +1,296 @@
+{
+ "project": "P4",
+ "manuscript_version": "v4-typeset (scientific content unchanged; layout-only edits for the first build)",
+ "source_commit": "b78ed78",
+ "source_commit_full": "b78ed78",
+ "branch": "claude/keen-lovelace-jat7ua",
+ "pdf": {
+  "path": "deliverables/P4_v4_typeset_b78ed78.pdf",
+  "sha256": "27bcd4b4a584b9fa28bebb9ad0d759b1a2b4ebe5057db60437b8ed983e7a2bef",
+  "bytes": 332722,
+  "signature": "%PDF-1.7",
+  "pages": 20,
+  "body_end_page": 8,
+  "body_end_sentence": "We stop method development here.",
+  "impact_statement_page": 9,
+  "references_page": 9,
+  "first_appendix_page": 10,
+  "page_size_pt": [
+   612,
+   792
+  ],
+  "metadata": {
+   "title": "Evidence Binding under Fixed Authority Boundaries in Tool-Using Agents: An Oracle-Plan Audit on AgentDojo",
+   "author": "Anonymous Authors",
+   "producer": "pdfTeX-1.40.29",
+   "creationDate": "D:20261011030356Z (SOURCE_DATE_EPOCH = commit time)"
+  },
+  "reproducible": "two clean builds from commit b78ed78 with SOURCE_DATE_EPOCH=1791687836 FORCE_SOURCE_DATE=1 gave identical sha256",
+  "identical_copy_of": "paper/main.pdf"
+ },
+ "style": {
+  "package": "icml2026.sty v2.0 (2025/10/29), anonymous review mode (no [accepted])",
+  "archive": "https://media.icml.cc/Conferences/ICML2026/Styles/icml2026.zip",
+  "archive_sha256": "8b29290f5828e176debb57ea9cc00252502973d55ea561a2f18a7f0a326bfc6c",
+  "files_sha256": {
+   "icml2026.sty": "7cdcf90f6a59c5219e7f15c88f7ed09fcaf598dad91e6cdddc4dc3cb0e397a95",
+   "icml2026.bst": "0ec3d5eb9b02efb7e0b44a32f3775882f42a743d0bdc618f34e6936309b98764",
+   "algorithm.sty": "93fd0eb31c112eb405833db8f1d7f5d238c7e691b1c05680d7276e68f36d564a",
+   "algorithmic.sty": "48d18794a5d97c0479a588cc2eac0917992feb9da83acc4631b8f55757d80f9b",
+   "fancyhdr.sty": "9130c52f91087abc6d223164ffa587e207e3257fcbcd069ef09ecb5391043f14"
+  },
+  "redistribution": "style files not included in the repository or the source zip (icml2026.sty states no terms); acquisition command and hashes in BUILD.md and STYLE_FILES.txt",
+  "TARGET_YEAR": 2027,
+  "TEMPLATE_YEAR": 2026,
+  "icml_2027_check": "AuthorInstructions, CallForPapers and conference root returned HTTP 404 on 2026-10-11; not treated as proof that no 2027 guidance exists"
+ },
+ "toolchain": {
+  "texlive": "TeX Live 2026, tlmgr revision 80485, user-local portable install (scheme-basic + named packages)",
+  "pdftex": "1.40.29",
+  "renderer": "PyMuPDF 1.28.2 (venv)",
+  "installer_sha512_verified": true
+ },
+ "build_command_executed": "cd paper && latexmk -C; SOURCE_DATE_EPOCH=1791687836 FORCE_SOURCE_DATE=1 latexmk -gg -pdf -interaction=nonstopmode -halt-on-error -no-shell-escape main.tex",
+ "build_attempts": [
+  {
+   "n": 1,
+   "result": "ERROR: float.sty not found (required by algorithm.sty); installed via tlmgr"
+  },
+  {
+   "n": 2,
+   "result": "latexmk skipped the rerun after the earlier error (0.13 s); forced with -gg"
+  },
+  {
+   "n": 3,
+   "result": "PDF built; 4 overfull boxes (Table 1 81pt, Table 2 63pt, Table 9 89pt, a code pair 12pt); PDF title string lacked a space"
+  },
+  {
+   "n": 4,
+   "result": "0 overfull after layout-only fixes; Appendix E tables still floated past section G"
+  },
+  {
+   "n": 5,
+   "result": "clearpage before Appendix E, ragged p-column; 0 errors / 0 overfull; all 20 pages viewed"
+  },
+  {
+   "n": "final",
+   "result": "clean rebuild from commit b78ed78 with SOURCE_DATE_EPOCH; renders byte-identical to the viewed build-5 pages; reproducibility rebuild identical"
+  }
+ ],
+ "log_checks": {
+  "latex_errors": 0,
+  "undefined_references_or_citations": 0,
+  "multiply_defined_labels": 0,
+  "overfull_boxes": 0,
+  "underfull_boxes": 17,
+  "remaining_warnings": [
+   "hyperref: empty anchor at \\printAffiliationsAndNotice (harmless)",
+   "epstopdf: shell escape disabled (intended)"
+  ]
+ },
+ "visual_check": {
+  "renderer_dpi": 110,
+  "pages_viewed": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20
+  ],
+  "hi_res_200dpi_pages": [
+   4,
+   7,
+   16
+  ],
+  "notes": "every page of the delivered PDF viewed by the main worker (pages identical to the viewed build-5 renders by PNG hash)",
+  "known_cosmetic": [
+   "page 17 lower half and page 18 are float pages created by the clearpage before Appendix E",
+   "Table 9 reason-code column wraps with uneven spacing"
+  ]
+ },
+ "anonymity": {
+  "text_scan": "no 'dgkang', 'pusan', 'donggil', local path, repository name or session link in the PDF text",
+  "page1": "Anonymous Authors; review notice present; not a proof of complete anonymity"
+ },
+ "independent_review": {
+  "status": "PENDING",
+  "scope": "one read-only reviewer agent on the rendered pages of commit b78ed78, 10-minute cap; findings appended when received"
+ },
+ "research_status": {
+  "LEARNED_BINDER_METHOD": "HOLD",
+  "SUBMISSION_READY": false,
+  "SCIENCE_STATUS": "oracle-plan audit; see STATUS.md",
+  "submitted_to_conference": false,
+  "purpose": "internal review copy",
+  "new_experiments_in_this_round": 0
+ },
+ "run_contract": "configs/auto_run_r8.json",
+ "ledger": "results/analysis/R8-P4-TYPESET_20261011T025136Z/ledger.json",
+ "cost": {
+  "by_stage": {
+   "style_fetch": {
+    "wall_seconds": 1.52,
+    "cpu_seconds_children": 0.06,
+    "runs": 1,
+    "failures": 0
+   },
+   "render_env": {
+    "wall_seconds": 17.57,
+    "cpu_seconds_children": 9.63,
+    "runs": 1,
+    "failures": 0
+   },
+   "tex_install": {
+    "wall_seconds": 278.51,
+    "cpu_seconds_children": 50.55,
+    "runs": 2,
+    "failures": 0
+   },
+   "build": {
+    "wall_seconds": 15.33,
+    "cpu_seconds_children": 15.13,
+    "runs": 7,
+    "failures": 2
+   },
+   "render": {
+    "wall_seconds": 2.3,
+    "cpu_seconds_children": 2.28,
+    "runs": 2,
+    "failures": 0
+   }
+  },
+  "wall_seconds_measured_total": 315.2,
+  "cpu_seconds_children_total": 77.7,
+  "threads": "single-threaded tools (pdflatex, bibtex, latexmk, tlmgr); CPU is user+sys of all waited-for descendants",
+  "download_bytes": {
+   "texlive_installer_tarball": 5271359,
+   "texlive_installed_bytes_on_disk": 277272573,
+   "icml2026_zip": 228368,
+   "pymupdf_wheel": 25762500,
+   "total_approx": 308534800,
+   "cap": 3221225472
+  },
+  "new_disk_bytes_approx": 399719001,
+  "new_disk_cap": 6442450944,
+  "install_wall_seconds": 297.6,
+  "install_wall_cap_seconds": 1800,
+  "not_measured": [
+   "interactive page viewing by the main worker",
+   "the read-only reviewer agent (token cost, no CPU ledger)",
+   "three ad-hoc render/debug runs of render.py (~1 s each)",
+   "two make_paper_tables.py runs (~0.13 s each)"
+  ],
+  "gpu_seconds": 0,
+  "llm_api_calls_for_experiments": 0
+ },
+ "files": {
+  "deliverables/P4_v4_typeset_b78ed78.pdf": {
+   "bytes": 332722,
+   "sha256": "27bcd4b4a584b9fa28bebb9ad0d759b1a2b4ebe5057db60437b8ed983e7a2bef"
+  },
+  "deliverables/P4_source.zip": {
+   "bytes": 45573,
+   "sha256": "0a71feb33d5c3b4b6bc877905c831e37666b6eac849e5f69d6c8cb80ab195c14"
+  },
+  "paper/main.tex": {
+   "bytes": 74014,
+   "sha256": "d07dbc19ce44931296c30e0b4c8510f4b6c171a5435c7fe95113372181569dc8"
+  },
+  "paper/references.bib": {
+   "bytes": 7033,
+   "sha256": "e93f5c9479b6bf6c1f925ee4d1ccacf160ef7667811bde88274edcb68ecb6711"
+  },
+  "paper/BUILD.md": {
+   "bytes": 3421,
+   "sha256": "4adaabee3539093772321d7cdd8485aa8c7ecd1633498927361535c47394fc70"
+  },
+  "configs/auto_run_r8.json": {
+   "bytes": 5023,
+   "sha256": "315b491446aed03db58f77d52dc9072cca3d6239be6fbaafa3f31f2047e9e48c"
+  },
+  "paper/tables/adj_census.tex": {
+   "bytes": 213,
+   "sha256": "10205127bdd4fba984c7fcc24c09a29f85b8621e9f83ad28d511b93772d21223"
+  },
+  "paper/tables/adj_h.tex": {
+   "bytes": 472,
+   "sha256": "ee5f1fe9356342d535071cfb8e39f02788a9abf7393ec828dc546c1c0e8b1c9a"
+  },
+  "paper/tables/adj_h_split.tex": {
+   "bytes": 234,
+   "sha256": "eab7358f8438c5050d51212a36b7aeadfabd51e1026e74945e4bf3cef13792b1"
+  },
+  "paper/tables/adj_suite.tex": {
+   "bytes": 338,
+   "sha256": "e31d0dcb781bfaebeffe9820333fc576266f56b7672b1062337d0f9383b88a53"
+  },
+  "paper/tables/cc_attack.tex": {
+   "bytes": 431,
+   "sha256": "26723dd87a86ad0d9246ef54bc2dcf234ed8709eb283e8786dcf0171618441c3"
+  },
+  "paper/tables/cc_h.tex": {
+   "bytes": 500,
+   "sha256": "898935931a539548ec27ba715262a487a207fa643dff029d019c61388bf47efb"
+  },
+  "paper/tables/cc_suite.tex": {
+   "bytes": 438,
+   "sha256": "37f07747e05f457d7c7be3840e7340e3b660197ee0cb40ae2961495839bfcc1b"
+  },
+  "paper/tables/cc_v1v2.tex": {
+   "bytes": 458,
+   "sha256": "b84191431241bdb589184df2a8bf6d568a42ca51e292ff7a4ad19eba3855eb02"
+  },
+  "paper/tables/e1_boundary.tex": {
+   "bytes": 566,
+   "sha256": "0c567be2d0d03068107ba650dfe351cad25f68999cebf6763d526ee8b221b47b"
+  },
+  "paper/tables/e1_diff.tex": {
+   "bytes": 482,
+   "sha256": "0d43f4f829f8f7376ec6a67bb0f80d87ea5361cb87fb30316511665f5619d843"
+  },
+  "paper/tables/e1_environment.tex": {
+   "bytes": 591,
+   "sha256": "d039312b036d00f0f53627a33ed13d356318be16ebc1c9430216f3810efcca20"
+  },
+  "paper/tables/e1_expr.tex": {
+   "bytes": 278,
+   "sha256": "35b1e49e0d4241732493ce6a65b7bf2670ddf3e90aec6dfe54353173bd2d32a8"
+  },
+  "paper/tables/e1_instance.tex": {
+   "bytes": 591,
+   "sha256": "18d92ac971f90eab486d09d82b0f7fb61af2f7c90bff2b565cca425953307047"
+  },
+  "paper/tables/e1_levels.tex": {
+   "bytes": 796,
+   "sha256": "f735c10f4b6717034c82130a897734affdf01e2bb768edfa9214b142b6bbb9ee"
+  },
+  "paper/tables/e1_main.tex": {
+   "bytes": 725,
+   "sha256": "54697a2ed057cbdb03710a34c00ae8423f9734917afd42d890919d0d9dbe5d31"
+  },
+  "paper/tables/e2_sim.tex": {
+   "bytes": 554,
+   "sha256": "b400d005b43883a3c3de790ae59af660217fa00144e0edf7363b18060b7fbaa8"
+  },
+  "paper/tables/numbers.tex": {
+   "bytes": 4494,
+   "sha256": "deb4d39204192072a3deb932ea49cb2045a9bb6224c778882ad25ada19ecc735"
+  }
+ },
+ "created_utc": "2026-10-11T03:07:16Z"
+}

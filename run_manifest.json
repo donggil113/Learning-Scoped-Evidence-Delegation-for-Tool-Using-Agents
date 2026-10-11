@@ -1,7 +1,7 @@
 {
  "project": "Learning Scoped Evidence Delegation for Tool-Using Agents",
- "manifest_version": 5,
- "updated_utc": "2026-09-27 (fifth session)",
+ "manifest_version": 6,
+ "updated_utc": "2026-10-11 (sixth session, R8 PDF build)",
  "environment": {
   "python": "3.11.15 (system)",
   "third_party_python_packages_used": [],
@@ -338,8 +338,8 @@
   },
   {
    "experiment_id": "PAPER-COMPILE",
-   "status": "COMPILE_NOT_RUN",
-   "blocked_on": "no LaTeX compiler; icml2026.zip not downloaded"
+   "status": "RESOLVED_SESSION_6 (BUILT; was COMPILE_NOT_RUN)",
+   "blocked_on": "none; see deliverables/P4_delivery.json"
   },
   {
    "experiment_id": "SED-E2-ADJ on AgentDyn",
@@ -403,5 +403,86 @@
   },
   "unit_tests": "NOT_RUN in session 5 (no src/ or tests/ change; last PASS results/raw/SED-E0-UNIT_20260927T061527Z)",
   "compile": "COMPILE_NOT_RUN (latexmk/pdflatex/xelatex/lualatex/tectonic absent; icml2026 style absent)"
+ },
+ "session6_r8_typeset": {
+  "scope": "manuscript build/render/delivery only; research HOLD unchanged; 0 experiments",
+  "approval": "R8 instruction (user) allowed TeX Live minimal install, official ICML style archive and a PDF rasterizer in a user-owned directory within 1800 s / 3 GiB / 6 GiB",
+  "installs": {
+   "texlive": "TeX Live 2026 (tlmgr r80485), CTAN mirror, scheme-basic + named packages, portable user dir (scratchpad; not in repo), installer sha512 verified",
+   "icml2026.zip": "8b29290f5828e176debb57ea9cc00252502973d55ea561a2f18a7f0a326bfc6c",
+   "pymupdf": "1.28.2 wheel sha256 397d6715c1f0df7548a92d0afd8ce370fc48fa47aeefac16be2bc04a16a8227f (PyPI)"
+  },
+  "source_commit": "b78ed78",
+  "pdf_sha256": "27bcd4b4a584b9fa28bebb9ad0d759b1a2b4ebe5057db60437b8ed983e7a2bef",
+  "deliverables": [
+   "deliverables/P4_v4_typeset_b78ed78.pdf",
+   "deliverables/P4_source.zip"
+  ],
+  "cost": {
+   "by_stage": {
+    "style_fetch": {
+     "wall_seconds": 1.52,
+     "cpu_seconds_children": 0.06,
+     "runs": 1,
+     "failures": 0
+    },
+    "render_env": {
+     "wall_seconds": 17.57,
+     "cpu_seconds_children": 9.63,
+     "runs": 1,
+     "failures": 0
+    },
+    "tex_install": {
+     "wall_seconds": 278.51,
+     "cpu_seconds_children": 50.55,
+     "runs": 2,
+     "failures": 0
+    },
+    "build": {
+     "wall_seconds": 15.33,
+     "cpu_seconds_children": 15.13,
+     "runs": 7,
+     "failures": 2
+    },
+    "render": {
+     "wall_seconds": 2.3,
+     "cpu_seconds_children": 2.28,
+     "runs": 2,
+     "failures": 0
+    }
+   },
+   "wall_seconds_measured_total": 315.2,
+   "cpu_seconds_children_total": 77.7,
+   "threads": "single-threaded tools (pdflatex, bibtex, latexmk, tlmgr); CPU is user+sys of all waited-for descendants",
+   "download_bytes": {
+    "texlive_installer_tarball": 5271359,
+    "texlive_installed_bytes_on_disk": 277272573,
+    "icml2026_zip": 228368,
+    "pymupdf_wheel": 25762500,
+    "total_approx": 308534800,
+    "cap": 3221225472
+   },
+   "new_disk_bytes_approx": 399719001,
+   "new_disk_cap": 6442450944,
+   "install_wall_seconds": 297.6,
+   "install_wall_cap_seconds": 1800,
+   "not_measured": [
+    "interactive page viewing by the main worker",
+    "the read-only reviewer agent (token cost, no CPU ledger)",
+    "three ad-hoc render/debug runs of render.py (~1 s each)",
+    "two make_paper_tables.py runs (~0.13 s each)"
+   ],
+   "gpu_seconds": 0,
+   "llm_api_calls_for_experiments": 0
+  },
+  "ledger": "results/analysis/R8-P4-TYPESET_20261011T025136Z/ledger.json",
+  "run_contract": "configs/auto_run_r8.json",
+  "layout_only_edits": "table widths/placement, one line break, PDF title string, generator column spec for tables/e1_levels.tex (numbers unchanged), clearpage before Appendix E",
+  "dev_and_debug_not_in_ledger": [
+   "interactive page viewing by the main worker",
+   "the read-only reviewer agent (token cost, no CPU ledger)",
+   "three ad-hoc render/debug runs of render.py (~1 s each)",
+   "two make_paper_tables.py runs (~0.13 s each)"
+  ]
  }
 }

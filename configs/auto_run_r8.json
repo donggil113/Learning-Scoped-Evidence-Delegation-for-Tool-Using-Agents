@@ -98,6 +98,40 @@
  },
  "build_command": "latexmk -pdf -interaction=nonstopmode -halt-on-error -no-shell-escape main.tex",
  "ledger": "results/analysis/R8-P4-TYPESET_20261011T025136Z/ledger.json",
- "evidence_hashes_completed": {},
- "next_command": "python3 scripts/r8_stage.py --ledger <ledger> --stage tex_install -- <install-tl ...>"
+ "evidence_hashes_completed": {
+  "tex_install": {
+   "texlive_installer_sha512_verified": true,
+   "tlmgr_revision": 80485
+  },
+  "style_fetch": {
+   "icml2026.zip_sha256": "8b29290f5828e176debb57ea9cc00252502973d55ea561a2f18a7f0a326bfc6c"
+  },
+  "render_env": {
+   "pymupdf_wheel_sha256": "397d6715c1f0df7548a92d0afd8ce370fc48fa47aeefac16be2bc04a16a8227f",
+   "version": "1.28.2"
+  },
+  "build": {
+   "source_commit": "b78ed78",
+   "pdf_sha256": "27bcd4b4a584b9fa28bebb9ad0d759b1a2b4ebe5057db60437b8ed983e7a2bef"
+  },
+  "render": {
+   "pages": 20,
+   "all_pages_viewed": true
+  },
+  "package": {
+   "deliverables/P4_v4_typeset_b78ed78.pdf": "27bcd4b4a584b9fa28bebb9ad0d759b1a2b4ebe5057db60437b8ed983e7a2bef",
+   "deliverables/P4_source.zip": "0a71feb33d5c3b4b6bc877905c831e37666b6eac849e5f69d6c8cb80ab195c14"
+  }
+ },
+ "next_command": "deliver: commit deliverables, push branch (existing workflow), attach deliverables/P4_v4_typeset_b78ed78.pdf; then research returns to HOLD",
+ "stages_completed": [
+  "env_check",
+  "tex_install",
+  "style_fetch",
+  "render_env",
+  "build",
+  "render",
+  "visual_check",
+  "package"
+ ]
 }

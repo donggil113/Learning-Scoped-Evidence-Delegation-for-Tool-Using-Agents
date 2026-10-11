@@ -42,22 +42,23 @@ def sha(p: Path) -> str:
 
 
 ANON_OUT = ROOT / "submission_anon"
-ANON_FILES = ["paper/main.tex", "paper/references.bib"]
+ANON_FILES = ["paper/main.tex", "paper/references.bib", "paper/BUILD.md"]
 # identity leaks checked in the anonymous package: git remote owner/repo, local paths, session links, e-mail
 ANON_PATTERNS = [r"donggil", r"dgkang", r"pusan", r"Learning-Scoped-Evidence-Delegation", r"github\.com", r"/home/",
                  r"/tmp/", r"claude\.ai", r"Claude-Session", r"session_[0-9A-Za-z]{6,}",
                  r"[A-Za-z0-9._%+-]+@(?!example\.com)[A-Za-z0-9.-]+\.[A-Za-z]{2,}"]
 ANON_BUILD = """Anonymous paper-source package (review).
 
-Status: COMPILE_NOT_RUN in the authoring environment (no TeX installation;
-the official ICML style files are not included). No PDF is included.
-
-Requirements: TeX Live (latexmk, pdflatex, bibtex) and the unmodified
-official ICML 2026 style archive (icml2026.sty, icml2026.bst) copied next
-to main.tex. TARGET_YEAR=2027 is not published; TEMPLATE_YEAR=2026.
+Status: these sources were built on 2026-10-11 (manuscript v4-typeset) with
+TeX Live 2026 and the official icml2026 style; the built PDF is delivered
+separately (deliverables/P4_v4_typeset_<commit>.pdf, not part of this
+package). The official ICML style files are not included (icml2026.sty
+states no redistribution terms); see BUILD.md for the acquisition command
+and file hashes. TARGET_YEAR=2027 (no 2027 instructions found on
+2026-10-11); TEMPLATE_YEAR=2026.
 
 Build:
-  latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+  latexmk -gg -pdf -interaction=nonstopmode -halt-on-error -no-shell-escape main.tex
 
 Then check: main body (Introduction to the last sentence of the Conclusion)
 <= 8 pages; no undefined references (grep -i undefined main.log).
@@ -97,7 +98,7 @@ def make_anon() -> None:
                 hits.append({"file": e["path"], "pattern": pat, "match": m.group(0)})
     manifest = {"created_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                 "contents": "paper sources only (no code, raw, git metadata or PDF)",
-                "pdf": "NOT_BUILT", "files": entries, "anonymity_scan": {"patterns": ANON_PATTERNS, "hits": hits},
+                "pdf": "built separately; see deliverables/P4_delivery.json", "files": entries, "anonymity_scan": {"patterns": ANON_PATTERNS, "hits": hits},
                 "missing_or_hash_mismatch": verify(ANON_OUT, entries)}
     (ANON_OUT / "MANIFEST.json").write_text(json.dumps(manifest, indent=1))
     print(json.dumps({"anon_files": len(entries), "anonymity_hits": len(hits),

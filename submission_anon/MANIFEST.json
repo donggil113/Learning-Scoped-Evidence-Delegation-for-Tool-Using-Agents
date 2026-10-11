@@ -1,17 +1,22 @@
 {
- "created_utc": "2026-09-27T08:56:27Z",
+ "created_utc": "2026-10-11T03:07:16Z",
  "contents": "paper sources only (no code, raw, git metadata or PDF)",
- "pdf": "NOT_BUILT",
+ "pdf": "built separately; see deliverables/P4_delivery.json",
  "files": [
   {
    "path": "main.tex",
-   "bytes": 73486,
-   "sha256": "9da5c8247dadfcaa97ff3982072277dcc5288ad1a8fd951271860751cd332e57"
+   "bytes": 74014,
+   "sha256": "d07dbc19ce44931296c30e0b4c8510f4b6c171a5435c7fe95113372181569dc8"
   },
   {
    "path": "references.bib",
    "bytes": 7033,
    "sha256": "e93f5c9479b6bf6c1f925ee4d1ccacf160ef7667811bde88274edcb68ecb6711"
+  },
+  {
+   "path": "BUILD.md",
+   "bytes": 3421,
+   "sha256": "4adaabee3539093772321d7cdd8485aa8c7ecd1633498927361535c47394fc70"
   },
   {
    "path": "tables/adj_census.tex",
@@ -80,8 +85,8 @@
   },
   {
    "path": "tables/e1_levels.tex",
-   "bytes": 789,
-   "sha256": "4a180eda88694f9d7b68955b33c6b64b5368d1381188b0da239b72efaf243cce"
+   "bytes": 796,
+   "sha256": "f735c10f4b6717034c82130a897734affdf01e2bb768edfa9214b142b6bbb9ee"
   },
   {
    "path": "tables/e1_main.tex",
@@ -100,8 +105,8 @@
   },
   {
    "path": "BUILD.txt",
-   "bytes": 665,
-   "sha256": "90d737e5f9dfd742ca54df8201b41ac52911912792eded13f1548949a890c665"
+   "bytes": 792,
+   "sha256": "6b2d8154d8b9e2a55cbe72e502cc34d1dba75395972b69914b49cc95c4e20244"
   }
  ],
  "anonymity_scan": {

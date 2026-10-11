@@ -1,12 +1,12 @@
 {
- "created_utc": "2026-09-27T08:56:41Z",
- "git_head_at_export": "acb1f0f42859d317538445cff6d55258aa2eed53",
+ "created_utc": "2026-10-11T03:07:16Z",
+ "git_head_at_export": "b78ed78c395be7e8d25e8a6c74faaef5461c4678",
  "pdf": "NOT_BUILT (no TeX installation in this environment; icml2026 style files not in the repository)",
  "files": [
   {
    "path": "paper/main.tex",
-   "bytes": 73486,
-   "sha256": "9da5c8247dadfcaa97ff3982072277dcc5288ad1a8fd951271860751cd332e57"
+   "bytes": 74014,
+   "sha256": "d07dbc19ce44931296c30e0b4c8510f4b6c171a5435c7fe95113372181569dc8"
   },
   {
    "path": "paper/references.bib",
@@ -60,8 +60,8 @@
   },
   {
    "path": "scripts/make_paper_tables.py",
-   "bytes": 28112,
-   "sha256": "ee459979e5b30cf95f3a4f481b5bd2a7069fe50c608ea5f16f99036eb452f4a7"
+   "bytes": 28119,
+   "sha256": "e62eaad37fe445ebf1a7732cb6ddac2075371ae5d56a2d3c2804749be57d1123"
   },
   {
    "path": "scripts/check_tex_static.py",
@@ -75,8 +75,8 @@
   },
   {
    "path": "scripts/make_export_bundle.py",
-   "bytes": 6760,
-   "sha256": "8ce1e15c9cf2cbec0f8a8d80a8a81e927d3002143da73cf36d155b7699b5b22c"
+   "bytes": 6947,
+   "sha256": "fa17937abfbed34ea2ecf8bc30e0723228b311a51a0004dd64f44fd4be58ed67"
   },
   {
    "path": "scripts/analyze_contract_v2_coverage.py",
@@ -85,8 +85,8 @@
   },
   {
    "path": "paper/BUILD.md",
-   "bytes": 1626,
-   "sha256": "249b70361920f4af9dc7f79c6e48a5ef7ec1fb2f9fafb735e91a2419abbb6bef"
+   "bytes": 3421,
+   "sha256": "4adaabee3539093772321d7cdd8485aa8c7ecd1633498927361535c47394fc70"
   },
   {
    "path": "tests/test_contract_v2.py",
@@ -180,8 +180,8 @@
   },
   {
    "path": "paper/tables/e1_levels.tex",
-   "bytes": 789,
-   "sha256": "4a180eda88694f9d7b68955b33c6b64b5368d1381188b0da239b72efaf243cce"
+   "bytes": 796,
+   "sha256": "f735c10f4b6717034c82130a897734affdf01e2bb768edfa9214b142b6bbb9ee"
   },
   {
    "path": "paper/tables/e1_main.tex",
